@@ -2,16 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
   :root {
     /* Themeable Colors - Restored to Original Vibe */
-    --background: oklch(11.37% 0.03829 283.277);
-    --foreground: 160 14% 93%; /* #e7eceb */
+    --background: #040312;
+    --foreground: #e7eceb;
 
-    --muted: 240 2% 16%; /* #27272a */
-    --muted-foreground: 160 14% 93% / 0.7; /* rgba(231, 236, 235, 0.7) */
-    --muted-foreground-light: 160 14% 93% / 0.5; /* rgba(231, 236, 235, 0.5) */
-    --muted-foreground-dark: 160 14% 93% / 0.6; /* rgba(231, 236, 235, 0.6) */
+    --muted: #27272a
+    --muted-foreground: rgba(231, 236, 235, 0.7)
+    --muted-foreground-light: rgba(231, 236, 235, 0.5)
+    --muted-foreground-dark: rgba(231, 236, 235, 0.6)
 
     --card: 220 17% 98% / 0.01;
     --card-foreground: 160 14% 93%;

@@ -1,3 +1,4 @@
+import { Lock } from "lucide-react"
 import type React from "react"
 
 interface DeploymentEasyProps {
@@ -32,14 +33,14 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
     "[16:37:25.979] Validating schema compliance (v1.4.2)...",
     '[16:37:29.945] Running "data audit"',
     "[16:37:30.561] Xether Audit Log v2.1.0",
-    '[16:37:30.880] Verifying data lineage...',
+    '[16:37:30.880] Verifying data lineage ... 100%',
     "[16:37:30.914] ✓ Lineage trace complete",
     "[16:37:30.940] Encrypting for transport",
     "[16:37:34.436] Uploading to secure storage [us-east-1]",
     '[16:37:34.436] info: dataset marked as immutable',
     "[16:37:37.265] Updated catalog",
     "[16:37:39.076] Notifying compliance officer",
-    "[16:37:39.137] ▲ Governance Check Passed",
+    "[16:37:39.137] ▲ Governance Check Passed ... 100%",
     "[16:37:41.439] ✓ Access granted for 24h",
     "[16:37:53.979] ✓ Audit log #89234 created",
     "[16:38:00.585] ○ Ready for usage",
@@ -69,7 +70,7 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: "340px",
+          width: "360px",
           height: "239px",
           background: "linear-gradient(180deg, var(--deploy-background-color) 0%, transparent 100%)",
           backdropFilter: "blur(7.907px)",
@@ -126,16 +127,14 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
       <button
         style={{
           position: "absolute",
-          top: "calc(50% + 57.6px)",
+          top: "calc(65% + 56px)",
           left: "50%",
           transform: "translate(-50%, -50%)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           gap: "6.375px",
-          padding: "5.1px 10.2px",
-          background: "var(--deploy-primary-color)",
-          color: "hsl(var(--primary-foreground))",
+          padding: "5px 10px",
           border: "none",
           cursor: "pointer",
           borderRadius: "8.925px",
@@ -148,8 +147,9 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
           boxShadow:
             "0px 42.075px 11.475px rgba(0, 0, 0, 0), 0px 26.775px 10.2px rgba(0, 0, 0, 0.01), 0px 15.3px 8.925px rgba(0, 0, 0, 0.05), 0px 6.375px 6.375px rgba(0, 0, 0, 0.09), 0px 1.275px 3.825px rgba(0, 0, 0, 0.1)",
         }}
+        className="bg-secondary text-secondary-foreground"
       >
-        🔒 Enforce Policy
+        <Lock size={16} className="text-primary" /> Enforce Lock Policy
       </button>
     </div>
   )

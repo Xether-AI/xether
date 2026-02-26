@@ -11,8 +11,8 @@ export function PricingSection() {
   const pricingPlans = [
     {
       name: "Starter",
-      monthlyPrice: "$0",
-      annualPrice: "$0",
+      monthlyPrice: "$49.99",
+      annualPrice: "$559.99",
       description: "For small teams and side projects.",
       features: [
         "10GB Storage",
@@ -27,8 +27,8 @@ export function PricingSection() {
     },
     {
       name: "Growth",
-      monthlyPrice: "$99",
-      annualPrice: "$79",
+      monthlyPrice: "$199.99",
+      annualPrice: "$2299.99",
       description: "For scaling data teams.",
       features: [
         "500GB Storage",
@@ -41,7 +41,7 @@ export function PricingSection() {
       ],
       buttonText: "Start Trial",
       buttonClass:
-        "bg-primary-foreground shadow-[0px_1px_1px_-0.5px_rgba(16,24,40,0.20)] text-gray-200 text-shadow-[0px_1px_1px_rgba(16,24,40,0.08)] hover:bg-primary-foreground/90",
+        "bg-secondary-foreground text-secondary hover:bg-secondary-foreground/90",
       popular: true,
     },
     {
@@ -59,7 +59,7 @@ export function PricingSection() {
       ],
       buttonText: "Contact Sales",
       buttonClass:
-        "bg-secondary shadow-[0px_1px_1px_-0.5px_rgba(16,24,40,0.20)] text-secondary-foreground text-shadow-[0px_1px_1px_rgba(16,24,40,0.08)] hover:bg-secondary/90",
+        "bg-secondary hover:bg-secondary/90",
     },
   ]
 
@@ -161,7 +161,7 @@ export function PricingSection() {
                     <div
                       className={`text-center text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground/70" : "text-zinc-400"}`}
                     >
-                      /month
+                      /{isAnnual ? "annual" : "month"}
                     </div>
                   </div>
                   <div
@@ -178,7 +178,7 @@ export function PricingSection() {
                 <Link href={href}>
                   <div className="px-1.5 flex justify-center items-center gap-2">
                     <span
-                      className={`text-center text-sm font-medium leading-tight ${plan.name === "Starter" ? "text-gray-800" : plan.name === "Enterprise" ? "text-gray-800" : plan.name === "Growth" ? "text-gray-200" : "text-red-600" }`}
+                      className={`text-center text-sm font-medium leading-tight`}
                     >
                       {plan.buttonText}
                     </span>

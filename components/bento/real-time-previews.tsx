@@ -17,7 +17,7 @@ const RealtimeCodingPreviews: React.FC = () => {
 
   return (
     <div
-      className="" // Remove className prop if not used
+      className=""
       style={
         {
           width: "100%", // Use 100% for responsiveness within parent
@@ -135,8 +135,7 @@ const RealtimeCodingPreviews: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "7.907px",
-              background: "var(--realtime-primary-color)",
+              gap: "8px",
               color: "var(--realtime-text-preview)",
               border: "none",
               cursor: "pointer",
@@ -149,15 +148,15 @@ const RealtimeCodingPreviews: React.FC = () => {
                 "0px 52.186px 14.233px rgba(0, 0, 0, 0), 0px 33.209px 12.651px rgba(0, 0, 0, 0.01), 0px 18.977px 11.07px rgba(0, 0, 0, 0.05), 0px 7.907px 7.907px rgba(0, 0, 0, 0.09), 0px 1.581px 4.744px rgba(0, 0, 0, 0.1)",
               boxSizing: "border-box",
             }}
+            className="bg-secondary"
           >
             <div
               style={{
                 fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                fontSize: "20.558px",
-                lineHeight: "31.628px",
+                fontSize: "21px",
+                lineHeight: "32px",
                 letterSpacing: "-0.6326px",
                 fontWeight: 500,
-                color: "var(--realtime-text-preview)", // Changed to use theme variable
                 textAlign: "left",
                 whiteSpace: "pre",
               }}

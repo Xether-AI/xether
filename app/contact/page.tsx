@@ -1,6 +1,6 @@
 import Link from "next/link"
-
-import { ContactForm } from "@/components/contact-form"
+import { ArrowLeftIcon } from "lucide-react"
+import { ContactForm } from "@/components/ContactForm"
 
 export default function ContactPage() {
   return (
@@ -8,7 +8,8 @@ export default function ContactPage() {
       <div className="max-w-2xl mx-auto px-6 py-16">
         <div className="mb-8">
           <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
-            ← Back to home
+            <ArrowLeftIcon className="w-4 h-4 mr-2" />
+            Back to home
           </Link>
           <h1 className="mt-4 text-3xl md:text-4xl font-semibold text-foreground">Contact sales</h1>
           <p className="mt-2 text-muted-foreground">
