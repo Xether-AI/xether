@@ -1,5 +1,5 @@
 import type React from "react"
-import { Search } from "lucide-react"
+import { Check, CheckCircle, Search } from "lucide-react"
 
 interface McpConnectivityIllustrationProps {
   className?: string
@@ -9,7 +9,7 @@ const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = 
   // Integration data with new SVG paths
   const integrations = [
     { name: "User Profiles", icon: "/images/mcp-integrations/figma.svg", installed: true },
-    { name: "Transactions", icon: "/images/mcp-integrations/shadcn.svg" },
+    { name: "Transactions", icon: "/images/mcp-integrations/stripe.svg" },
     { name: "Clickstream", icon: "/images/mcp-integrations/nextjs.svg", installed: true },
     { name: "IoT Sensors", icon: "/images/mcp-integrations/tailwind-css.svg" },
     { name: "Medical Records", icon: "/images/mcp-integrations/resend.svg", installed: true },
@@ -135,9 +135,8 @@ const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = 
               {integration.installed && (
                 <div
                   style={{
-                    background: "hsl(var(--primary) / 0.08)",
-                    padding: "1.318px 5.272px",
-                    borderRadius: "3.295px",
+                    padding: "1px 5px",
+                    borderRadius: "3px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -146,14 +145,14 @@ const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = 
                   <span
                     style={{
                       fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                      fontSize: "9.583px",
-                      lineHeight: "15.333px",
+                      fontSize: "2px",
                       color: "hsl(var(--primary))",
                       fontWeight: 500,
                       whiteSpace: "nowrap",
                     }}
+                    className="flex flex-row items-center justify-center"
                   >
-                    Generated
+                    <CheckCircle className="size-4 text-green-600"/>
                   </span>
                 </div>
               )}

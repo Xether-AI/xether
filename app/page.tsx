@@ -52,40 +52,40 @@ export default function LandingPage() {
           <BentoSection />
         </AnimatedSection>
         <AnimatedSection
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
+          className="relative z-10 max-w-[1320px] mx-auto mt-4 md:mt-16"
           delay={0.2}
         >
           <LargeTestimonial />
         </AnimatedSection>
         <AnimatedSection
           id="pricing-section"
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
+          className="relative z-10 max-w-[1320px] mx-auto mt-4 md:mt-16"
           delay={0.2}
         >
           <PricingSection />
         </AnimatedSection>
         <AnimatedSection
           id="testimonials-section"
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
+          className="relative z-10 max-w-[1320px] mx-auto mt-4 md:mt-16"
           delay={0.2}
         >
           <TestimonialGridSection />
         </AnimatedSection>
         <AnimatedSection
           id="faq-section"
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
+          className="relative z-10 max-w-[1320px] mx-auto mt-4 md:mt-16"
           delay={0.2}
         >
           <FAQSection />
         </AnimatedSection>
         <AnimatedSection
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
+          className="relative z-10 max-w-[1320px] mx-auto mt-4 md:mt-16"
           delay={0.2}
         >
           <CTASection />
         </AnimatedSection>
         <AnimatedSection
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
+          className="relative z-10 max-w-[1320px] mx-auto mt-4 md:mt-16"
           delay={0.2}
         >
           <FooterSection />
