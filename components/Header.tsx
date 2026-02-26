@@ -39,7 +39,7 @@ export function Header() {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
             <span className="text-foreground text-xl font-bold font-sans">
-              <span className="text-xl font-bold">Xether AI</span>
+              <span className="text-xl font-bold">Xether <span className="text-primary">AI</span></span>
             </span>
           </div>
           <nav
@@ -61,12 +61,12 @@ export function Header() {
         </div>
         <div className="flex items-center gap-4">
           <Link
-            href="https://vercel.com/home"
+            href={`${process.env.NEXT_PUBLIC_LOGIN_URL}`}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:block"
           >
-            <Button className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm">
+            <Button className="bg-primary text-secondary-foreground hover:bg-primary/90 hover:text-secondary px-6 py-2 font-medium">
               Try for Free
             </Button>
           </Link>
@@ -98,12 +98,12 @@ export function Header() {
                   </Link>
                 ))}
                 <Link
-                  href="https://vercel.com/home"
+                  href={`${process.env.NEXT_PUBLIC_LOGIN_URL}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full mt-4"
                 >
-                  <Button className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm">
+                  <Button className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 font-medium">
                     Try for Free
                   </Button>
                 </Link>
