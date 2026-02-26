@@ -18,7 +18,7 @@ export function Header() {
     { name: "Features", href: "#features-section" },
     { name: "Pricing", href: "#pricing-section" },
     { name: "Testimonials", href: "#testimonials-section" },
-    { name: "Docs", href: "/docs" },
+    { name: "Docs", href: "https://docs.xether.ai" },
   ];
 
   const handleScroll = (
@@ -39,7 +39,9 @@ export function Header() {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
             <span className="text-foreground text-xl font-bold font-sans">
-              <span className="text-xl font-bold">Xether <span className="text-primary">AI</span></span>
+              <span className="text-xl font-bold">
+                Xether <span className="text-primary">AI</span>
+              </span>
             </span>
           </div>
           <nav
@@ -60,16 +62,6 @@ export function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <Link
-            href={`${process.env.NEXT_PUBLIC_LOGIN_URL}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:block"
-          >
-            <Button className="bg-primary text-secondary-foreground hover:bg-primary/90 hover:text-secondary px-6 py-2 font-medium">
-              Try for Free
-            </Button>
-          </Link>
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon" className="text-foreground">

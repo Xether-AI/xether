@@ -44,6 +44,7 @@ export function HeroSection() {
                     strokeOpacity="0.11"
                     strokeWidth="0.4"
                     strokeDasharray="2 2"
+                    color="hsl(var(--foreground))"
                   />
                   <rect
                     x={-20.0891 + i * 36}
