@@ -24,9 +24,11 @@ export type AuthLoginPayload = {
 }
 
 export type AuthRegisterPayload = {
-  name?: string
+  full_name?: string
+  username?: string
   email: string
   password: string
+  phone_number?: string
 }
 
 export type ForgotPasswordPayload = {
