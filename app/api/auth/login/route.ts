@@ -14,15 +14,20 @@ export async function POST(req: Request) {
   const path = getBackendPath('AUTH_LOGIN', '/auth/login')
   const body = await req.json().catch(() => ({}))
 
+  // Mapping frontend {email, password} to backend OAuth2 {username, password}
+  const params = new URLSearchParams()
+  params.append('username', body.email || '')
+  params.append('password', body.password || '')
+
   const upstreamRes = await fetch(new URL(path, baseUrl), {
     method: 'POST',
     headers: {
-      'content-type': 'application/json',
+      'content-type': 'application/x-www-form-urlencoded',
       ...(process.env.XETHER_BACKEND_API_KEY
         ? { authorization: `Bearer ${process.env.XETHER_BACKEND_API_KEY}` }
         : {}),
     },
-    body: JSON.stringify(body),
+    body: params.toString(),
     cache: 'no-store',
   })
 
@@ -39,10 +44,10 @@ export async function POST(req: Request) {
   }
 
   const res = NextResponse.json({ ok: true })
-  
+
   type TokenResponse = { access_token?: string; refresh_token?: string }
   const tokenData = data as TokenResponse | null
-  
+
   const accessToken = tokenData?.access_token ? String(tokenData.access_token) : null
   const refreshToken = tokenData?.refresh_token ? String(tokenData.refresh_token) : null
 
