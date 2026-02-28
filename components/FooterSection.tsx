@@ -9,7 +9,7 @@ export function FooterSection() {
       <div className="flex flex-col justify-start items-start gap-8 p-4 md:p-8">
         <div className="flex gap-3 items-stretch justify-center">
           <div className="text-center text-foreground text-xl font-semibold leading-4">
-            Xether AI
+            Xether <span className="text-primary">AI</span>
           </div>
         </div>
         <p className="text-foreground/90 text-sm font-medium leading-[18px] text-left">
@@ -21,7 +21,7 @@ export function FooterSection() {
             aria-label="Twitter"
             className="w-4 h-4 flex items-center justify-center"
           >
-            <Twitter className="w-full h-full text-muted-foreground" />
+            <Twitter />
           </a>
           <a
             href="#"
