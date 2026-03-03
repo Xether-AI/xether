@@ -75,6 +75,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { Header } from "@/components/Header";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -83,7 +85,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${snPro.variable} font-sans antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
         <Analytics />
         <SpeedInsights />
         {process.env.NEXT_PUBLIC_GA_ID && (
