@@ -15,7 +15,7 @@ export async function apiFetch<T>(input: RequestInfo | URL, init?: ApiFetchOptio
   })
 
   const contentType = res.headers.get('content-type') ?? ''
-  const data = contentType.includes('application/json') ? await res.json().catch(() => null) : await res.text().catch(() => null)
+  const data = contentType.includes(' application/json') ? await res.json().catch(() => null) : await res.text().catch(() => null)
 
   if (!res.ok) {
     const message =
