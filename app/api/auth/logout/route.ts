@@ -3,9 +3,18 @@ import { SESSION_COOKIE_ACCESS, SESSION_COOKIE_REFRESH } from '@/lib/server/sess
 
 export async function POST() {
   const res = NextResponse.json({ ok: true })
-  const secure = process.env.NODE_ENV === 'production'
+  return clearAuthCookies(res)
+}
 
-  // Clear session cookies
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url)
+  const redirectTo = searchParams.get('redirect') || '/'
+  const res = NextResponse.redirect(new URL(redirectTo, req.url))
+  return clearAuthCookies(res)
+}
+
+function clearAuthCookies(res: NextResponse) {
+  const secure = process.env.NODE_ENV === 'production'
   res.cookies.set(SESSION_COOKIE_ACCESS, '', {
     httpOnly: true,
     secure,
@@ -20,6 +29,5 @@ export async function POST() {
     path: '/',
     maxAge: 0,
   })
-
   return res
 }
