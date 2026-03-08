@@ -5,7 +5,7 @@
  * Uses TanStack Query for data fetching and caching.
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.XETHER_BACKEND_API_BASE_URL || 'http://localhost:8000';
 
 interface ApiError {
   error: {
@@ -38,7 +38,7 @@ async function backendFetch<T>(
   options: RequestInit = {}
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
-  
+
   const response = await fetch(url, {
     ...options,
     headers: {
@@ -279,7 +279,7 @@ export const backendApi = {
     const params = new URLSearchParams();
     if (filters?.project_id) params.append('project_id', filters.project_id);
     if (filters?.pipeline_id) params.append('pipeline_id', filters.pipeline_id);
-    
+
     const query = params.toString() ? `?${params.toString()}` : '';
     return authenticatedFetch(`/api/v1/artifacts${query}`, token);
   },
