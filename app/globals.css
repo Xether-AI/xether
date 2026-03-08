@@ -4,49 +4,36 @@
 
 /* ─── Design Tokens (Tailwind v4 @theme) ─────────────────────────────────── */
 @theme {
+  /* Typography — NOTE: @theme cannot use var() references in Tailwind v4.
+     Font is applied directly on body below using the Next.js runtime variable. */
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
 
+  /* Border radius */
   --radius: 0.5rem;
   --radius-lg: 0.5rem;
   --radius-md: 0.375rem;
   --radius-sm: 0.25rem;
-  
-  /* Brand Color Mappings */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary-light: hsl(160 48% 87%);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-border: var(--border);
-  --color-ring: var(--ring);
 }
 
-/* ─── Xether Dark Theme (Default) ────────────────────────────────────────── */
+/* ─── Dark mode (default) ─────────────────────────────────────────────────── */
 :root {
-  /* OKLCH Background from Docs */
   --background: oklch(0.13 0.028 261.692);
   --foreground: #e7eceb;
 
   color-scheme: dark;
 
   --muted: #27272a;
-  --muted-foreground: rgba(231, 236, 235, 0.7);
+  --muted-foreground: #e7eceb;
 
   --card: rgba(255, 255, 255, 0.01);
-  --card-foreground: #e7eceb;
+  --card-foreground: oklch(0.13 0.028 261.692);
 
   --popover: #0f1211;
   --popover-foreground: #e7eceb;
 
-  /* Primary: Xether Teal */
+  /* Primary: pale green */
   --primary: #78fcd6;
   --primary-foreground: #0d0f0e;
 
@@ -60,6 +47,35 @@
   --ring: #78fcd6;
 }
 
+/* ─── Light mode ──────────────────────────────────────────────────────────── */
+.light {
+  color-scheme: light;
+
+  --background: #ffffff;
+  --foreground: #0f1211;
+
+  --muted: #f4f4f5;
+  --muted-foreground: rgba(15, 18, 17, 0.55);
+
+  --card: #ffffff;
+  --card-foreground: #0f1211;
+
+  --popover: #ffffff;
+  --popover-foreground: #0f1211;
+
+  --primary: #14c99a;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f4f4f5;
+  --secondary-foreground: #0f1211;
+
+  --accent: #f4f4f5;
+  --accent-foreground: #0f1211;
+
+  --border: rgba(0, 0, 0, 0.08);
+  --ring: #14c99a;
+}
+
 /* ─── Base styles ─────────────────────────────────────────────────────────── */
 *,
 *::before,
@@ -71,12 +87,11 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
 }
 
 body {
   background-color: var(--background);
-  color: var(--foreground);
+  /* Apply SN Pro: --font-sn-pro is injected at runtime by Next.js localFont */
   font-family:
     var(--font-sn-pro),
     ui-sans-serif,
@@ -88,9 +103,72 @@ body {
     color 0.3s ease;
 }
 
+/* ─── Tailwind v4 custom utilities ────────────────────────────────────────── */
+@utility bg-background {
+  background-color: var(--background);
+}
+@utility bg-primary {
+  background-color: var(--primary);
+}
+@utility bg-secondary {
+  background-color: var(--secondary);
+}
+@utility bg-muted {
+  background-color: var(--muted);
+}
+@utility bg-card {
+  background-color: var(--card);
+}
+@utility bg-accent {
+  background-color: var(--accent);
+}
+
+@utility text-foreground {
+  color: var(--foreground);
+}
+@utility text-primary {
+  color: var(--primary);
+}
+@utility text-primary-foreground {
+  color: var(--primary-foreground);
+}
+@utility text-secondary {
+  color: var(--secondary);
+}
+@utility text-secondary-foreground {
+  color: var(--secondary-foreground);
+}
+@utility text-muted-foreground {
+  color: var(--muted-foreground);
+}
+@utility text-card-foreground {
+  color: var(--card-foreground);
+}
+@utility text-accent-foreground {
+  color: var(--accent-foreground);
+}
+
+@utility border-border {
+  border-color: var(--border);
+}
+@utility ring-ring {
+  --tw-ring-color: var(--ring);
+}
+
+@utility font-sans {
+  font-family: var(--font-sans);
+}
+@utility font-mono {
+  font-family: var(--font-mono);
+}
+
 /* ─── Custom Utilities for Website ───────────────────────────────────────── */
 @utility glass {
-  background: linear-gradient(180deg, hsl(var(--card) / 0.9) 0%, hsl(var(--card) / 0.7) 100%);
+  background: linear-gradient(
+    180deg,
+    hsl(var(--card) / 0.9) 0%,
+    hsl(var(--card) / 0.7) 100%
+  );
   backdrop-filter: blur(16px);
   border: 1px solid var(--border);
 }
@@ -101,4 +179,20 @@ body {
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+/* ─── Scrollbar styling ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
 }

@@ -6,9 +6,15 @@ import { isAuthenticated } from "@/lib/server/session";
 import { ArrowLeft } from "lucide-react";
 import { AuthSplitLayout } from "@/components/auth/auth-split-layout";
 
-export default async function LoginPage() {
+export default async function LoginPage(props: {
+  searchParams: Promise<{ redirect?: string }>;
+}) {
+  const searchParams = await props.searchParams;
+  const redirectTo =
+    searchParams.redirect || process.env.NEXT_PUBLIC_APP_URL || "/";
+
   if (await isAuthenticated()) {
-    redirect(process.env.NEXT_PUBLIC_APP_URL || "/");
+    redirect(redirectTo);
   }
 
   return (
@@ -34,7 +40,7 @@ export default async function LoginPage() {
         </div>
 
         <div className="w-full">
-          <LoginForm />
+          <LoginForm redirectTo={searchParams.redirect} />
         </div>
 
         <p className="mt-10 text-sm text-muted-foreground">
