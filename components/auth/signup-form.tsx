@@ -38,7 +38,7 @@ const schema = z
     message: "Passwords do not match.",
   });
 
-export function SignupForm() {
+export function SignupForm({ redirectTo }: { redirectTo?: string }) {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -62,8 +62,9 @@ export function SignupForm() {
       }),
     onSuccess: () => {
       toast.success("Account created. Redirecting…");
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL || "/";
-      window.location.assign(appUrl);
+      const finalRedirect =
+        redirectTo || process.env.NEXT_PUBLIC_APP_URL || "/";
+      window.location.assign(finalRedirect);
     },
     onError: (err) => {
       const message =

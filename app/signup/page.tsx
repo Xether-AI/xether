@@ -6,9 +6,15 @@ import { isAuthenticated } from "@/lib/server/session";
 import { ArrowLeft } from "lucide-react";
 import { AuthSplitLayout } from "@/components/auth/auth-split-layout";
 
-export default async function SignupPage() {
+export default async function SignupPage(props: {
+  searchParams: Promise<{ redirect?: string }>;
+}) {
+  const searchParams = await props.searchParams;
+  const redirectTo =
+    searchParams.redirect || process.env.NEXT_PUBLIC_APP_URL || "/";
+
   if (await isAuthenticated()) {
-    redirect(process.env.NEXT_PUBLIC_APP_URL || "/");
+    redirect(redirectTo);
   }
 
   return (
@@ -29,13 +35,13 @@ export default async function SignupPage() {
             Create your account
           </h1>
           <p className="text-muted-foreground text-lg">
-            Start using <span className="text-primary">Xether AI</span>. You&apos;ll be redirected to the app after
-            signup.
+            Start using <span className="text-primary">Xether AI</span>.
+            You&apos;ll be redirected to the app after signup.
           </p>
         </div>
 
         <div className="w-full">
-          <SignupForm />
+          <SignupForm redirectTo={searchParams.redirect} />
         </div>
 
         <p className="mt-10 text-sm text-muted-foreground">
