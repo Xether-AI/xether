@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     )
   }
 
-  const path = getBackendPath('AUTH_REGISTER', '/auth/register')
+  const path = getBackendPath('AUTH_REGISTER', '/api/v1/auth/register')
   const body = await req.json().catch(() => ({}))
 
   const upstreamRes = await fetch(new URL(path, baseUrl), {
