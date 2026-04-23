@@ -3,9 +3,9 @@
  * 
  * Provides typed methods for interacting with the Main Backend API.
  * Uses TanStack Query for data fetching and caching.
- */
+ */c
 
-const API_BASE_URL = process.env.XETHER_BACKEND_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.XETHER_BACKEND_API_BASE_URL || 'http://localhost:8000/api/v1';
 
 interface ApiError {
   error: {
