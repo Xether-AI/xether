@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     )
   }
 
-  const path = getBackendPath('AUTH_LOGIN', '/auth/login')
+  const path = getBackendPath('AUTH_LOGIN', '/api/v1/auth/login')
   const body = await req.json().catch(() => ({}))
 
   // Mapping frontend {email, password} to backend OAuth2 {username, password}
