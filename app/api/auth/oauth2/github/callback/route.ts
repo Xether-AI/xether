@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { SESSION_COOKIE_ACCESS, SESSION_COOKIE_REFRESH } from '@/lib/server/session'
+import { SESSION_COOKIE_ACCESS } from '@/lib/server/session'
 
 const OAUTH_STATE_COOKIE = 'xether_oauth_state'
 

@@ -8,7 +8,9 @@ export async function POST() {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  const redirectTo = searchParams.get('redirect') || '/'
+  const rawRedirect = searchParams.get('redirect') || '/'
+  const isSafeRelative = rawRedirect.startsWith('/') && !rawRedirect.startsWith('//')
+  const redirectTo = isSafeRelative ? rawRedirect : '/'
   const res = NextResponse.redirect(new URL(redirectTo, req.url))
   return clearAuthCookies(res)
 }
