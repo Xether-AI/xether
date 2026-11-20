@@ -3,13 +3,9 @@
  * 
  * Provides typed methods for interacting with the Main Backend API.
  * Uses TanStack Query for data fetching and caching.
- */
+ */c
 
-const isBrowser = typeof window !== 'undefined';
-const rawBaseUrl = isBrowser
-  ? '/api/backend'
-  : process.env.XETHER_BACKEND_API_BASE_URL || 'http://localhost:8000';
-const API_BASE_URL = rawBaseUrl.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '');
+const API_BASE_URL = process.env.XETHER_BACKEND_API_BASE_URL || 'http://localhost:8000/api/v1';
 
 interface ApiError {
   error: {
