@@ -51,7 +51,7 @@ const FAQItem = ({ question, answer, isOpen, onToggle }: FAQItemProps) => {
   };
   return (
     <div
-      className={`w-full bg-[rgba(231,236,235,0.08)] shadow-[0px_2px_4px_rgba(0,0,0,0.16)] overflow-hidden rounded-[10px] outline outline-1 outline-border outline-offset-[-1px] transition-all duration-500 ease-out cursor-pointer`}
+      className="w-full bg-card/75 shadow-sm overflow-hidden rounded-[10px] border border-border transition-all duration-500 ease-out cursor-pointer"
       onClick={handleClick}
     >
       <div className="w-full px-5 py-[18px] pr-4 flex justify-between items-center gap-5 text-left transition-all duration-300 ease-out">
@@ -60,7 +60,7 @@ const FAQItem = ({ question, answer, isOpen, onToggle }: FAQItemProps) => {
         </div>
         <div className="flex justify-center items-center">
           <ChevronDown
-            className={`w-6 h-6 text-muted-foreground-dark transition-all duration-500 ease-out ${isOpen ? "rotate-180 scale-110" : "rotate-0 scale-100"}`}
+            className={`w-6 h-6 text-muted-foreground transition-all duration-500 ease-out ${isOpen ? "rotate-180 scale-110" : "rotate-0 scale-100"}`}
           />
         </div>
       </div>
