@@ -1,7 +1,7 @@
 "use client";
 
-import { Header } from "@/components/header";
-import { FooterSection } from "@/components/footer-section";
+import { Header } from "@/components/Header";
+import { FooterSection } from "@/components/FooterSection";
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
