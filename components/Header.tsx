@@ -28,7 +28,7 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "py-3 bg-background/80 backdrop-blur-md border-b border-white/5"
+          ? "py-3 bg-background/85 backdrop-blur-md border-b border-border"
           : "py-5 bg-transparent"
       }`}
     >
@@ -51,7 +51,7 @@ export function Header() {
               {item.name}
             </Link>
           ))}
-          <div className="h-4 w-px bg-white/10 mx-2" />
+          <div className="h-4 w-px bg-border mx-2" />
           <ThemeToggle />
           <Link href="/login">
             <Button
@@ -77,7 +77,7 @@ export function Header() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[60px] bg-background z-40 p-6 flex flex-col gap-6 md:hidden animate-in slide-in-from-top duration-300">
+        <div className="fixed inset-0 top-[64px] bg-background/95 backdrop-blur-md z-40 p-6 flex flex-col gap-6 overflow-y-auto md:hidden animate-in slide-in-from-top duration-300">
           {navItems.map((item) => (
             <Link
               key={item.name}
@@ -88,7 +88,11 @@ export function Header() {
               {item.name}
             </Link>
           ))}
-          <Link href="/login" className="mt-auto">
+          <Link
+            href="/login"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="mt-auto"
+          >
             <Button className="w-full py-6 text-lg rounded-xl">
               Get Started
             </Button>

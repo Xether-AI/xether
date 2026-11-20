@@ -24,11 +24,11 @@
 
   color-scheme: dark;
 
-  --muted: #27272a;
-  --muted-foreground: #e7eceb;
+  --muted: #1e2426;
+  --muted-foreground: #9aa6a3;
 
-  --card: rgba(255, 255, 255, 0.01);
-  --card-foreground: oklch(0.13 0.028 261.692);
+  --card: #12171b;
+  --card-foreground: #e7eceb;
 
   --popover: #0f1211;
   --popover-foreground: #e7eceb;
@@ -40,10 +40,10 @@
   --secondary: #e7eceb;
   --secondary-foreground: #141a18;
 
-  --accent: #3f3f42;
+  --accent: #1f292e;
   --accent-foreground: #f4f4f5;
 
-  --border: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.1);
   --ring: #78fcd6;
 }
 
@@ -51,29 +51,29 @@
 .light {
   color-scheme: light;
 
-  --background: #ffffff;
-  --foreground: #0f1211;
+  --background: #f8fafb;
+  --foreground: #0f172a;
 
-  --muted: #f4f4f5;
-  --muted-foreground: rgba(15, 18, 17, 0.55);
+  --muted: #eef2f6;
+  --muted-foreground: #475569;
 
   --card: #ffffff;
-  --card-foreground: #0f1211;
+  --card-foreground: #0f172a;
 
   --popover: #ffffff;
-  --popover-foreground: #0f1211;
+  --popover-foreground: #0f172a;
 
-  --primary: #14c99a;
+  --primary: #0ea57a;
   --primary-foreground: #ffffff;
 
-  --secondary: #f4f4f5;
-  --secondary-foreground: #0f1211;
+  --secondary: #0f172a;
+  --secondary-foreground: #ffffff;
 
-  --accent: #f4f4f5;
-  --accent-foreground: #0f1211;
+  --accent: #e2e8f0;
+  --accent-foreground: #0f172a;
 
-  --border: rgba(0, 0, 0, 0.08);
-  --ring: #14c99a;
+  --border: rgba(15, 23, 42, 0.1);
+  --ring: #0ea57a;
 }
 
 /* ─── Base styles ─────────────────────────────────────────────────────────── */
@@ -91,6 +91,7 @@ html {
 
 body {
   background-color: var(--background);
+  color: var(--foreground);
   /* Apply SN Pro: --font-sn-pro is injected at runtime by Next.js localFont */
   font-family:
     var(--font-sn-pro),
@@ -164,11 +165,7 @@ body {
 
 /* ─── Custom Utilities for Website ───────────────────────────────────────── */
 @utility glass {
-  background: linear-gradient(
-    180deg,
-    hsl(var(--card) / 0.9) 0%,
-    hsl(var(--card) / 0.7) 100%
-  );
+  background-color: color-mix(in srgb, var(--card) 82%, transparent);
   backdrop-filter: blur(16px);
   border: 1px solid var(--border);
 }
