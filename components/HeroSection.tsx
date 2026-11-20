@@ -5,10 +5,10 @@ import { HeroBackground } from "./HeroBackground";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full h-[600px] lg:h-[800px] flex flex-col items-center justify-center text-center px-4 overflow-hidden rounded-3xl mt-6 border border-white/5">
+    <section className="relative w-full min-h-[500px] sm:min-h-[540px] lg:min-h-[680px] flex flex-col items-center justify-center text-center px-4 sm:px-6 py-5 pb-5 sm:pb-5 lg:pb-10 overflow-hidden rounded-2xl sm:rounded-3xl border border-border">
       <HeroBackground />
 
-      <div className="relative z-10 max-w-3xl space-y-6">
+      <div className="relative z-10 max-w-3xl space-y-4">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
           Reliable Data, <br />
           <span className="text-primary italic">Ready for AI</span>
@@ -32,7 +32,7 @@ export function HeroSection() {
             <Button
               variant="outline"
               size="lg"
-              className="px-8 py-6 text-lg font-semibold rounded-full border-white/10 hover:bg-white/5"
+              className="px-8 py-6 text-lg font-semibold rounded-full border-border bg-background/40 backdrop-blur-sm hover:bg-accent"
             >
               Read the Docs
             </Button>

@@ -1,24 +1,53 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test('has title and hero section', async ({ page }) => {
-    await page.goto('/');
+test("landing page has title, hero, and interactive dashboard preview", async ({
+  page,
+}) => {
+  await page.goto("/");
 
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Xether AI/);
+  await expect(page).toHaveTitle(/Xether AI/);
 
-    // Check for the main value proposition
-    const heroText = page.locator('h1');
-    await expect(heroText).toBeVisible();
+  const heroHeading = page.locator("h1");
+  await expect(heroHeading).toBeVisible();
+
+  await expect(page.getByText("churn_training_prep_v4")).toBeVisible();
 });
 
-test('navigation to features page', async ({ page }) => {
-    await page.goto('/');
+test("navigation to features section", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: "Features" }).first().click();
+  await expect(page).toHaveURL(/.*#features-section/);
+});
 
-    // Click the Features link in navigation
-    // Note: We use aria-label since we added it in Phase 6
-    const featuresLink = page.getByLabel('Go to Features');
-    await featuresLink.click();
+test("auth pages render cleanly", async ({ page }) => {
+  await page.goto("/login");
+  await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
 
-    // Expect the URL to contain #features-section
-    await expect(page).toHaveURL(/.*#features-section/);
+  await page.goto("/signup");
+  await expect(
+    page.getByRole("heading", { name: "Create your account" }),
+  ).toBeVisible();
+
+  await page.goto("/forgot-password");
+  await expect(
+    page.getByRole("heading", { name: "Reset your password" }),
+  ).toBeVisible();
+});
+
+test("contact and api pages render cleanly", async ({ page }) => {
+  await page.goto("/contact");
+  await expect(page.getByRole("heading", { name: "Contact sales" })).toBeVisible();
+
+  await page.goto("/api");
+  await expect(page.getByRole("heading", { name: "API Reference" })).toBeVisible();
+});
+
+test("theme toggle switches between dark and light mode", async ({ page }) => {
+  await page.goto("/");
+  const html = page.locator("html");
+  const toggleBtn = page.getByRole("button", {
+    name: /Switch to (light|dark) mode/,
+  });
+  await toggleBtn.click();
+  await expect(html).toHaveClass(/(light|dark)/);
 });

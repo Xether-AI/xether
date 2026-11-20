@@ -64,7 +64,7 @@ export function PricingSection() {
   ]
 
   return (
-    <section className="w-full px-5 overflow-hidden flex flex-col justify-start items-center my-0 py-8 md:py-14">
+    <section className="w-full px-5 overflow-hidden flex flex-col justify-start items-center my-0 py-4 md:py-6">
       <div className="self-stretch relative flex flex-col justify-center items-center gap-2 py-0">
         <div className="flex flex-col justify-start items-center gap-4">
           <h2 className="text-center text-foreground text-4xl md:text-5xl font-semibold leading-tight md:leading-[40px]">
@@ -99,31 +99,28 @@ export function PricingSection() {
           </div>
         </div>
       </div>
-      <div className="self-stretch px-5 flex flex-col md:flex-row justify-start items-start gap-4 md:gap-6 mt-6 max-w-[1100px] mx-auto">
+      <div className="w-full px-2 sm:px-5 grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 max-w-[1100px] mx-auto items-stretch">
         {pricingPlans.map((plan) => (
           (() => {
             const href =
               plan.name === "Enterprise"
                 ? "/contact"
-                : plan.name === "Growth"
-                  ? "/signup"
-                  : "/signup"
+                : "/signup"
 
             return (
           <div
             key={plan.name}
-            className={`flex-1 p-4 overflow-hidden rounded-xl flex flex-col justify-start items-start gap-6 ${plan.popular ? "bg-primary shadow-[0px_4px_8px_-2px_rgba(0,0,0,0.10)]" : "bg-gradient-to-b from-gray-50/5 to-gray-50/0"}`}
-            style={plan.popular ? {} : { outline: "1px solid hsl(var(--border))", outlineOffset: "-1px" }}
+            className={`w-full p-5 sm:p-6 overflow-hidden rounded-2xl flex flex-col justify-between items-start gap-6 border ${plan.popular ? "bg-primary border-primary shadow-[0px_4px_16px_-2px_rgba(0,0,0,0.18)]" : "bg-card/60 border-border"}`}
           >
             <div className="self-stretch flex flex-col justify-start items-start gap-6">
-              <div className="self-stretch flex flex-col justify-start items-start gap-8">
+              <div className="self-stretch flex flex-col justify-start items-start gap-6">
                 <div
-                  className={`w-full h-5 text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground" : "text-zinc-200"}`}
+                  className={`w-full flex items-center text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}
                 >
                   {plan.name}
                   {plan.popular && (
-                    <div className="ml-2 px-2 overflow-hidden rounded-full justify-center items-center gap-2.5 inline-flex mt-0 py-0.5 bg-gradient-to-b from-primary-light/50 to-primary-light bg-white">
-                      <div className="text-center text-primary-foreground text-xs font-normal leading-tight break-words">
+                    <div className="ml-2 px-2 overflow-hidden rounded-full justify-center items-center gap-2.5 inline-flex py-0.5 bg-background/90">
+                      <div className="text-center text-foreground text-xs font-medium leading-tight">
                         Popular
                       </div>
                     </div>
@@ -132,7 +129,7 @@ export function PricingSection() {
                 <div className="self-stretch flex flex-col justify-start items-start gap-1">
                   <div className="flex justify-start items-center gap-1.5">
                     <div
-                      className={`relative h-10 flex items-center text-3xl font-medium leading-10 ${plan.popular ? "text-primary-foreground" : "text-zinc-50"}`}
+                      className={`relative h-10 flex items-center text-3xl font-semibold leading-10 ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}
                     >
                       <span className="invisible">{isAnnual ? plan.annualPrice : plan.monthlyPrice}</span>
                       <span
@@ -159,13 +156,13 @@ export function PricingSection() {
                       </span>
                     </div>
                     <div
-                      className={`text-center text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground/70" : "text-zinc-400"}`}
+                      className={`text-center text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground/75" : "text-muted-foreground"}`}
                     >
                       /{isAnnual ? "annual" : "month"}
                     </div>
                   </div>
                   <div
-                    className={`self-stretch text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground/70" : "text-zinc-400"}`}
+                    className={`self-stretch text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}
                   >
                     {plan.description}
                   </div>
@@ -173,7 +170,7 @@ export function PricingSection() {
               </div>
               <Button
                 asChild
-                className={`self-stretch px-5 py-2 rounded-[40px] flex justify-center items-center ${plan.buttonClass}`}
+                className={`self-stretch px-5 py-2.5 rounded-[40px] flex justify-center items-center ${plan.buttonClass}`}
               >
                 <Link href={href}>
                   <div className="px-1.5 flex justify-center items-center gap-2">

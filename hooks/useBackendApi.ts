@@ -5,54 +5,51 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { backendApi, type Pipeline, type Dataset, type Project, type Team, type Artifact } from '@/lib/api/backend-client';
+import { backendApi, type Pipeline, type Dataset, type Project } from '@/lib/api/backend-client';
 
-// Helper to get auth token (you'll need to implement this based on your auth system)
-function useAuthToken(): string | null {
-  // TODO: Implement based on your auth system
-  // For now, return null - you'll need to integrate with your auth
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('auth_token');
-  }
-  return null;
+export function useAuthSession() {
+  return useQuery({
+    queryKey: ['auth-session'],
+    queryFn: async (): Promise<{ authenticated: boolean }> => {
+      const res = await fetch('/api/auth/session', { cache: 'no-store' });
+      if (!res.ok) return { authenticated: false };
+      return res.json();
+    },
+    staleTime: 60_000,
+  });
+}
+
+function useIsAuthenticated(): boolean {
+  const { data } = useAuthSession();
+  return Boolean(data?.authenticated);
 }
 
 // Pipelines
 export function usePipelines() {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['pipelines'],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getPipelines(token);
-    },
-    enabled: !!token,
+    queryFn: () => backendApi.getPipelines(''),
+    enabled: authenticated,
   });
 }
 
 export function usePipeline(id: number) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['pipeline', id],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getPipeline(token, id);
-    },
-    enabled: !!token && !!id,
+    queryFn: () => backendApi.getPipeline('', id),
+    enabled: authenticated && !!id,
   });
 }
 
 export function useCreatePipeline() {
   const queryClient = useQueryClient();
-  const token = useAuthToken();
-  
+
   return useMutation({
-    mutationFn: (data: Partial<Pipeline>) => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.createPipeline(token, data);
-    },
+    mutationFn: (data: Partial<Pipeline>) => backendApi.createPipeline('', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pipelines'] });
     },
@@ -61,13 +58,9 @@ export function useCreatePipeline() {
 
 export function useExecutePipeline() {
   const queryClient = useQueryClient();
-  const token = useAuthToken();
-  
+
   return useMutation({
-    mutationFn: (pipelineId: number) => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.executePipeline(token, pipelineId);
-    },
+    mutationFn: (pipelineId: number) => backendApi.executePipeline('', pipelineId),
     onSuccess: (_, pipelineId) => {
       queryClient.invalidateQueries({ queryKey: ['pipeline', pipelineId] });
       queryClient.invalidateQueries({ queryKey: ['executions', pipelineId] });
@@ -76,55 +69,42 @@ export function useExecutePipeline() {
 }
 
 export function usePipelineExecutions(pipelineId: number) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['executions', pipelineId],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getPipelineExecutions(token, pipelineId);
-    },
-    enabled: !!token && !!pipelineId,
+    queryFn: () => backendApi.getPipelineExecutions('', pipelineId),
+    enabled: authenticated && !!pipelineId,
     refetchInterval: 5000, // Poll every 5 seconds for execution updates
   });
 }
 
 // Datasets
 export function useDatasets(projectId?: number) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['datasets', projectId],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getDatasets(token, projectId);
-    },
-    enabled: !!token,
+    queryFn: () => backendApi.getDatasets('', projectId),
+    enabled: authenticated,
   });
 }
 
 export function useDataset(id: number) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['dataset', id],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getDataset(token, id);
-    },
-    enabled: !!token && !!id,
+    queryFn: () => backendApi.getDataset('', id),
+    enabled: authenticated && !!id,
   });
 }
 
 export function useCreateDataset() {
   const queryClient = useQueryClient();
-  const token = useAuthToken();
-  
+
   return useMutation({
-    mutationFn: (data: Partial<Dataset>) => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.createDataset(token, data);
-    },
+    mutationFn: (data: Partial<Dataset>) => backendApi.createDataset('', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['datasets'] });
     },
@@ -132,54 +112,41 @@ export function useCreateDataset() {
 }
 
 export function useDatasetVersions(datasetId: number) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['dataset-versions', datasetId],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getDatasetVersions(token, datasetId);
-    },
-    enabled: !!token && !!datasetId,
+    queryFn: () => backendApi.getDatasetVersions('', datasetId),
+    enabled: authenticated && !!datasetId,
   });
 }
 
 // Projects
 export function useProjects() {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['projects'],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getProjects(token);
-    },
-    enabled: !!token,
+    queryFn: () => backendApi.getProjects(''),
+    enabled: authenticated,
   });
 }
 
 export function useProject(id: number) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['project', id],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getProject(token, id);
-    },
-    enabled: !!token && !!id,
+    queryFn: () => backendApi.getProject('', id),
+    enabled: authenticated && !!id,
   });
 }
 
 export function useCreateProject() {
   const queryClient = useQueryClient();
-  const token = useAuthToken();
-  
+
   return useMutation({
-    mutationFn: (data: Partial<Project>) => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.createProject(token, data);
-    },
+    mutationFn: (data: Partial<Project>) => backendApi.createProject('', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projects'] });
     },
@@ -188,81 +155,61 @@ export function useCreateProject() {
 
 // Teams
 export function useTeams() {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['teams'],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getTeams(token);
-    },
-    enabled: !!token,
+    queryFn: () => backendApi.getTeams(''),
+    enabled: authenticated,
   });
 }
 
 export function useTeam(id: number) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['team', id],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getTeam(token, id);
-    },
-    enabled: !!token && !!id,
+    queryFn: () => backendApi.getTeam('', id),
+    enabled: authenticated && !!id,
   });
 }
 
 // Artifacts
 export function useArtifacts(filters?: { project_id?: string; pipeline_id?: string }) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['artifacts', filters],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.listArtifacts(token, filters);
-    },
-    enabled: !!token,
+    queryFn: () => backendApi.listArtifacts('', filters),
+    enabled: authenticated,
   });
 }
 
 export function useArtifact(artifactId: string) {
-  const token = useAuthToken();
-  
+  const authenticated = useIsAuthenticated();
+
   return useQuery({
     queryKey: ['artifact', artifactId],
-    queryFn: () => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.getArtifact(token, artifactId);
-    },
-    enabled: !!token && !!artifactId,
+    queryFn: () => backendApi.getArtifact('', artifactId),
+    enabled: authenticated && !!artifactId,
   });
 }
 
 export function useRequestUploadURL() {
-  const token = useAuthToken();
-  
   return useMutation({
-    mutationFn: (request: Parameters<typeof backendApi.requestUploadURL>[1]) => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.requestUploadURL(token, request);
-    },
+    mutationFn: (request: Parameters<typeof backendApi.requestUploadURL>[1]) =>
+      backendApi.requestUploadURL('', request),
   });
 }
 
 export function useCompleteUpload() {
   const queryClient = useQueryClient();
-  const token = useAuthToken();
-  
+
   return useMutation({
     mutationFn: ({ artifactId, data }: {
       artifactId: string;
       data: Parameters<typeof backendApi.completeUpload>[2];
-    }) => {
-      if (!token) throw new Error('Not authenticated');
-      return backendApi.completeUpload(token, artifactId, data);
-    },
+    }) => backendApi.completeUpload('', artifactId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['artifacts'] });
     },

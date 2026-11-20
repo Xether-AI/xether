@@ -1,5 +1,11 @@
 import { NextResponse } from 'next/server'
 
+export function redirectToLoginWithError(req: Request, message: string) {
+  const loginUrl = new URL('/login', req.url)
+  loginUrl.searchParams.set('error', message)
+  return NextResponse.redirect(loginUrl)
+}
+
 export function getBackendBaseUrl() {
   return process.env.XETHER_BACKEND_API_BASE_URL || process.env.BACKEND_API_BASE_URL || ''
 }
