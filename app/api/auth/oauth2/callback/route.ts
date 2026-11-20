@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { getBackendBaseUrl, getBackendPath } from '@/lib/server/backend'
+import { getBackendBaseUrl, getBackendPath, redirectToLoginWithError } from '@/lib/server/backend'
 import { SESSION_COOKIE_ACCESS, SESSION_COOKIE_REFRESH } from '@/lib/server/session'
 
 const OAUTH_STATE_COOKIE = 'xether_oauth_state'
@@ -11,10 +11,7 @@ export async function GET(req: Request) {
   const clientSecret = process.env.XETHER_OAUTH_CLIENT_SECRET || ''
 
   if (!baseUrl || !clientId) {
-    return NextResponse.json(
-      { error: 'OAuth not configured. Set XETHER_BACKEND_API_BASE_URL and XETHER_OAUTH_CLIENT_ID.' },
-      { status: 501 },
-    )
+    return redirectToLoginWithError(req, 'Enterprise SSO is not configured.')
   }
 
   const url = new URL(req.url)
@@ -24,11 +21,11 @@ export async function GET(req: Request) {
   const storedState = cookieStore.get(OAUTH_STATE_COOKIE)?.value ?? null
 
   if (!code) {
-    return NextResponse.json({ error: 'Missing OAuth code' }, { status: 400 })
+    return redirectToLoginWithError(req, 'Missing OAuth authorization code.')
   }
 
   if (!state || !storedState || state !== storedState) {
-    return NextResponse.json({ error: 'Invalid OAuth state' }, { status: 400 })
+    return redirectToLoginWithError(req, 'Invalid or expired OAuth state. Please try again.')
   }
 
   const origin = url.origin
@@ -62,10 +59,11 @@ export async function GET(req: Request) {
     : await upstreamRes.text().catch(() => null)
 
   if (!upstreamRes.ok) {
-    return NextResponse.json(
-      typeof data === 'string' ? { error: data } : (data ?? { error: 'Token exchange failed' }),
-      { status: upstreamRes.status },
-    )
+    const msg =
+      typeof data === 'string'
+        ? data
+        : (data as { error?: string } | null)?.error || 'OAuth token exchange failed.'
+    return redirectToLoginWithError(req, msg)
   }
 
   type TokenResponse = { access_token?: string; refresh_token?: string }

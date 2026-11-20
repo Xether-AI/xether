@@ -5,10 +5,10 @@
  * Uses TanStack Query for data fetching and caching.
  */
 
-const rawBaseUrl =
-  process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL ||
-  process.env.XETHER_BACKEND_API_BASE_URL ||
-  'http://localhost:8000';
+const isBrowser = typeof window !== 'undefined';
+const rawBaseUrl = isBrowser
+  ? '/api/backend'
+  : process.env.XETHER_BACKEND_API_BASE_URL || 'http://localhost:8000';
 const API_BASE_URL = rawBaseUrl.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '');
 
 interface ApiError {
@@ -70,14 +70,14 @@ async function backendFetch<T>(
  */
 async function authenticatedFetch<T>(
   endpoint: string,
-  token: string,
+  token?: string,
   options: RequestInit = {}
 ): Promise<T> {
   return backendFetch<T>(endpoint, {
     ...options,
     headers: {
       ...options.headers,
-      'Authorization': `Bearer ${token}`,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
 }

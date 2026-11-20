@@ -40,20 +40,11 @@ export const metadata: Metadata = {
     title: "Xether AI - Data Infrastructure for AI",
     description: "Automate data preparation, management, and improvement.",
     siteName: "Xether AI",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Xether AI - Data Infrastructure for AI",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Xether AI - Data Infrastructure for AI",
     description: "Automate data preparation, management, and improvement.",
-    images: ["/og-image.png"],
     creator: "@xetherai",
   },
   icons: {

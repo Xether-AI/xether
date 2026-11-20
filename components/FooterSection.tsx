@@ -1,41 +1,48 @@
 "use client";
 
+import Link from "next/link";
 import { Twitter, Github, Linkedin } from "lucide-react";
 
 export function FooterSection() {
   return (
-    <footer className="w-full max-w-[1320px] mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-start gap-8 md:gap-12 py-8 md:py-12">
+    <footer className="w-full max-w-[1320px] mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-start gap-8 md:gap-12 py-8 md:py-12 border-t border-border">
       {/* Left Section: Logo, Description, Social Links */}
       <div className="flex flex-col justify-start items-start gap-6 p-2 md:p-4">
-        <div className="flex gap-3 items-stretch justify-center">
+        <Link href="/" className="flex gap-3 items-stretch justify-center">
           <div className="text-center text-foreground text-xl font-semibold leading-4">
             Xether <span className="text-primary">AI</span>
           </div>
-        </div>
+        </Link>
         <p className="text-foreground/90 text-sm font-medium leading-[18px] text-left">
           Data quality as infrastructure.
         </p>
-        <div className="flex justify-start items-start gap-3">
+        <div className="flex justify-start items-start gap-4">
           <a
-            href="#"
+            href="https://twitter.com/xetherai"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Twitter"
-            className="w-4 h-4 flex items-center justify-center"
+            className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
           >
-            <Twitter />
+            <Twitter className="w-4 h-4" />
           </a>
           <a
-            href="#"
+            href="https://github.com/xether-ai"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="GitHub"
-            className="w-4 h-4 flex items-center justify-center"
+            className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
           >
-            <Github className="w-full h-full text-muted-foreground" />
+            <Github className="w-4 h-4" />
           </a>
           <a
-            href="#"
+            href="https://linkedin.com/company/xether-ai"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="w-4 h-4 flex items-center justify-center"
+            className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
           >
-            <Linkedin className="w-full h-full text-muted-foreground" />
+            <Linkedin className="w-4 h-4" />
           </a>
         </div>
       </div>
@@ -49,36 +56,36 @@ export function FooterSection() {
             Product
           </h3>
           <div className="flex flex-col justify-end items-start gap-2">
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            <Link
+              href="/#features-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               Cleaning
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            </Link>
+            <Link
+              href="/#features-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               Versioning
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            </Link>
+            <Link
+              href="/#features-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               Integrations
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            </Link>
+            <Link
+              href="/#features-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               Synthetic Data
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            </Link>
+            <Link
+              href="/#features-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               Security
-            </a>
+            </Link>
           </div>
         </nav>
         <nav
@@ -89,36 +96,36 @@ export function FooterSection() {
             Company
           </h3>
           <div className="flex flex-col justify-center items-start gap-2">
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            <Link
+              href="/#features-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               About us
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            </Link>
+            <Link
+              href="/#testimonials-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
-              Our team
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+              Customers
+            </Link>
+            <Link
+              href="/#pricing-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
-              Careers
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+              Pricing
+            </Link>
+            <Link
+              href="/dashboard"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
-              Brand
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+              Dashboard
+            </Link>
+            <Link
+              href="/contact"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               Contact
-            </a>
+            </Link>
           </div>
         </nav>
         <nav
@@ -129,36 +136,38 @@ export function FooterSection() {
             Resources
           </h3>
           <div className="flex flex-col justify-center items-start gap-2">
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            <Link
+              href="/#faq-section"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
-              Terms of use
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+              FAQ
+            </Link>
+            <Link
+              href="/api"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               API Reference
-            </a>
+            </Link>
             <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+              href="https://docs.xether.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               Documentation
             </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+            <Link
+              href="/login"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
-              Community
-            </a>
-            <a
-              href="#"
-              className="text-foreground text-sm font-normal leading-5 hover:underline"
+              Sign In
+            </Link>
+            <Link
+              href="/contact"
+              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
             >
               Support
-            </a>
+            </Link>
           </div>
         </nav>
       </div>
