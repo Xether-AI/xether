@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { redirectToLoginWithError } from '@/lib/server/backend'
 
 const OAUTH_STATE_COOKIE = 'xether_oauth_state'
 
@@ -8,10 +9,7 @@ export async function GET(req: Request) {
   const gitlabUrl = process.env.XETHER_GITLAB_URL || 'https://gitlab.com'
 
   if (!clientId || !clientSecret) {
-    return NextResponse.json(
-      { error: 'GitLab OAuth not configured. Set XETHER_GITLAB_CLIENT_ID and XETHER_GITLAB_CLIENT_SECRET.' },
-      { status: 501 },
-    )
+    return redirectToLoginWithError(req, 'GitLab OAuth is not configured.')
   }
 
   const origin = new URL(req.url).origin
