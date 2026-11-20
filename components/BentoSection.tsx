@@ -12,18 +12,9 @@ interface BentoCardProps {
 }
 
 const BentoCard = ({ title, description, Component }: BentoCardProps) => (
-  <div className="overflow-hidden rounded-2xl flex flex-col justify-start items-start relative">
-    {/* Background with blur effect */}
-    <div
-      className="absolute inset-0 rounded-2xl border"
-      style={{
-        background: "rgba(231, 236, 235, 0.05)",
-        backdropFilter: "blur(2px)",
-        WebkitBackdropFilter: "blur(2px)",
-      }}
-    />
+  <div className="overflow-hidden rounded-2xl flex flex-col justify-start items-start relative border border-border bg-card/70 backdrop-blur-md shadow-sm">
     {/* Additional subtle gradient overlay */}
-    <div className="absolute inset-0 bg-gradient-to-br from-white/1 to-transparent rounded-2xl" />
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-2xl" />
 
     <div className="self-stretch p-6 flex flex-col justify-start items-start gap-2 relative z-10">
       <div className="self-stretch flex flex-col justify-start items-start gap-1.5">

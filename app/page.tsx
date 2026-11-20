@@ -16,16 +16,16 @@ export default function LandingPage() {
       <main className="container-center relative pt-20">
         <HeroSection />
 
-        {/* Dashboard Preview - Overlapping the Hero */}
-        <div className="relative -mt-32 md:-mt-48 z-30 px-4">
+        {/* Dashboard Preview - Overlapping the Hero on larger screens */}
+        <div className="relative mt-6 sm:-mt-16 md:-mt-24 lg:-mt-36 z-30 px-2 sm:px-4">
           <AnimatedSection>
-            <div className="glass rounded-2xl overflow-hidden shadow-2xl border-white/10 group">
+            <div className="glass rounded-2xl overflow-hidden shadow-2xl border-border group">
               <DashboardPreview />
             </div>
           </AnimatedSection>
         </div>
 
-        <section className="space-y-32 py-32">
+        <section className="space-y-16 md:space-y-24 lg:space-y-32 py-16 md:py-24 lg:py-32">
           <AnimatedSection delay={0.1}>
             <SocialProof />
           </AnimatedSection>
