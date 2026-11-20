@@ -12,6 +12,13 @@ import {
 import { Code2, Key, Server, ArrowRight, ExternalLink } from "lucide-react";
 
 export default function APIPage() {
+  const backendDocsUrl =
+    process.env.NEXT_PUBLIC_BACKEND_DOCS_URL ||
+    `${(process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL || "https://api.xether.ai").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "")}/docs`;
+  const ragDocsUrl =
+    process.env.NEXT_PUBLIC_RAG_DOCS_URL || "https://rag.xether.ai/docs";
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "/dashboard";
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
@@ -81,7 +88,7 @@ export default function APIPage() {
                 </div>
                 <Button variant="outline" className="w-full" asChild>
                   <a
-                    href="http://localhost:8000/docs"
+                    href={backendDocsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -136,7 +143,7 @@ export default function APIPage() {
                 </div>
                 <Button variant="outline" className="w-full" asChild>
                   <a
-                    href="http://localhost:8001/docs"
+                    href={ragDocsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -301,7 +308,7 @@ Response:
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="lg" className="w-full sm:w-auto" asChild>
                 <a
-                  href="http://localhost:8000/docs"
+                  href={backendDocsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -315,7 +322,7 @@ Response:
                 className="w-full sm:w-auto"
                 asChild
               >
-                <Link href="http://localhost:5173">
+                <Link href={appUrl}>
                   Launch App
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

@@ -1,7 +1,13 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
+import { toast } from "sonner";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
@@ -11,6 +17,25 @@ export function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
+        queryCache: new QueryCache({
+          onError: (error) => {
+            const message =
+              error instanceof Error && error.message
+                ? error.message
+                : "Failed to load data. Please try again.";
+            toast.error(message);
+          },
+        }),
+        mutationCache: new MutationCache({
+          onError: (error, _variables, _context, mutation) => {
+            if (mutation.options.onError) return;
+            const message =
+              error instanceof Error && error.message
+                ? error.message
+                : "Something went wrong. Please try again.";
+            toast.error(message);
+          },
+        }),
         defaultOptions: {
           queries: {
             retry: 1,
@@ -28,7 +53,7 @@ export function Providers({ children }: { children: ReactNode }) {
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
           {children}
-          <Toaster />
+          <Toaster richColors position="top-right" />
         </QueryClientProvider>
       </ErrorBoundary>
     </ThemeProvider>
