@@ -50,7 +50,7 @@ export function CTASection() {
   });
 
   return (
-    <section className="w-full pt-20 md:pt-60 lg:pt-60 pb-10 md:pb-20 px-5 relative flex flex-col justify-center items-center overflow-visible">
+    <section className="w-full pt-16 md:pt-32 lg:pt-40 pb-12 md:pb-20 px-4 sm:px-5 relative flex flex-col justify-center items-center overflow-hidden">
       {/* Background SVG remains unchanged */}
       <div className="absolute inset-0 top-[-90px]">
         <svg
@@ -216,7 +216,7 @@ export function CTASection() {
                   <FormControl>
                     <Input
                       placeholder="Your email"
-                      className="bg-background/50 backdrop-blur-sm border-white/10 h-11"
+                      className="bg-card/80 backdrop-blur-sm border-border h-11"
                       {...field}
                     />
                   </FormControl>
@@ -227,7 +227,7 @@ export function CTASection() {
             <Button
               type="submit"
               disabled={mutation.isPending}
-              className="px-[30px] h-11 bg-secondary text-secondary-foreground text-base font-medium leading-6 rounded-md shadow-[0px_0px_0px_4px_rgba(255,255,255,0.13)] hover:bg-secondary/90 transition-all duration-200 w-full sm:w-auto"
+              className="px-[30px] h-11 bg-primary text-primary-foreground text-base font-medium leading-6 rounded-md shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all duration-200 w-full sm:w-auto"
             >
               {mutation.isPending ? "Submitting…" : "Start Automating"}
             </Button>

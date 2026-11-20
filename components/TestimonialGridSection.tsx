@@ -79,14 +79,14 @@ const TestimonialCard = ({ quote, name, company, avatar, type }: TestimonialCard
   let companyClasses = ""
   let backgroundElements = null
   let cardHeight = ""
-  const cardWidth = "w-full md:w-[384px]"
+  const cardWidth = "w-full"
 
   if (type === "large-teal") {
     cardClasses += " bg-primary"
-    quoteClasses += " text-primary-foreground text-2xl font-medium leading-8"
+    quoteClasses += " text-primary-foreground text-xl sm:text-2xl font-medium leading-snug sm:leading-8"
     nameClasses += " text-primary-foreground text-base font-normal leading-6"
     companyClasses += " text-primary-foreground/60 text-base font-normal leading-6"
-    cardHeight = "h-[502px]"
+    cardHeight = "min-h-[340px] lg:h-[502px]"
     backgroundElements = (
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -94,11 +94,11 @@ const TestimonialCard = ({ quote, name, company, avatar, type }: TestimonialCard
       />
     )
   } else if (type === "large-light") {
-    cardClasses += " bg-[rgba(231,236,235,0.12)]"
-    quoteClasses += " text-foreground text-2xl font-medium leading-8"
+    cardClasses += " bg-card/80 border border-border"
+    quoteClasses += " text-foreground text-xl sm:text-2xl font-medium leading-snug sm:leading-8"
     nameClasses += " text-foreground text-base font-normal leading-6"
     companyClasses += " text-muted-foreground text-base font-normal leading-6"
-    cardHeight = "h-[502px]"
+    cardHeight = "min-h-[340px] lg:h-[502px]"
     backgroundElements = (
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-20"
@@ -107,24 +107,23 @@ const TestimonialCard = ({ quote, name, company, avatar, type }: TestimonialCard
     )
   } else {
     cardClasses += " bg-card outline outline-1 outline-border outline-offset-[-1px]"
-    quoteClasses += " text-foreground/80 text-[17px] font-normal leading-6"
+    quoteClasses += " text-foreground/80 text-base sm:text-[17px] font-normal leading-6"
     nameClasses += " text-foreground text-sm font-normal leading-[22px]"
     companyClasses += " text-muted-foreground text-sm font-normal leading-[22px]"
-    cardHeight = "h-[244px]"
+    cardHeight = "min-h-[210px] lg:h-[244px]"
   }
 
   return (
     <div className={`${cardClasses} ${cardWidth} ${cardHeight}`}>
       {backgroundElements}
       <div className={`relative z-10 font-normal break-words ${quoteClasses}`}>{quote}</div>
-      <div className="relative z-10 flex justify-start items-center gap-3">
+      <div className="relative z-10 flex justify-start items-center gap-3 mt-6">
         <Image
           src={avatar || "/placeholder.svg"}
           alt={`${name} avatar`}
           width={avatarSize}
           height={avatarSize}
-          className={`w-${avatarSize / 4} h-${avatarSize / 4} ${avatarBorderRadius}`}
-          style={{ border: "1px solid rgba(255, 255, 255, 0.08)" }}
+          className={`${isLargeCard ? "w-12 h-12" : "w-9 h-9"} ${avatarBorderRadius} border border-border object-cover`}
         />
         <div className="flex flex-col justify-start items-start gap-0.5">
           <div className={nameClasses}>{name}</div>
@@ -149,17 +148,17 @@ export function TestimonialGridSection() {
           </p>
         </div>
       </div>
-      <div className="w-full pt-0.5 pb-4 md:pb-6 lg:pb-10 flex flex-col md:flex-row justify-center items-start gap-4 md:gap-4 lg:gap-6 max-w-[1100px] mx-auto">
-        <div className="flex-1 flex flex-col justify-start items-start gap-4 md:gap-4 lg:gap-6">
+      <div className="w-full pt-0.5 pb-4 md:pb-6 lg:pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 max-w-[1100px] mx-auto">
+        <div className="flex flex-col justify-start items-stretch gap-4 lg:gap-6">
           <TestimonialCard {...testimonials[0]} />
           <TestimonialCard {...testimonials[1]} />
         </div>
-        <div className="flex-1 flex flex-col justify-start items-start gap-4 md:gap-4 lg:gap-6">
+        <div className="flex flex-col justify-start items-stretch gap-4 lg:gap-6">
           <TestimonialCard {...testimonials[2]} />
           <TestimonialCard {...testimonials[3]} />
           <TestimonialCard {...testimonials[4]} />
         </div>
-        <div className="flex-1 flex flex-col justify-start items-start gap-4 md:gap-4 lg:gap-6">
+        <div className="flex flex-col justify-start items-stretch gap-4 lg:gap-6 md:col-span-2 lg:col-span-1">
           <TestimonialCard {...testimonials[5]} />
           <TestimonialCard {...testimonials[6]} />
         </div>
