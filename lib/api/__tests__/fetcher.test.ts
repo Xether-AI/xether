@@ -28,7 +28,7 @@ describe('apiFetch', () => {
     )
 
     await expect(apiFetch('/api/auth/login', { method: 'POST', body: {} })).rejects.toThrowError(
-      new ApiError('Invalid credentials', 401),
+      new ApiError('Invalid credentials', 401, { error: 'Invalid credentials' }),
     )
   })
 })
