@@ -5,7 +5,7 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { backendApi, type Pipeline, type Dataset, type Project, type Team, type Artifact } from '@/lib/api/backend-client';
+import { backendApi, type Pipeline, type Dataset, type Project } from '@/lib/api/backend-client';
 
 // Helper to get auth token (you'll need to implement this based on your auth system)
 function useAuthToken(): string | null {
