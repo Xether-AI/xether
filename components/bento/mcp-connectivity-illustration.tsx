@@ -1,167 +1,83 @@
-import type React from "react"
-import { Check, CheckCircle, Search } from "lucide-react"
+import type React from "react";
+import { ArrowRight, Shield, Sparkles } from "lucide-react";
 
 interface McpConnectivityIllustrationProps {
-  className?: string
+  className?: string;
 }
 
-const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = ({ className = "" }) => {
-  // Integration data with new SVG paths
-  const integrations = [
-    { name: "User Profiles", icon: "/images/mcp-integrations/figma.svg", installed: true },
-    { name: "Transactions", icon: "/images/mcp-integrations/stripe.svg" },
-    { name: "Clickstream", icon: "/images/mcp-integrations/nextjs.svg", installed: true },
-    { name: "IoT Sensors", icon: "/images/mcp-integrations/tailwind-css.svg" },
-    { name: "Medical Records", icon: "/images/mcp-integrations/resend.svg", installed: true },
-    { name: "Financial Logs", icon: "/images/mcp-integrations/react.svg" },
-  ]
+const metrics = [
+  { label: "Distribution Match", value: "98.7%", width: "w-[98%]", bar: "from-cyan-400 to-primary" },
+  { label: "Minority Class Boost", value: "+34.0%", width: "w-[74%]", bar: "from-violet-400 to-cyan-400" },
+  { label: "PII Leakage Risk", value: "0.00%", width: "w-[2%]", bar: "from-emerald-400 to-emerald-400" },
+];
 
+const McpConnectivityIllustration: React.FC<
+  McpConnectivityIllustrationProps
+> = ({ className = "" }) => {
   return (
     <div
-      className={`w-full h-full flex items-center justify-center p-4 relative ${className}`}
+      className={`w-full h-full px-5 pb-5 flex flex-col justify-between gap-3 ${className}`}
       role="img"
-      aria-label="MCP Connectivity component showcasing installed integrations list"
+      aria-label="Synthetic data engine showing differential privacy and distribution fidelity metrics"
     >
-      {/* Main Message Box */}
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, calc(-50% + 24px))",
-          width: "345px",
-          height: "277px",
-          background: "linear-gradient(180deg, hsl(var(--background)) 0%, transparent 100%)",
-          backdropFilter: "blur(16px)",
-          borderRadius: "9.628px",
-          border: "0.802px solid hsl(var(--border))",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            width: "100%",
-          }}
-        >
-          {/* Search Header */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12.837px",
-              padding: "8.826px 12.837px",
-              borderBottom: "0.802px solid hsl(var(--border))",
-              width: "100%",
-              boxSizing: "border-box",
-            }}
-          >
-            <div
-              style={{
-                width: "14.442px",
-                height: "14.442px",
-                position: "relative",
-                flexShrink: 0,
-              }}
-            >
-              <Search className="w-full h-full text-muted-foreground" />
-            </div>
-            <span
-              style={{
-                fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                fontSize: "12.837px",
-                lineHeight: "19.256px",
-                color: "hsl(var(--muted-foreground))",
-                fontWeight: 400,
-                whiteSpace: "nowrap",
-              }}
-            >
-              Generate Synthetic Data
-            </span>
-          </div>
-          {/* Integration List */}
-          {integrations.map((integration, index) => (
-            <div
-              key={integration.name}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "8.826px 12.837px",
-                borderBottom: index < integrations.length - 1 ? "0.479px solid hsl(var(--border))" : "none",
-                width: "100%",
-                boxSizing: "border-box",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12.837px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "24px",
-                    height: "24px",
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <img
-                    src={integration.icon || "/placeholder.svg"}
-                    alt={integration.name}
-                    className="w-full h-full object-contain opacity-70 grayscale" // Apply opacity and grayscale
-                  />
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                    fontSize: "12.837px",
-                    lineHeight: "19.256px",
-                    color: "hsl(var(--muted-foreground))",
-                    fontWeight: 400,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {integration.name}
-                </span>
-              </div>
-              {integration.installed && (
-                <div
-                  style={{
-                    padding: "1px 5px",
-                    borderRadius: "3px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                      fontSize: "2px",
-                      color: "hsl(var(--primary))",
-                      fontWeight: 500,
-                      whiteSpace: "nowrap",
-                    }}
-                    className="flex flex-row items-center justify-center"
-                  >
-                    <CheckCircle className="size-4 text-green-600"/>
-                  </span>
-                </div>
-              )}
-            </div>
-          ))}
+      {/* Pipeline Transformation Header */}
+      <div className="rounded-xl border border-border bg-background/70 p-3 flex items-center justify-between gap-2">
+        <div className="min-w-0">
+          <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+            Source
+          </p>
+          <p className="text-xs font-mono text-foreground truncate">
+            clinical_v2
+          </p>
+        </div>
+
+        <div className="flex items-center gap-1.5 rounded-full border border-violet-500/25 bg-violet-500/15 px-2.5 py-1 text-[10px] font-mono text-violet-300 shrink-0">
+          <Shield className="h-3 w-3" />
+          <span>ε = 0.8 DP</span>
+          <ArrowRight className="h-3 w-3" />
+        </div>
+
+        <div className="text-right min-w-0">
+          <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+            Synthetic
+          </p>
+          <p className="text-xs font-mono text-primary truncate">
+            100k rows
+          </p>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default McpConnectivityIllustration
+      {/* Fidelity Bars */}
+      <div className="rounded-xl border border-border bg-background/50 p-3 space-y-2.5">
+        {metrics.map((m) => (
+          <div key={m.label} className="space-y-1">
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="text-muted-foreground">{m.label}</span>
+              <span className="font-mono font-medium text-foreground">
+                {m.value}
+              </span>
+            </div>
+            <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+              <div
+                className={`h-full ${m.width} rounded-full bg-gradient-to-r ${m.bar}`}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Engine Tags */}
+      <div className="flex items-center gap-2 text-[10px] font-mono">
+        <span className="inline-flex items-center gap-1 rounded-md border border-primary/25 bg-primary/10 px-2 py-0.5 text-primary">
+          <Sparkles className="h-3 w-3" />
+          Tabular GAN
+        </span>
+        <span className="rounded-md border border-border bg-background/60 px-2 py-0.5 text-muted-foreground">
+          Edge-Case Synthesis
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default McpConnectivityIllustration;

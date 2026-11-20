@@ -3,9 +3,13 @@
  * 
  * Provides typed methods for interacting with the Main Backend API.
  * Uses TanStack Query for data fetching and caching.
- */c
+ */
 
-const API_BASE_URL = process.env.XETHER_BACKEND_API_BASE_URL || 'http://localhost:8000/api/v1';
+const rawBaseUrl =
+  process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL ||
+  process.env.XETHER_BACKEND_API_BASE_URL ||
+  'http://localhost:8000';
+const API_BASE_URL = rawBaseUrl.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '');
 
 interface ApiError {
   error: {
@@ -48,8 +52,14 @@ async function backendFetch<T>(
   });
 
   if (!response.ok) {
-    const error: ApiError = await response.json();
-    throw new BackendApiError(error.error);
+    const errorBody: Partial<ApiError> | null = await response.json().catch(() => null);
+    if (errorBody?.error) {
+      throw new BackendApiError(errorBody.error);
+    }
+    throw new BackendApiError({
+      message: `Request failed with status ${response.status}`,
+      code: `HTTP_${response.status}`,
+    });
   }
 
   return response.json();
