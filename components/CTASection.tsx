@@ -50,7 +50,7 @@ export function CTASection() {
   });
 
   return (
-    <section className="w-full pt-16 md:pt-32 lg:pt-40 pb-12 md:pb-20 px-4 sm:px-5 relative flex flex-col justify-center items-center overflow-hidden">
+    <section className="w-full pt-10 md:pt-16 lg:pt-20 pb-8 md:pb-12 px-4 sm:px-5 relative flex flex-col justify-center items-center overflow-hidden">
       {/* Background SVG remains unchanged */}
       <div className="absolute inset-0 top-[-90px]">
         <svg

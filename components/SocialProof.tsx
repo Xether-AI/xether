@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function SocialProof() {
   return (
-    <section className="self-stretch py-10 md:py-16 flex flex-col justify-center items-center gap-6 overflow-hidden">
+    <section className="self-stretch py-4 md:py-6 flex flex-col justify-center items-center gap-6 overflow-hidden">
       <div className="text-center text-muted-foreground text-sm font-medium leading-tight">
         Trusted by fast-growing startups
       </div>

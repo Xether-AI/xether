@@ -3,7 +3,7 @@ import Image from "next/image"
 export function LargeTestimonial() {
   return (
     <section className="w-full px-4 sm:px-6 overflow-hidden flex justify-center items-center">
-      <div className="w-full max-w-[1024px] py-10 md:py-16 lg:py-24 flex flex-col justify-center items-center gap-6 md:gap-8 lg:gap-10">
+      <div className="w-full max-w-[1024px] py-6 md:py-10 lg:py-12 flex flex-col justify-center items-center gap-6 md:gap-8 lg:gap-10">
         <blockquote className="text-center text-foreground leading-snug md:leading-tight lg:leading-[1.15] font-medium text-xl sm:text-2xl md:text-4xl lg:text-5xl">
           {
             "Xether's automated data validation and versioning changed how we ship models. It's the missing layer in the modern AI stack."

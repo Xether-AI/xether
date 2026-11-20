@@ -25,7 +25,7 @@ export default function LandingPage() {
           </AnimatedSection>
         </div>
 
-        <section className="space-y-16 md:space-y-24 lg:space-y-32 py-16 md:py-24 lg:py-32">
+        <section className="space-y-10 md:space-y-14 lg:space-y-16 py-10 md:py-14 lg:py-16">
           <AnimatedSection delay={0.1}>
             <SocialProof />
           </AnimatedSection>
