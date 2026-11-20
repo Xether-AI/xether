@@ -8,7 +8,7 @@ import ParallelCodingAgents from "./bento/parallel-agents" // Updated import
 interface BentoCardProps {
   title: string
   description: string
-  Component: React.ComponentType<any>
+  Component: React.ComponentType
 }
 
 const BentoCard = ({ title, description, Component }: BentoCardProps) => (
@@ -27,13 +27,15 @@ const BentoCard = ({ title, description, Component }: BentoCardProps) => (
 
     <div className="self-stretch p-6 flex flex-col justify-start items-start gap-2 relative z-10">
       <div className="self-stretch flex flex-col justify-start items-start gap-1.5">
-        <p className="self-stretch text-primary text-lg font-semibold leading-7">
-          {title} <br />
-          <span className="text-secondary font-thin">{description}</span>
+        <h3 className="text-primary text-lg font-semibold leading-snug">
+          {title}
+        </h3>
+        <p className="text-muted-foreground text-sm font-normal leading-relaxed">
+          {description}
         </p>
       </div>
     </div>
-    <div className="self-stretch h-72 relative -mt-0.5 z-10">
+    <div className="self-stretch min-h-[250px] relative z-10">
       <Component />
     </div>
   </div>
@@ -79,7 +81,7 @@ export function BentoSection() {
         <div className="w-[547px] h-[938px] absolute top-[614px] left-[80px] origin-top-left rotate-[-33.39deg] bg-primary/10 blur-[130px] z-0" />
         <div className="self-stretch py-8 md:py-14 flex flex-col justify-center items-center gap-2 z-10">
           <div className="flex flex-col justify-start items-center gap-4">
-            <h2 className="w-full max-w-[655px] text-center text-secondary text-4xl md:text-6xl font-semibold leading-tight md:leading-[66px]">
+            <h2 className="w-full max-w-[655px] text-center text-foreground text-4xl md:text-6xl font-semibold leading-tight md:leading-[66px]">
               Data Quality as Infrastructure
             </h2>
             <p className="w-full max-w-[600px] text-center text-primary/90 text-lg md:text-xl font-medium leading-relaxed">
