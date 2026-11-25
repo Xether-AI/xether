@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getBackendBaseUrl, getBackendPath } from '@/lib/server/backend'
+import { getBackendBaseUrl, getBackendPath, redirectToLoginWithError } from '@/lib/server/backend'
 
 const OAUTH_STATE_COOKIE = 'xether_oauth_state'
 
@@ -8,9 +8,9 @@ export async function GET(req: Request) {
   const clientId = process.env.XETHER_OAUTH_CLIENT_ID || ''
 
   if (!baseUrl || !clientId) {
-    return NextResponse.json(
-      { error: 'OAuth not configured. Set XETHER_BACKEND_API_BASE_URL and XETHER_OAUTH_CLIENT_ID.' },
-      { status: 501 },
+    return redirectToLoginWithError(
+      req,
+      'Enterprise SSO is not configured. Please sign in with email.',
     )
   }
 

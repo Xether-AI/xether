@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { redirectToLoginWithError } from '@/lib/server/backend'
 import { SESSION_COOKIE_ACCESS, SESSION_COOKIE_REFRESH } from '@/lib/server/session'
 
 const OAUTH_STATE_COOKIE = 'xether_oauth_state'
@@ -10,10 +11,7 @@ export async function GET(req: Request) {
   const gitlabUrl = process.env.XETHER_GITLAB_URL || 'https://gitlab.com'
 
   if (!clientId || !clientSecret) {
-    return NextResponse.json(
-      { error: 'GitLab OAuth not configured.' },
-      { status: 501 },
-    )
+    return redirectToLoginWithError(req, 'GitLab OAuth is not configured.')
   }
 
   const url = new URL(req.url)
@@ -23,11 +21,11 @@ export async function GET(req: Request) {
   const storedState = cookieStore.get(OAUTH_STATE_COOKIE)?.value ?? null
 
   if (!code) {
-    return NextResponse.json({ error: 'Missing OAuth code' }, { status: 400 })
+    return redirectToLoginWithError(req, 'Missing GitLab authorization code.')
   }
 
   if (!state || !storedState || state !== storedState) {
-    return NextResponse.json({ error: 'Invalid OAuth state' }, { status: 400 })
+    return redirectToLoginWithError(req, 'Invalid or expired OAuth state.')
   }
 
   const origin = url.origin
@@ -50,9 +48,9 @@ export async function GET(req: Request) {
   const tokenData = await tokenRes.json()
 
   if (!tokenRes.ok) {
-    return NextResponse.json(
-      { error: tokenData.error_description || 'Token exchange failed' },
-      { status: tokenRes.status },
+    return redirectToLoginWithError(
+      req,
+      tokenData.error_description || 'GitLab token exchange failed.',
     )
   }
 

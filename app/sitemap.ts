@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next'
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://xether.ai'
 
-    const routes = ['', '/features', '/login', '/signup'].map((route) => ({
+    const routes = ['', '/contact', '/api', '/login', '/signup'].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date().toISOString(),
         changeFrequency: 'weekly' as const,

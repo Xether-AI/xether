@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { redirectToLoginWithError } from '@/lib/server/backend'
 
 const OAUTH_STATE_COOKIE = 'xether_oauth_state'
 
@@ -7,10 +8,7 @@ export async function GET(req: Request) {
   const clientSecret = process.env.XETHER_GITHUB_CLIENT_SECRET || ''
 
   if (!clientId || !clientSecret) {
-    return NextResponse.json(
-      { error: 'GitHub OAuth not configured. Set XETHER_GITHUB_CLIENT_ID and XETHER_GITHUB_CLIENT_SECRET.' },
-      { status: 501 },
-    )
+    return redirectToLoginWithError(req, 'GitHub OAuth is not configured.')
   }
 
   const origin = new URL(req.url).origin

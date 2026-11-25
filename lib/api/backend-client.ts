@@ -48,8 +48,14 @@ async function backendFetch<T>(
   });
 
   if (!response.ok) {
-    const error: ApiError = await response.json();
-    throw new BackendApiError(error.error);
+    const errorBody: Partial<ApiError> | null = await response.json().catch(() => null);
+    if (errorBody?.error) {
+      throw new BackendApiError(errorBody.error);
+    }
+    throw new BackendApiError({
+      message: `Request failed with status ${response.status}`,
+      code: `HTTP_${response.status}`,
+    });
   }
 
   return response.json();
@@ -60,14 +66,14 @@ async function backendFetch<T>(
  */
 async function authenticatedFetch<T>(
   endpoint: string,
-  token: string,
+  token?: string,
   options: RequestInit = {}
 ): Promise<T> {
   return backendFetch<T>(endpoint, {
     ...options,
     headers: {
       ...options.headers,
-      'Authorization': `Bearer ${token}`,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
 }

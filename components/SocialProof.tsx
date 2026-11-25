@@ -2,19 +2,19 @@ import Image from "next/image"
 
 export function SocialProof() {
   return (
-    <section className="self-stretch py-16 flex flex-col justify-center items-center gap-6 overflow-hidden">
-      <div className="text-center text-gray-300 text-sm font-medium leading-tight">
+    <section className="self-stretch py-4 md:py-6 flex flex-col justify-center items-center gap-6 overflow-hidden">
+      <div className="text-center text-muted-foreground text-sm font-medium leading-tight">
         Trusted by fast-growing startups
       </div>
-      <div className="self-stretch grid grid-cols-2 md:grid-cols-4 gap-8 justify-items-center">
+      <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 md:gap-10 items-center justify-items-center">
         {Array.from({ length: 8 }).map((_, i) => (
           <Image
             key={i}
             src={`/logos/social_proofs/logo0${i + 1}.svg`}
             alt={`Company Logo ${i + 1}`}
-            width={400}
-            height={120}
-            className="w-full max-w-[400px] h-auto object-contain grayscale opacity-70"
+            width={280}
+            height={84}
+            className="w-full max-w-[200px] sm:max-w-[220px] md:max-w-[260px] h-auto object-contain transition-transform duration-200 hover:scale-105"
           />
         ))}
       </div>

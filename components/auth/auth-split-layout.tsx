@@ -6,10 +6,9 @@ import { motion } from "framer-motion";
 
 export function AuthSplitLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen lg:h-screen w-full bg-background flex flex-col lg:flex-row lg:overflow-hidden">
-      {/* Left Panel: Visual (Hidden on mobile) */}
+    <div className="relative min-h-screen lg:h-screen w-full bg-background flex flex-col lg:flex-row lg:overflow-hidden">
       {/* Decorative background grid */}
-      <div className="absolute opacity-[0.05] inset-5 pointer-events-none">
+      <div className="pointer-events-none fixed inset-0 opacity-[0.04]">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern
@@ -29,25 +28,28 @@ export function AuthSplitLayout({ children }: { children: React.ReactNode }) {
           <rect width="100%" height="100%" fill="url(#split-auth-grid)" />
         </svg>
       </div>
-      <div className="hidden lg:flex lg:w-1/2 h-full relative items-center justify-center border-r border-background overflow-hidden">
+
+      {/* Left Panel: Visual Showcase (Desktop) */}
+      <div className="hidden lg:flex lg:w-[46%] xl:w-1/2 h-full relative items-center justify-center border-r border-border overflow-hidden pt-16">
         <AuthVisualHero />
       </div>
 
-      {/* Right Panel: Content/Form */}
+      {/* Right Panel: Form Content */}
       <div className="flex-1 flex flex-col relative h-full overflow-y-auto overflow-x-hidden">
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative z-10 flex-1 flex flex-col items-center justify-center py-12 px-6 sm:px-12 lg:px-24"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="relative z-10 flex-1 flex flex-col items-center justify-center pt-24 pb-10 px-4 sm:px-8 lg:px-14"
         >
           {children}
         </motion.div>
 
-        {/* Footer info or legal links could go here */}
-        <div className="p-8 text-center sm:text-left flex items-center justify-center">
+        <div className="relative z-10 px-6 pb-6 text-center">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} <span className="text-primary">Xether AI</span>. All rights reserved.
+            &copy; {new Date().getFullYear()}{" "}
+            <span className="text-primary font-medium">Xether AI</span>. All
+            rights reserved.
           </p>
         </div>
       </div>
