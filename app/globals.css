@@ -185,8 +185,6 @@ body {
   right: 0;
   z-index: 50;
   pointer-events: none;
-  container-type: scroll-state;
-  container-name: floating-navbar;
 }
 
 .floating-nav-pill {
@@ -211,7 +209,7 @@ body {
 .floating-nav-pill[data-scrolled="true"] {
   background-color: color-mix(in srgb, #0d1420 80%, transparent);
   border-color: rgba(120, 252, 214, 0.34);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.56);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.56);
 }
 
 .light .floating-nav-pill[data-scrolled="true"] {
@@ -219,18 +217,11 @@ body {
   border-color: rgba(14, 165, 122, 0.3);
 }
 
-@container floating-navbar scroll-state(stuck: top) {
-  .floating-nav-pill {
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.52);
-  }
-}
-
 /* ─── Light Dashboard Scrollable Sidebar Affordance Hints ────────────────── */
 .dashboard-sidebar-scroller {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
-  container-type: scroll-state;
 }
 
 .dashboard-sidebar-scroller::-webkit-scrollbar {
@@ -251,50 +242,29 @@ body {
   z-index: 10;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s ease;
 }
 
 .dashboard-sidebar-scroller::before {
   top: 0;
   margin-bottom: -0.75rem;
   background: radial-gradient(farthest-side at 50% 0, rgba(15, 23, 42, 0.12), transparent);
+  animation: show-sidebar-scroll-shadow linear both;
+  animation-timeline: scroll();
+  animation-range: 0 1.5rem;
 }
 
 .dashboard-sidebar-scroller::after {
   bottom: 0;
   margin-top: -0.75rem;
   background: radial-gradient(farthest-side at 50% 100%, rgba(15, 23, 42, 0.12), transparent);
+  animation: show-sidebar-scroll-shadow linear both reverse;
+  animation-timeline: scroll();
+  animation-range: calc(100% - 1.5rem) 100%;
 }
 
-@container scroll-state(scrollable: block-start) {
-  .dashboard-sidebar-scroller::before {
+@keyframes show-sidebar-scroll-shadow {
+  to {
     opacity: 1;
-  }
-}
-
-@container scroll-state(scrollable: block-end) {
-  .dashboard-sidebar-scroller::after {
-    opacity: 1;
-  }
-}
-
-@supports not (container-type: scroll-state) {
-  @keyframes show-sidebar-scroll-shadow {
-    to {
-      opacity: 1;
-    }
-  }
-  .dashboard-sidebar-scroller::before,
-  .dashboard-sidebar-scroller::after {
-    animation: show-sidebar-scroll-shadow linear both;
-    animation-timeline: scroll();
-  }
-  .dashboard-sidebar-scroller::before {
-    animation-range: 0 1.5rem;
-  }
-  .dashboard-sidebar-scroller::after {
-    animation-direction: reverse;
-    animation-range: calc(100% - 1.5rem) 100%;
   }
 }
 
