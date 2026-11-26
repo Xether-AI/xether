@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Quote } from "lucide-react";
 import { DatabricksLogo } from "./BrandLogos";
 
@@ -15,9 +16,13 @@ export function LargeTestimonial() {
         </blockquote>
 
         <div className="flex items-center justify-center gap-3.5 pt-2">
-          <div className="w-11 h-11 rounded-full bg-[#132D2F] border border-[#265955] flex items-center justify-center text-sm font-bold text-primary shrink-0">
-            DR
-          </div>
+          <Image
+            src="/images/avatars/dianne-russell.png"
+            alt="Dianne Russell avatar"
+            width={48}
+            height={48}
+            className="w-12 h-12 rounded-full object-cover border border-[#265955] shrink-0"
+          />
           <div className="text-left">
             <div className="text-[15px] font-semibold text-foreground">
               Dianne Russell

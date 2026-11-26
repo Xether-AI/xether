@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { HelpCircle, Minus, Plus, Quote } from "lucide-react";
 import { HuggingFaceLogo, PostgresLogo } from "./BrandLogos";
 
@@ -39,12 +40,14 @@ const ENGINEER_QUOTES = [
     quote:
       "Rolling back a corrupted merge took four seconds thanks to SHA-256 dataset snapshots.",
     author: "Alex Chen · Staff ML Engineer",
+    avatar: "/images/avatars/annette-black.png",
     Logo: HuggingFaceLogo,
   },
   {
     quote:
       "PostgreSQL FORCE RLS gave our security review team immediate sign-off.",
     author: "David Park · Head of Security",
+    avatar: "/images/avatars/robert-fox.png",
     Logo: PostgresLogo,
   },
 ];
@@ -89,6 +92,13 @@ export function FAQSection() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2 pl-6 text-[11px] font-mono font-medium text-primary">
+                    <Image
+                      src={item.avatar}
+                      alt={item.author}
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 rounded-full object-cover border border-[#265955] shrink-0"
+                    />
                     <Logo size={14} />
                     <span>{item.author}</span>
                   </div>
