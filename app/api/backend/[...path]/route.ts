@@ -2,10 +2,7 @@ import { NextResponse } from 'next/server'
 import { getBackendBaseUrl } from '@/lib/server/backend'
 import { getAccessToken } from '@/lib/server/session'
 
-async function handleProxy(
-  req: Request,
-  context: { params: Promise<{ path: string[] }> },
-) {
+async function handleProxy(req: Request, context: { params: Promise<{ path: string[] }> }) {
   const baseUrl = getBackendBaseUrl()
   if (!baseUrl) {
     return NextResponse.json(
@@ -14,41 +11,39 @@ async function handleProxy(
     )
   }
 
-  const { path } = await context.params
-  const joinedPath = path.join('/')
+  const { path = [] } = await context.params
+  if (path.some((segment) => !segment || segment === '.' || segment === '..' || segment.includes('\\'))) {
+    return NextResponse.json({ error: { message: 'Invalid backend path', code: 'INVALID_PATH' } }, { status: 400 })
+  }
+  const joinedPath = path.map((segment) => encodeURIComponent(segment)).join('/')
   const isPublicHealth = joinedPath === 'health'
-
   const token = await getAccessToken()
   if (!isPublicHealth && !token) {
-    return NextResponse.json(
-      { error: { message: 'Not authenticated', code: 'UNAUTHORIZED' } },
-      { status: 401 },
-    )
+    return NextResponse.json({ error: { message: 'Not authenticated', code: 'UNAUTHORIZED' } }, { status: 401 })
   }
 
-  const reqUrl = new URL(req.url)
   const normalizedBase = baseUrl.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '')
-  const targetUrl = new URL(`${normalizedBase}/${joinedPath}${reqUrl.search}`)
-
+  const targetUrl = new URL(`${normalizedBase}/${joinedPath}${new URL(req.url).search}`)
+  const contentType = req.headers.get('content-type')
   const hasBody = req.method !== 'GET' && req.method !== 'HEAD'
-  const body = hasBody ? await req.text().catch(() => undefined) : undefined
 
   const upstreamRes = await fetch(targetUrl, {
     method: req.method,
     headers: {
-      'content-type': 'application/json',
+      ...(contentType ? { 'content-type': contentType } : {}),
       ...(token ? { authorization: `Bearer ${token}` } : {}),
     },
-    body: body || undefined,
+    body: hasBody ? await req.arrayBuffer() : undefined,
     cache: 'no-store',
   })
 
-  const contentType = upstreamRes.headers.get('content-type') ?? ''
-  const data = contentType.includes('application/json')
-    ? await upstreamRes.json().catch(() => null)
-    : await upstreamRes.text().catch(() => null)
-
-  return NextResponse.json(data ?? {}, { status: upstreamRes.status })
+  const headers = new Headers()
+  const upstreamType = upstreamRes.headers.get('content-type')
+  if (upstreamType) headers.set('content-type', upstreamType)
+  const body = upstreamRes.status === 204 || upstreamRes.status === 304
+    ? null
+    : await upstreamRes.arrayBuffer()
+  return new Response(body, { status: upstreamRes.status, statusText: upstreamRes.statusText, headers })
 }
 
 export const GET = handleProxy

@@ -1,55 +1,33 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-
-
 # dependencies
-
 /node_modules
 
-
-
-# next.js
-
+# Next.js
 /.next/
-
 /out/
 
-
-
 # production
-
 /build
 
-
-
 # debug
-
 npm-debug.log*
-
 yarn-debug.log*
-
 yarn-error.log*
-
 .pnpm-debug.log*
 
-
-
-# env files
-
-
+# environment files (commit only the documented template)
+.env*
+!.env.example
 
 # vercel
-
 .vercel
 
-
-
 # typescript
-
 *.tsbuildinfo
-
 next-env.d.ts
 
+# local-only scripts and generated files
 config.bat
 branch_structure.json
 temp_auto_push.bat
