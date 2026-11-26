@@ -15,8 +15,8 @@ export default function LandingPage() {
       <main className="relative">
         <HeroSection />
 
-        {/* Demonstrative Light-Mode Team Dashboard Overlapping Hero Spotlight */}
-        <div className="relative -mt-32 sm:-mt-36 md:-mt-40 z-20 px-4 sm:px-6 pb-16">
+        {/* Demonstrative Light-Mode Team Dashboard Peeking at Bottom Fold */}
+        <div className="relative -mt-12 sm:-mt-16 md:-mt-20 z-20 px-4 sm:px-6 pb-16">
           <AnimatedSection>
             <DashboardPreview />
           </AnimatedSection>

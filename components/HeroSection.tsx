@@ -5,7 +5,7 @@ import { DuckDBLogo, PolarsLogo, PostgresLogo } from "./BrandLogos";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full pt-28 sm:pt-32 pb-44 sm:pb-48 md:pb-52 flex flex-col items-center justify-center text-center px-4 sm:px-6 overflow-hidden">
+    <section className="relative w-full min-h-[88svh] lg:min-h-[90svh] pt-28 pb-20 sm:pb-24 flex flex-col items-center justify-center text-center px-4 sm:px-6 overflow-hidden">
       {/* Radial Mint Glow Spotlight behind Floating Navbar & Hero */}
       <div
         className="pointer-events-none absolute inset-0 -z-0"

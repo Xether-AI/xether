@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   Activity,
   BarChart2,
   Bell,
   ChevronsUpDown,
+  Cpu,
   CreditCard,
   Database,
   FileText,
@@ -13,6 +15,7 @@ import {
   GitBranch,
   HelpCircle,
   Key,
+  Layers,
   LayoutDashboard,
   Lock,
   Network,
@@ -21,6 +24,7 @@ import {
   Search,
   Settings,
   ShieldCheck,
+  Sparkles,
   Terminal,
   Users,
 } from "lucide-react";
@@ -34,6 +38,7 @@ import {
   PrefectLogo,
   SnowflakeLogo,
   XetherBrandMark,
+  XetherCloudLogo,
 } from "./BrandLogos";
 
 type SidebarSectionKey =
@@ -52,9 +57,39 @@ type SidebarSectionKey =
   | "settings";
 
 const TEAMS = [
-  { id: "acme-ml", label: "acme-ml", initials: "AM", members: 11, plan: "Pro Team", project: "churn-v4" },
-  { id: "core-data", label: "core-data", initials: "CD", members: 24, plan: "Enterprise", project: "lakehouse-ingest" },
-  { id: "sandbox-lab", label: "sandbox-lab", initials: "SL", members: 3, plan: "Sandbox", project: "eval-runs" },
+  {
+    id: "acme-ml",
+    label: "acme-ml",
+    members: 11,
+    plan: "Pro Team",
+    project: "churn-v4",
+    badgeBg: "bg-[#4F46E5]",
+    icon: Cpu,
+  },
+  {
+    id: "core-data",
+    label: "core-data",
+    members: 24,
+    plan: "Enterprise",
+    project: "lakehouse-ingest",
+    badgeBg: "bg-[#0D9488]",
+    icon: Layers,
+  },
+  {
+    id: "sandbox-lab",
+    label: "sandbox-lab",
+    members: 3,
+    plan: "Sandbox",
+    project: "eval-runs",
+    badgeBg: "bg-slate-800",
+    icon: Sparkles,
+  },
+];
+
+const MEMBER_AVATARS = [
+  { src: "/images/avatars/annette-black.png", alt: "Annette Black" },
+  { src: "/images/avatars/robert-fox.png", alt: "Robert Fox" },
+  { src: "/images/avatars/cody-fisher.png", alt: "Cody Fisher" },
 ];
 
 const KPIS = [
@@ -98,28 +133,32 @@ const PIPELINE_STAGES = [
     meta: "120k rows · 1.2s",
     status: "Completed",
     badgeClass: "bg-[#ECFDF5] text-[#059669]",
-    Logo: PostgresLogo,
+    icon: <PostgresLogo size={18} />,
   },
   {
     name: "2. Polars LazyFrame",
     meta: "119.4k rows · 0.9s",
     status: "Completed",
     badgeClass: "bg-[#ECFDF5] text-[#059669]",
-    Logo: PolarsLogo,
+    icon: <PolarsLogo size={18} />,
   },
   {
     name: "3. DuckDB Spill Gate",
     meta: "98.2k rows · 78%",
     status: "Running",
     badgeClass: "bg-[#F0F9FF] text-[#0284C7]",
-    Logo: DuckDBLogo,
+    icon: (
+      <span className="inline-flex items-center justify-center w-[20px] h-[20px] rounded-full bg-slate-900 p-0.5 shrink-0">
+        <DuckDBLogo size={14} />
+      </span>
+    ),
   },
   {
     name: "4. MinIO SHA-256",
     meta: "Multipart >= 25MB",
     status: "Queued",
     badgeClass: "bg-[#F1F5F9] text-[#64748B]",
-    Logo: MinIOLogo,
+    icon: <MinIOLogo size={18} />,
   },
 ];
 
@@ -163,6 +202,7 @@ export function DashboardPreview() {
   const [activeNav, setActiveNav] = useState<SidebarSectionKey>("dashboard");
 
   const activeTeam = TEAMS[teamIdx];
+  const TeamIcon = activeTeam.icon;
   const cycleTeam = () => setTeamIdx((prev) => (prev + 1) % TEAMS.length);
 
   const navGroups: {
@@ -217,16 +257,14 @@ export function DashboardPreview() {
           <XetherBrandMark size={24} variant="light" />
           <span className="text-slate-300 font-mono text-sm">/</span>
 
-          {/* Organization Switcher */}
+          {/* Organization Switcher (Real Cloud-Prism Logo) */}
           <button
             type="button"
             onClick={cycleTeam}
             title="Switch organization"
             className="inline-flex items-center gap-1.5 rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1 hover:bg-slate-100 transition-colors"
           >
-            <span className="inline-flex items-center justify-center w-[18px] h-[18px] rounded bg-slate-900 text-white text-[9px] font-bold">
-              XC
-            </span>
+            <XetherCloudLogo size={18} />
             <span className="text-xs font-semibold text-slate-900">xether-cloud</span>
             <span className="hidden sm:inline rounded px-1.5 py-0.5 text-[9px] font-mono bg-slate-200/75 text-slate-600">
               Enterprise
@@ -236,15 +274,17 @@ export function DashboardPreview() {
 
           <span className="text-slate-300 font-mono text-sm">/</span>
 
-          {/* Team Switcher */}
+          {/* Team Switcher (Vector Team Icon Badge) */}
           <button
             type="button"
             onClick={cycleTeam}
             title="Switch team"
             className="inline-flex items-center gap-1.5 rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1 hover:bg-slate-100 transition-colors"
           >
-            <span className="inline-flex items-center justify-center w-[18px] h-[18px] rounded bg-[#4F46E5] text-white text-[9px] font-bold">
-              {activeTeam.initials}
+            <span
+              className={`inline-flex items-center justify-center w-[18px] h-[18px] rounded text-white ${activeTeam.badgeBg}`}
+            >
+              <TeamIcon className="w-2.5 h-2.5" aria-hidden="true" />
             </span>
             <span className="text-xs font-semibold text-slate-900">{activeTeam.label}</span>
             <span className="hidden sm:inline rounded px-1.5 py-0.5 text-[9px] font-mono bg-[#EEF2FF] text-[#4F46E5]">
@@ -271,7 +311,7 @@ export function DashboardPreview() {
           </button>
         </div>
 
-        {/* Right Utility Bar */}
+        {/* Right Utility Bar with Real User Avatar Photo */}
         <div className="flex items-center gap-2">
           <div className="hidden lg:flex items-center justify-between w-52 h-8 px-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-500">
             <span className="inline-flex items-center gap-1.5 truncate">
@@ -295,9 +335,13 @@ export function DashboardPreview() {
           >
             <HelpCircle className="w-3.5 h-3.5" />
           </span>
-          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-900 text-white text-[10px] font-bold">
-            MP
-          </span>
+          <Image
+            src="/images/avatars/cameron-williamson.png"
+            alt="Workspace operator avatar"
+            width={32}
+            height={32}
+            className="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200 shrink-0"
+          />
         </div>
       </div>
 
@@ -306,18 +350,34 @@ export function DashboardPreview() {
         {/* Detailed Scrollable Light Sidebar */}
         <aside className="hidden lg:flex flex-col justify-between border-r border-slate-200 bg-slate-50 p-3.5 max-h-[675px] dashboard-sidebar-scroller">
           <div className="space-y-4">
-            {/* Active Team Card */}
+            {/* Active Team Card with Real Avatar Stack */}
             <button
               type="button"
               onClick={cycleTeam}
               className="w-full flex items-center justify-between gap-2 rounded-lg bg-white border border-slate-200 px-2.5 py-2 hover:border-slate-300 transition-colors text-left"
             >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-[#4F46E5] text-white text-[10px] font-bold shrink-0">
-                  {activeTeam.initials}
-                </span>
-                <div className="min-w-0">
+              <div className="min-w-0 space-y-1">
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className={`inline-flex items-center justify-center w-5 h-5 rounded text-white shrink-0 ${activeTeam.badgeBg}`}
+                  >
+                    <TeamIcon className="w-3 h-3" aria-hidden="true" />
+                  </span>
                   <p className="text-xs font-bold text-slate-900 truncate">{activeTeam.label}</p>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="flex -space-x-1.5 shrink-0">
+                    {MEMBER_AVATARS.map((av) => (
+                      <Image
+                        key={av.alt}
+                        src={av.src}
+                        alt={av.alt}
+                        width={16}
+                        height={16}
+                        className="w-4 h-4 rounded-full object-cover ring-1 ring-white"
+                      />
+                    ))}
+                  </div>
                   <p className="text-[10px] text-slate-500 truncate">
                     {activeTeam.members} members · {activeTeam.plan}
                   </p>
@@ -477,32 +537,29 @@ export function DashboardPreview() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {PIPELINE_STAGES.map((stage) => {
-                  const StageLogo = stage.Logo;
-                  return (
-                    <div
-                      key={stage.name}
-                      className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-2.5 flex items-center justify-between gap-2"
-                    >
-                      <div className="flex items-center gap-2 min-w-0">
-                        <StageLogo size={18} />
-                        <div className="min-w-0">
-                          <p className="text-[11px] font-semibold text-slate-900 truncate">
-                            {stage.name}
-                          </p>
-                          <p className="text-[9px] font-mono text-slate-500 truncate">
-                            {stage.meta}
-                          </p>
-                        </div>
+                {PIPELINE_STAGES.map((stage) => (
+                  <div
+                    key={stage.name}
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-2.5 flex items-center justify-between gap-2"
+                  >
+                    <div className="flex items-center gap-2 min-w-0">
+                      {stage.icon}
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-semibold text-slate-900 truncate">
+                          {stage.name}
+                        </p>
+                        <p className="text-[9px] font-mono text-slate-500 truncate">
+                          {stage.meta}
+                        </p>
                       </div>
-                      <span
-                        className={`text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded shrink-0 ${stage.badgeClass}`}
-                      >
-                        {stage.status}
-                      </span>
                     </div>
-                  );
-                })}
+                    <span
+                      className={`text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded shrink-0 ${stage.badgeClass}`}
+                    >
+                      {stage.status}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
