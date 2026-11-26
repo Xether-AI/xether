@@ -71,7 +71,6 @@ function post<T>(endpoint: string, data?: unknown): Promise<T> {
   })
 }
 
-export { BackendApiError }
 export type { Artifact, Dataset, DatasetVersion, Pipeline, PipelineExecution, Project, Team, UploadURLRequest, UploadURLResponse }
 
 export const backendApi = {
