@@ -4,8 +4,6 @@
 
 /* ─── Design Tokens (Tailwind v4 @theme) ─────────────────────────────────── */
 @theme {
-  /* Typography — NOTE: @theme cannot use var() references in Tailwind v4.
-     Font is applied directly on body below using the Next.js runtime variable. */
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
@@ -19,31 +17,31 @@
 
 /* ─── Dark mode (default) ─────────────────────────────────────────────────── */
 :root {
-  --background: oklch(0.13 0.028 261.692);
-  --foreground: #e7eceb;
+  --background: #0b0f17;
+  --foreground: #ecf2f0;
 
   color-scheme: dark;
 
-  --muted: #1e2426;
-  --muted-foreground: #9aa6a3;
+  --muted: #1b2433;
+  --muted-foreground: #94a3b8;
 
-  --card: #12171b;
-  --card-foreground: #e7eceb;
+  --card: #111722;
+  --card-foreground: #ecf2f0;
 
-  --popover: #0f1211;
-  --popover-foreground: #e7eceb;
+  --popover: #0e141f;
+  --popover-foreground: #ecf2f0;
 
-  /* Primary: pale green */
+  /* Primary: luminous mint */
   --primary: #78fcd6;
-  --primary-foreground: #0d0f0e;
+  --primary-foreground: #091015;
 
-  --secondary: #e7eceb;
-  --secondary-foreground: #141a18;
+  --secondary: #ecf2f0;
+  --secondary-foreground: #0b0f17;
 
-  --accent: #1f292e;
-  --accent-foreground: #f4f4f5;
+  --accent: #161e2c;
+  --accent-foreground: #ecf2f0;
 
-  --border: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.09);
   --ring: #78fcd6;
 }
 
@@ -85,6 +83,8 @@
 }
 
 html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -92,7 +92,6 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  /* Apply SN Pro: --font-sn-pro is injected at runtime by Next.js localFont */
   font-family:
     var(--font-sn-pro),
     ui-sans-serif,
@@ -176,6 +175,127 @@ body {
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+/* ─── Floating Translucent Pill Navbar ───────────────────────────────────── */
+.floating-nav-container {
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  pointer-events: none;
+  container-type: scroll-state;
+  container-name: floating-navbar;
+}
+
+.floating-nav-pill {
+  pointer-events: auto;
+  background-color: color-mix(in srgb, #0d1420 62%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(120, 252, 214, 0.22);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.light .floating-nav-pill {
+  background-color: color-mix(in srgb, #ffffff 74%, transparent);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.floating-nav-pill[data-scrolled="true"] {
+  background-color: color-mix(in srgb, #0d1420 80%, transparent);
+  border-color: rgba(120, 252, 214, 0.34);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.56);
+}
+
+.light .floating-nav-pill[data-scrolled="true"] {
+  background-color: color-mix(in srgb, #ffffff 88%, transparent);
+  border-color: rgba(14, 165, 122, 0.3);
+}
+
+@container floating-navbar scroll-state(stuck: top) {
+  .floating-nav-pill {
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.52);
+  }
+}
+
+/* ─── Light Dashboard Scrollable Sidebar Affordance Hints ────────────────── */
+.dashboard-sidebar-scroller {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  container-type: scroll-state;
+}
+
+.dashboard-sidebar-scroller::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dashboard-sidebar-scroller::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.dashboard-sidebar-scroller::before,
+.dashboard-sidebar-scroller::after {
+  content: "";
+  display: block;
+  position: sticky;
+  height: 0.75rem;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dashboard-sidebar-scroller::before {
+  top: 0;
+  margin-bottom: -0.75rem;
+  background: radial-gradient(farthest-side at 50% 0, rgba(15, 23, 42, 0.12), transparent);
+}
+
+.dashboard-sidebar-scroller::after {
+  bottom: 0;
+  margin-top: -0.75rem;
+  background: radial-gradient(farthest-side at 50% 100%, rgba(15, 23, 42, 0.12), transparent);
+}
+
+@container scroll-state(scrollable: block-start) {
+  .dashboard-sidebar-scroller::before {
+    opacity: 1;
+  }
+}
+
+@container scroll-state(scrollable: block-end) {
+  .dashboard-sidebar-scroller::after {
+    opacity: 1;
+  }
+}
+
+@supports not (container-type: scroll-state) {
+  @keyframes show-sidebar-scroll-shadow {
+    to {
+      opacity: 1;
+    }
+  }
+  .dashboard-sidebar-scroller::before,
+  .dashboard-sidebar-scroller::after {
+    animation: show-sidebar-scroll-shadow linear both;
+    animation-timeline: scroll();
+  }
+  .dashboard-sidebar-scroller::before {
+    animation-range: 0 1.5rem;
+  }
+  .dashboard-sidebar-scroller::after {
+    animation-direction: reverse;
+    animation-range: calc(100% - 1.5rem) 100%;
+  }
 }
 
 /* ─── Scrollbar styling ───────────────────────────────────────────────────── */

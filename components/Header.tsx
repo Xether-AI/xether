@@ -2,9 +2,30 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import {
+  BookOpen,
+  Cpu,
+  CreditCard,
+  Layers,
+  LogIn,
+  Menu,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { XetherBrandMark } from "./BrandLogos";
+
+const navItems = [
+  { name: "Platform", href: "/#features-section", icon: Layers },
+  { name: "Architecture", href: "/#architecture-section", icon: Cpu },
+  { name: "Pricing", href: "/#pricing-section", icon: CreditCard },
+  {
+    name: "Docs",
+    href: "https://docs.xether.ai",
+    icon: BookOpen,
+    external: true,
+  },
+];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,93 +33,141 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 18);
     };
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { name: "Features", href: "#features-section" },
-    { name: "Pricing", href: "#pricing-section" },
-    { name: "Docs", href: "https://docs.xether.ai" },
-  ];
-
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "py-3 bg-background/85 backdrop-blur-md border-b border-border"
-          : "py-5 bg-transparent"
-      }`}
-    >
-      <div className="container-center flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 group">
-          <span className="text-xl font-bold tracking-tight">
-            Xether{" "}
-            <span className="text-primary group-hover:animate-pulse">AI</span>
-          </span>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              {item.name}
-            </Link>
-          ))}
-          <div className="h-4 w-px bg-border mx-2" />
-          <ThemeToggle />
-          <Link href="/login">
-            <Button
-              size="sm"
-              className="rounded-full px-5 bg-secondary text-secondary-foreground hover:bg-secondary/90"
-            >
-              Sign In
-            </Button>
-          </Link>
-        </nav>
-
-        {/* Mobile Toggle */}
-        <div className="flex items-center gap-4 md:hidden">
-          <ThemeToggle />
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-foreground"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[64px] bg-background/95 backdrop-blur-md z-40 p-6 flex flex-col gap-6 overflow-y-auto md:hidden animate-in slide-in-from-top duration-300">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-2xl font-semibold hover:text-primary transition-colors text-foreground"
-            >
-              {item.name}
-            </Link>
-          ))}
+    <>
+      <header className="floating-nav-container px-4 sm:px-6">
+        <div
+          data-scrolled={isScrolled ? "true" : "false"}
+          className="floating-nav-pill max-w-[1120px] mx-auto h-16 px-4 sm:px-5 rounded-full flex items-center justify-between gap-4"
+        >
+          {/* Left: Geometric Brand Mark + Wordmark */}
           <Link
-            href="/login"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="mt-auto"
+            href="/"
+            className="flex items-center gap-2.5 shrink-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full pr-1"
           >
-            <Button className="w-full py-6 text-lg rounded-xl">
-              Get Started
-            </Button>
+            <XetherBrandMark size={28} />
+            <span className="text-lg font-bold tracking-tight text-foreground">
+              Xether{" "}
+              <span className="text-primary group-hover:opacity-90 transition-opacity">
+                AI
+              </span>
+            </span>
           </Link>
+
+          {/* Center: Compact Navigation with Icons */}
+          <nav
+            className="hidden lg:flex items-center gap-6"
+            aria-label="Primary navigation"
+          >
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              if (item.external) {
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <Icon className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+                    <span>{item.name}</span>
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Icon className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right: Theme Toggle + Auth Action Pills */}
+          <div className="hidden md:flex items-center gap-2.5 shrink-0">
+            <ThemeToggle />
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium bg-[#131C2B]/75 border border-[#2D3F58] text-foreground hover:bg-[#1A263A] hover:border-primary/40 transition-all"
+            >
+              <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>Sign In</span>
+            </Link>
+            <Link
+              href="/signup"
+              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/15 transition-all"
+            >
+              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>Start Free</span>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Controls */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isMobileMenuOpen}
+              className="p-2 rounded-full text-foreground hover:bg-white/10 transition-colors"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Floating Drawer */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-x-4 top-22 z-40 rounded-2xl bg-[#0D1420]/95 backdrop-blur-xl border border-primary/20 p-5 flex flex-col gap-3 shadow-2xl md:hidden">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-medium text-foreground hover:bg-white/5 hover:text-primary transition-colors"
+              >
+                <Icon className="w-4 h-4 text-primary" aria-hidden="true" />
+                <span>{item.name}</span>
+              </Link>
+            );
+          })}
+          <div className="h-px bg-border my-1" />
+          <div className="grid grid-cols-2 gap-2.5">
+            <Link
+              href="/login"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="inline-flex items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-medium bg-[#131C2B] border border-[#2D3F58] text-foreground"
+            >
+              <LogIn className="w-4 h-4" aria-hidden="true" />
+              <span>Sign In</span>
+            </Link>
+            <Link
+              href="/signup"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="inline-flex items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-bold bg-primary text-primary-foreground"
+            >
+              <Sparkles className="w-4 h-4" aria-hidden="true" />
+              <span>Start Free</span>
+            </Link>
+          </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
