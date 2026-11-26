@@ -1,3 +1,5 @@
+import { safeRelativeRedirect } from '@/lib/security/redirect'
+
 import { apiFetch } from '@/lib/api/fetcher'
 import type {
   ApiOk,
@@ -19,7 +21,6 @@ export const api = {
   submitEmailCapture(payload: EmailCapturePayload) {
     return apiFetch<ApiOk>('/api/forms/cta', { method: 'POST', body: payload })
   },
-
   login(payload: AuthLoginPayload) {
     return apiFetch<ApiOk>('/api/auth/login', { method: 'POST', body: payload })
   },
@@ -34,3 +35,4 @@ export const api = {
   },
 }
 
+export { safeRelativeRedirect }
