@@ -1,237 +1,452 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Activity,
-  CheckCircle2,
+  BarChart2,
+  Bell,
+  ChevronsUpDown,
+  CreditCard,
   Database,
-  FolderGit2,
+  FileText,
+  Folder,
   GitBranch,
-  GitCommitHorizontal,
-  Layers,
+  HelpCircle,
+  Key,
+  LayoutDashboard,
   Lock,
-  Play,
+  Network,
+  Plug,
+  Plus,
   Search,
+  Settings,
   ShieldCheck,
-  Sparkles,
-  Workflow,
+  Terminal,
+  Users,
 } from "lucide-react";
+import {
+  AmazonS3Logo,
+  DuckDBLogo,
+  MinIOLogo,
+  NatsLogo,
+  PolarsLogo,
+  PostgresLogo,
+  PrefectLogo,
+  SnowflakeLogo,
+  XetherBrandMark,
+} from "./BrandLogos";
 
-type TabId = "overview" | "pipelines" | "datasets";
+type SidebarSectionKey =
+  | "dashboard"
+  | "pipelines"
+  | "datasets"
+  | "connectors"
+  | "telemetry"
+  | "logs"
+  | "usage"
+  | "team"
+  | "keys"
+  | "security"
+  | "audit"
+  | "billing"
+  | "settings";
 
-const kpis = [
+const TEAMS = [
+  { id: "acme-ml", label: "acme-ml", initials: "AM", members: 11, plan: "Pro Team", project: "churn-v4" },
+  { id: "core-data", label: "core-data", initials: "CD", members: 24, plan: "Enterprise", project: "lakehouse-ingest" },
+  { id: "sandbox-lab", label: "sandbox-lab", initials: "SL", members: 3, plan: "Sandbox", project: "eval-runs" },
+];
+
+const KPIS = [
   {
     label: "Active Datasets",
     value: "148",
-    delta: "+12 this week",
+    delta: "+12 this wk",
     icon: Database,
-    color: "text-emerald-500 bg-emerald-500/15 border-emerald-500/25",
+    iconBg: "bg-[#F0FDFA] text-[#0D9488]",
+    deltaColor: "text-[#0D9488]",
   },
   {
     label: "Data Quality Score",
     value: "99.4%",
-    delta: "+1.8% vs baseline",
+    delta: "0 breaks",
     icon: ShieldCheck,
-    color: "text-primary bg-primary/15 border-primary/25",
+    iconBg: "bg-[#ECFDF5] text-[#059669]",
+    deltaColor: "text-[#059669]",
   },
   {
-    label: "Rows Processed (24h)",
+    label: "Rows Streamed (24h)",
     value: "42.8M",
-    delta: "12.4k rows/sec",
+    delta: "Zero-OOM",
     icon: Activity,
-    color: "text-sky-500 bg-sky-500/15 border-sky-500/25",
+    iconBg: "bg-[#F0F9FF] text-[#0284C7]",
+    deltaColor: "text-[#0284C7]",
   },
   {
-    label: "Anomalies Auto-Fixed",
-    value: "1,420",
-    delta: "0 schema breaks",
-    icon: Sparkles,
-    color: "text-amber-500 bg-amber-500/15 border-amber-500/25",
+    label: "SHA-256 Verified",
+    value: "100%",
+    delta: "Multipart",
+    icon: Lock,
+    iconBg: "bg-[#FFFBEB] text-[#D97706]",
+    deltaColor: "text-[#D97706]",
   },
 ];
 
-const pipelineStages = [
-  { name: "S3 + Kafka Ingest", status: "Completed", duration: "1.2s", rows: "120k" },
-  { name: "Outlier & Null Guard", status: "Completed", duration: "0.9s", rows: "119.4k" },
-  { name: "Schema v2.4 Gate", status: "Running", duration: "0.4s", rows: "98.2k" },
-  { name: "Immutable Snapshot", status: "Queued", duration: "—", rows: "—" },
+const PIPELINE_STAGES = [
+  {
+    name: "1. S3 + PG Watermark",
+    meta: "120k rows · 1.2s",
+    status: "Completed",
+    badgeClass: "bg-[#ECFDF5] text-[#059669]",
+    Logo: PostgresLogo,
+  },
+  {
+    name: "2. Polars LazyFrame",
+    meta: "119.4k rows · 0.9s",
+    status: "Completed",
+    badgeClass: "bg-[#ECFDF5] text-[#059669]",
+    Logo: PolarsLogo,
+  },
+  {
+    name: "3. DuckDB Spill Gate",
+    meta: "98.2k rows · 78%",
+    status: "Running",
+    badgeClass: "bg-[#F0F9FF] text-[#0284C7]",
+    Logo: DuckDBLogo,
+  },
+  {
+    name: "4. MinIO SHA-256",
+    meta: "Multipart >= 25MB",
+    status: "Queued",
+    badgeClass: "bg-[#F1F5F9] text-[#64748B]",
+    Logo: MinIOLogo,
+  },
 ];
 
-const datasets = [
+const SNAPSHOTS = [
   {
     name: "customer_churn_prod",
+    meta: "main · sha:9f3a8c1",
     version: "v2.3.0",
-    branch: "main",
-    rows: "44,820",
+    rows: "44,820 rows",
     quality: "99.8%",
-    hash: "9f3a8c1",
     status: "Verified",
+    statusClass: "bg-[#ECFDF5] text-[#059669]",
+    Logo: PostgresLogo,
   },
   {
     name: "fraud_events_stream",
+    meta: "feat/dedup · sha:4b12e09",
     version: "v1.9.4",
-    branch: "feat/dedup",
-    rows: "1,284,100",
+    rows: "1,284,100 rows",
     quality: "99.2%",
-    hash: "4b12e09",
     status: "Syncing",
+    statusClass: "bg-[#F0F9FF] text-[#0284C7]",
+    Logo: SnowflakeLogo,
   },
   {
     name: "clinical_synth_twin",
+    meta: "dp-eps-0.8 · sha:7d81f44",
     version: "v3.0.1",
-    branch: "dp-eps-0.8",
-    rows: "100,000",
+    rows: "100,000 rows",
     quality: "98.9%",
-    hash: "7d81f44",
     status: "Protected",
+    statusClass: "bg-[#F0FDFA] text-[#0D9488]",
+    Logo: AmazonS3Logo,
   },
 ];
 
-const chartBars = [42, 58, 51, 74, 68, 82, 79, 91, 86, 95, 92, 99];
+const QUALITY_BARS = [42, 56, 50, 72, 65, 81, 76, 89, 84, 96, 91, 99];
 
 export function DashboardPreview() {
-  const [activeTab, setActiveTab] = useState<TabId>("overview");
+  const [teamIdx, setTeamIdx] = useState(0);
+  const [activeNav, setActiveNav] = useState<SidebarSectionKey>("dashboard");
 
-  const navItems: { id: TabId; label: string; icon: typeof Layers }[] = [
-    { id: "overview", label: "Overview", icon: Layers },
-    { id: "pipelines", label: "Pipelines", icon: Workflow },
-    { id: "datasets", label: "Datasets", icon: FolderGit2 },
+  const activeTeam = TEAMS[teamIdx];
+  const cycleTeam = () => setTeamIdx((prev) => (prev + 1) % TEAMS.length);
+
+  const navGroups: {
+    title: string;
+    items: {
+      id: SidebarSectionKey;
+      label: string;
+      icon: React.ComponentType<{ className?: string }>;
+      badge?: string;
+      liveDot?: boolean;
+      logos?: boolean;
+    }[];
+  }[] = [
+    {
+      title: "OVERVIEW",
+      items: [{ id: "dashboard", label: "Dashboard", icon: LayoutDashboard }],
+    },
+    {
+      title: "RESOURCES",
+      items: [
+        { id: "pipelines", label: "Pipelines", icon: Network, badge: "7" },
+        { id: "datasets", label: "Datasets", icon: Database, badge: "24" },
+        { id: "connectors", label: "Connectors", icon: Plug, logos: true },
+        { id: "telemetry", label: "Live Telemetry (SSE)", icon: Activity, liveDot: true },
+      ],
+    },
+    {
+      title: "OBSERVABILITY",
+      items: [
+        { id: "logs", label: "Logs & Traces", icon: Terminal },
+        { id: "usage", label: "Usage & Quotas", icon: BarChart2 },
+      ],
+    },
+    {
+      title: "TEAM & GOVERNANCE",
+      items: [
+        { id: "team", label: "Team & Members", icon: Users },
+        { id: "keys", label: "API Keys", icon: Key },
+        { id: "security", label: "Security & FORCE RLS", icon: ShieldCheck },
+        { id: "audit", label: "Audit Logs", icon: FileText },
+        { id: "billing", label: "Billing & Plan", icon: CreditCard },
+        { id: "settings", label: "Settings", icon: Settings },
+      ],
+    },
   ];
 
   return (
-    <div className="w-full max-w-[1260px] mx-auto rounded-2xl border border-border bg-card/95 text-card-foreground shadow-2xl overflow-hidden">
-      {/* App Window Chrome */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-border bg-muted/40">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="hidden sm:flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-rose-500/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-500/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/70" />
-          </div>
-          <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground truncate">
-            <span className="font-semibold text-foreground">xether-cloud</span>
-            <span>/</span>
-            <span className="text-primary font-medium">prod-ml-workspace</span>
-          </div>
+    <div className="w-full max-w-[1220px] mx-auto rounded-2xl border border-slate-300/90 bg-white text-slate-900 shadow-[0_32px_72px_-12px_rgba(0,0,0,0.72)] overflow-hidden">
+      {/* Light-Mode App Top Bar: Org -> Team -> Project Context Switchers */}
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-5 h-auto min-h-[54px] py-2.5 border-b border-slate-200 bg-white">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 min-w-0">
+          <XetherBrandMark size={24} variant="light" />
+          <span className="text-slate-300 font-mono text-sm">/</span>
+
+          {/* Organization Switcher */}
+          <button
+            type="button"
+            onClick={cycleTeam}
+            title="Switch organization"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1 hover:bg-slate-100 transition-colors"
+          >
+            <span className="inline-flex items-center justify-center w-[18px] h-[18px] rounded bg-slate-900 text-white text-[9px] font-bold">
+              XC
+            </span>
+            <span className="text-xs font-semibold text-slate-900">xether-cloud</span>
+            <span className="hidden sm:inline rounded px-1.5 py-0.5 text-[9px] font-mono bg-slate-200/75 text-slate-600">
+              Enterprise
+            </span>
+            <ChevronsUpDown className="w-3 h-3 text-slate-400" aria-hidden="true" />
+          </button>
+
+          <span className="text-slate-300 font-mono text-sm">/</span>
+
+          {/* Team Switcher */}
+          <button
+            type="button"
+            onClick={cycleTeam}
+            title="Switch team"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1 hover:bg-slate-100 transition-colors"
+          >
+            <span className="inline-flex items-center justify-center w-[18px] h-[18px] rounded bg-[#4F46E5] text-white text-[9px] font-bold">
+              {activeTeam.initials}
+            </span>
+            <span className="text-xs font-semibold text-slate-900">{activeTeam.label}</span>
+            <span className="hidden sm:inline rounded px-1.5 py-0.5 text-[9px] font-mono bg-[#EEF2FF] text-[#4F46E5]">
+              Team
+            </span>
+            <ChevronsUpDown className="w-3 h-3 text-slate-400" aria-hidden="true" />
+          </button>
+
+          <span className="hidden md:inline text-slate-300 font-mono text-sm">/</span>
+
+          {/* Project Switcher */}
+          <button
+            type="button"
+            onClick={cycleTeam}
+            title="Switch project"
+            className="hidden md:inline-flex items-center gap-1.5 rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1 hover:bg-slate-100 transition-colors"
+          >
+            <Folder className="w-3.5 h-3.5 text-[#0D9488]" aria-hidden="true" />
+            <span className="text-xs font-semibold text-slate-900">{activeTeam.project}</span>
+            <span className="rounded px-1.5 py-0.5 text-[9px] font-mono bg-[#ECFDF5] text-[#059669]">
+              Prod
+            </span>
+            <ChevronsUpDown className="w-3 h-3 text-slate-400" aria-hidden="true" />
+          </button>
         </div>
 
-        <div className="flex items-center gap-2.5">
-          <div className="hidden md:flex items-center gap-2 rounded-lg border border-border bg-background/70 px-3 py-1.5 text-xs text-muted-foreground w-56">
-            <Search className="h-3.5 w-3.5" />
-            <span className="truncate">Search datasets, runs…</span>
-            <kbd className="ml-auto rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-mono">
+        {/* Right Utility Bar */}
+        <div className="flex items-center gap-2">
+          <div className="hidden lg:flex items-center justify-between w-52 h-8 px-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-500">
+            <span className="inline-flex items-center gap-1.5 truncate">
+              <Search className="w-3.5 h-3.5 text-slate-400" aria-hidden="true" />
+              <span className="text-[11px]">Search workspace…</span>
+            </span>
+            <kbd className="rounded bg-white border border-slate-200 px-1.5 py-0.5 text-[9px] font-mono text-slate-500">
               ⌘K
             </kbd>
           </div>
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-500">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>3 Pipelines Healthy</span>
-          </div>
+          <span
+            className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 relative"
+            aria-hidden="true"
+          >
+            <Bell className="w-3.5 h-3.5" />
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#059669]" />
+          </span>
+          <span
+            className="hidden sm:inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600"
+            aria-hidden="true"
+          >
+            <HelpCircle className="w-3.5 h-3.5" />
+          </span>
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-900 text-white text-[10px] font-bold">
+            MP
+          </span>
         </div>
       </div>
 
-      {/* App Body */}
-      <div className="grid grid-cols-1 lg:grid-cols-[210px_1fr]">
-        {/* Sidebar */}
-        <aside className="hidden lg:flex flex-col justify-between border-r border-border bg-muted/20 p-4">
-          <div className="space-y-1">
-            <p className="px-2.5 pb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Platform
-            </p>
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs font-medium transition-colors ${
-                    isActive
-                      ? "bg-primary/15 text-primary border border-primary/25"
-                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                  }`}
-                >
-                  <Icon className="h-4 w-4 shrink-0" />
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-            <div className="pt-3 mt-3 border-t border-border space-y-1">
-              <div className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs text-muted-foreground">
-                <Sparkles className="h-4 w-4 text-violet-500" />
-                <span>Synthetic Engine</span>
+      {/* App Body: Scrollable Sidebar + Main Workspace */}
+      <div className="grid grid-cols-1 lg:grid-cols-[244px_1fr]">
+        {/* Detailed Scrollable Light Sidebar */}
+        <aside className="hidden lg:flex flex-col justify-between border-r border-slate-200 bg-slate-50 p-3.5 max-h-[675px] dashboard-sidebar-scroller">
+          <div className="space-y-4">
+            {/* Active Team Card */}
+            <button
+              type="button"
+              onClick={cycleTeam}
+              className="w-full flex items-center justify-between gap-2 rounded-lg bg-white border border-slate-200 px-2.5 py-2 hover:border-slate-300 transition-colors text-left"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-[#4F46E5] text-white text-[10px] font-bold shrink-0">
+                  {activeTeam.initials}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-slate-900 truncate">{activeTeam.label}</p>
+                  <p className="text-[10px] text-slate-500 truncate">
+                    {activeTeam.members} members · {activeTeam.plan}
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs text-muted-foreground">
-                <Lock className="h-4 w-4 text-amber-500" />
-                <span>RBAC &amp; Audit</span>
-              </div>
-            </div>
+              <ChevronsUpDown className="w-3.5 h-3.5 text-slate-400 shrink-0" aria-hidden="true" />
+            </button>
+
+            {/* Navigation Groups */}
+            <nav className="space-y-3.5" aria-label="Workspace preview navigation">
+              {navGroups.map((group) => (
+                <div key={group.title} className="space-y-1">
+                  <p className="px-2 text-[9px] font-mono font-semibold uppercase tracking-wider text-slate-400">
+                    {group.title}
+                  </p>
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeNav === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => setActiveNav(item.id)}
+                        className={`w-full flex items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-[11px] transition-colors ${
+                          isActive
+                            ? "bg-white border border-slate-200 font-semibold text-slate-900 shadow-xs"
+                            : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 font-medium"
+                        }`}
+                      >
+                        <span className="inline-flex items-center gap-2 min-w-0">
+                          <Icon
+                            className={`w-3.5 h-3.5 shrink-0 ${
+                              isActive ? "text-[#0D9488]" : "text-slate-500"
+                            }`}
+                          />
+                          <span className="truncate">{item.label}</span>
+                        </span>
+                        {item.badge && (
+                          <span className="rounded bg-slate-200/80 px-1.5 py-0.5 text-[9px] font-mono text-slate-600">
+                            {item.badge}
+                          </span>
+                        )}
+                        {item.liveDot && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#059669]" />
+                        )}
+                        {item.logos && (
+                          <span className="inline-flex items-center gap-1">
+                            <AmazonS3Logo size={11} />
+                            <PostgresLogo size={11} />
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
+            </nav>
           </div>
 
-          <div className="rounded-xl border border-border bg-background/60 p-3 space-y-1.5">
+          {/* Storage Quota Meter */}
+          <div className="mt-4 rounded-lg bg-white border border-slate-200 p-3 space-y-1.5">
             <div className="flex items-center justify-between text-[11px]">
-              <span className="text-muted-foreground">Storage Quota</span>
-              <span className="font-mono font-medium text-foreground">64%</span>
+              <span className="font-semibold text-slate-700">Storage Quota</span>
+              <span className="font-mono font-semibold text-[#0D9488]">64%</span>
             </div>
-            <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
-              <div className="h-full w-[64%] rounded-full bg-primary" />
+            <div className="h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
+              <div className="h-full w-[64%] rounded-full bg-[#0D9488]" />
             </div>
-            <p className="text-[10px] text-muted-foreground">
-              320 GB / 500 GB used
+            <p className="text-[10px] font-mono text-slate-500">
+              320 GiB / 500 GiB · {activeTeam.plan}
             </p>
           </div>
         </aside>
 
-        {/* Main Workspace */}
-        <div className="p-4 sm:p-6 space-y-5 bg-background/40">
-          {/* Mobile Tab Switcher */}
-          <div className="flex lg:hidden items-center gap-2 overflow-x-auto pb-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setActiveTab(item.id)}
-                  className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium shrink-0 transition-colors ${
-                    isActive
-                      ? "bg-primary/15 text-primary border border-primary/25"
-                      : "bg-muted/50 text-muted-foreground border border-border"
-                  }`}
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
+        {/* Main Light-Mode Workspace Area */}
+        <div className="p-4 sm:p-6 space-y-4 bg-white">
+          {/* Workspace Header Row */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-[10px] font-mono font-medium text-[#0D9488]">
+                xether-cloud / {activeTeam.label} / {activeTeam.project}
+              </p>
+              <h3 className="text-lg font-bold tracking-tight text-slate-900">
+                Team Workspace Overview
+              </h3>
+              <p className="text-[11px] text-slate-500">
+                3 active projects · 7 pipelines running · All systems operational
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#ECFDF5] border border-[#A7F3D0] px-2.5 py-1.5 text-[11px] font-semibold text-[#059669]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#059669]" />
+                <span>System Healthy</span>
+              </span>
+              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-[11px] font-semibold text-slate-700">
+                <ShieldCheck className="w-3.5 h-3.5 text-slate-600" aria-hidden="true" />
+                <span>FORCE RLS Active</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 text-white px-3 py-1.5 text-[11px] font-semibold shadow-xs">
+                <Plus className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>New Pipeline</span>
+              </span>
+            </div>
           </div>
 
           {/* KPI Grid */}
-          <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
-            {kpis.map((kpi) => {
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-3.5">
+            {KPIS.map((kpi) => {
               const Icon = kpi.icon;
               return (
                 <div
                   key={kpi.label}
-                  className="rounded-xl border border-border bg-card p-3.5 sm:p-4 space-y-2"
+                  className="rounded-xl border border-slate-200 bg-white p-3.5 space-y-2.5 text-left"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] sm:text-xs font-medium text-muted-foreground truncate">
+                    <span className="text-[11px] font-medium text-slate-500 truncate">
                       {kpi.label}
                     </span>
                     <span
-                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border ${kpi.color}`}
+                      className={`inline-flex items-center justify-center w-6 h-6 rounded-md ${kpi.iconBg}`}
                     >
-                      <Icon className="h-3.5 w-3.5" />
+                      <Icon className="w-3.5 h-3.5" aria-hidden="true" />
                     </span>
                   </div>
                   <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                    <span className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
                       {kpi.value}
                     </span>
-                    <span className="text-[10px] sm:text-[11px] font-mono text-primary truncate">
+                    <span className={`text-[10px] font-mono font-semibold ${kpi.deltaColor}`}>
                       {kpi.delta}
                     </span>
                   </div>
@@ -240,162 +455,147 @@ export function DashboardPreview() {
             })}
           </div>
 
-          {/* Middle Row: Live Pipeline DAG + Quality Trend */}
-          {(activeTab === "overview" || activeTab === "pipelines") && (
-            <div className="grid grid-cols-1 xl:grid-cols-[1.35fr_1fr] gap-4">
-              {/* Active Pipeline Execution */}
-              <div className="rounded-xl border border-border bg-card p-4 space-y-3.5">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                      <Play className="h-3.5 w-3.5" />
-                    </span>
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-semibold text-foreground">
-                        churn_training_prep_v4
-                      </h3>
-                      <p className="text-[11px] font-mono text-muted-foreground">
-                        run_8f2a9c • triggered by schedule
-                      </p>
-                    </div>
+          {/* Middle Row: Live Prefect 3 / Polars / DuckDB Execution + Quality Index */}
+          <div className="grid grid-cols-1 xl:grid-cols-[1.45fr_1fr] gap-4 items-stretch">
+            <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 text-left">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-2.5">
+                  <PrefectLogo size={24} />
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900">
+                      churn_training_prep_v4
+                    </h4>
+                    <p className="text-[10px] font-mono text-slate-500">
+                      run_8f2a9c · Prefect 3 Worker · SSE Live
+                    </p>
                   </div>
-                  <span className="rounded-full border border-sky-500/25 bg-sky-500/10 px-2.5 py-0.5 text-[11px] font-mono text-sky-500">
-                    Stage 3 / 4
-                  </span>
                 </div>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F0F9FF] border border-[#BAE6FD] px-2.5 py-0.5 text-[10px] font-mono font-medium text-[#0284C7]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
+                  <span>Stage 3 / 4</span>
+                </span>
+              </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {pipelineStages.map((stage, idx) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {PIPELINE_STAGES.map((stage) => {
+                  const StageLogo = stage.Logo;
+                  return (
                     <div
                       key={stage.name}
-                      className="rounded-lg border border-border bg-muted/30 px-3 py-2.5 flex items-center justify-between gap-2"
+                      className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-2.5 flex items-center justify-between gap-2"
                     >
                       <div className="flex items-center gap-2 min-w-0">
-                        <CheckCircle2
-                          className={`h-4 w-4 shrink-0 ${
-                            stage.status === "Completed"
-                              ? "text-emerald-500"
-                              : stage.status === "Running"
-                                ? "text-sky-500 animate-pulse"
-                                : "text-muted-foreground/50"
-                          }`}
-                        />
+                        <StageLogo size={18} />
                         <div className="min-w-0">
-                          <p className="text-xs font-medium text-foreground truncate">
-                            {idx + 1}. {stage.name}
+                          <p className="text-[11px] font-semibold text-slate-900 truncate">
+                            {stage.name}
                           </p>
-                          <p className="text-[10px] font-mono text-muted-foreground">
-                            {stage.rows} rows • {stage.duration}
+                          <p className="text-[9px] font-mono text-slate-500 truncate">
+                            {stage.meta}
                           </p>
                         </div>
                       </div>
                       <span
-                        className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                          stage.status === "Completed"
-                            ? "bg-emerald-500/15 text-emerald-500"
-                            : stage.status === "Running"
-                              ? "bg-sky-500/15 text-sky-500"
-                              : "bg-muted text-muted-foreground"
-                        }`}
+                        className={`text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded shrink-0 ${stage.badgeClass}`}
                       >
                         {stage.status}
                       </span>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Quality & Throughput Chart */}
-              <div className="rounded-xl border border-border bg-card p-4 flex flex-col justify-between gap-3">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-semibold text-foreground">
-                      Stream Quality Index
-                    </h3>
-                    <p className="text-[11px] text-muted-foreground">
-                      Last 12 ingestion windows
-                    </p>
-                  </div>
-                  <span className="text-xs font-mono font-semibold text-primary">
-                    99.4% avg
-                  </span>
-                </div>
-
-                <div className="flex items-end gap-1.5 h-28 pt-2">
-                  {chartBars.map((val, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 flex flex-col items-center justify-end h-full"
-                    >
-                      <div
-                        className="w-full rounded-t-sm bg-gradient-to-t from-primary/40 to-primary transition-all"
-                        style={{ height: `${val}%` }}
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground">
-                  <span>12h ago</span>
-                  <span>6h ago</span>
-                  <span className="text-foreground font-medium">Now</span>
-                </div>
+                  );
+                })}
               </div>
             </div>
-          )}
 
-          {/* Dataset Snapshots Table */}
-          {(activeTab === "overview" || activeTab === "datasets") && (
-            <div className="rounded-xl border border-border bg-card overflow-hidden">
-              <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <GitBranch className="h-4 w-4 text-primary" />
-                  <h3 className="text-xs sm:text-sm font-semibold text-foreground">
-                    Recent Versioned Snapshots
-                  </h3>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 flex flex-col justify-between gap-3 text-left">
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900">
+                    Stream Quality Index
+                  </h4>
+                  <p className="text-[10px] text-slate-500">
+                    Last 12 ingestion windows
+                  </p>
                 </div>
-                <span className="text-[11px] font-mono text-muted-foreground">
-                  Git-like Lineage
+                <span className="rounded-md bg-[#F0FDFA] border border-[#99F6E4] px-2 py-0.5 text-[10px] font-mono font-semibold text-[#0D9488]">
+                  99.4% avg
                 </span>
               </div>
 
-              <div className="divide-y divide-border">
-                {datasets.map((ds) => (
+              <div className="rounded-lg bg-slate-50 px-2.5 pt-2 h-24 flex items-end justify-between gap-1.5">
+                {QUALITY_BARS.map((val, idx) => (
+                  <div key={idx} className="flex-1 h-full flex items-end">
+                    <div
+                      className="w-full rounded-t-[3px] bg-gradient-to-t from-[#5EEAD4]/80 to-[#0D9488]"
+                      style={{ height: `${val}%` }}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between text-[10px] font-mono text-slate-500">
+                <span>12h ago</span>
+                <span>6h ago</span>
+                <span className="font-semibold text-slate-900">Now</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Snapshots Table */}
+          <div className="rounded-xl border border-slate-200 bg-white overflow-hidden text-left">
+            <div className="px-4 py-2.5 border-b border-slate-200 bg-slate-50 flex flex-wrap items-center justify-between gap-2">
+              <div className="inline-flex items-center gap-2">
+                <GitBranch className="w-3.5 h-3.5 text-[#0D9488]" aria-hidden="true" />
+                <h4 className="text-xs font-bold text-slate-900">
+                  Recent Versioned Snapshots
+                </h4>
+              </div>
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-white border border-slate-200 px-2 py-0.5 text-[10px] font-mono text-slate-700">
+                <NatsLogo size={13} />
+                <span>NATS JetStream Synced</span>
+              </span>
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {SNAPSHOTS.map((snap) => {
+                const SnapLogo = snap.Logo;
+                return (
                   <div
-                    key={ds.name}
-                    className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs hover:bg-muted/30 transition-colors"
+                    key={snap.name}
+                    className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs hover:bg-slate-50/70 transition-colors"
                   >
-                    <div className="flex items-center gap-2.5 min-w-[180px]">
-                      <GitCommitHorizontal className="h-4 w-4 text-primary shrink-0" />
+                    <div className="flex items-center gap-2.5 min-w-[200px]">
+                      <SnapLogo size={18} />
                       <div>
-                        <p className="font-mono font-medium text-foreground">
-                          {ds.name}
+                        <p className="font-mono font-semibold text-slate-900 text-[11px]">
+                          {snap.name}
                         </p>
-                        <p className="text-[10px] font-mono text-muted-foreground">
-                          branch: {ds.branch} • sha:{ds.hash}
+                        <p className="font-mono text-slate-500 text-[10px]">
+                          {snap.meta}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3 sm:gap-5 font-mono text-[11px]">
-                      <span className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-foreground">
-                        {ds.version}
+                    <div className="flex items-center gap-3 sm:gap-5 font-mono text-[10px]">
+                      <span className="rounded-md bg-slate-50 border border-slate-200 px-2 py-0.5 text-slate-700">
+                        {snap.version}
                       </span>
-                      <span className="hidden sm:inline text-muted-foreground">
-                        {ds.rows} rows
+                      <span className="hidden sm:inline text-slate-500">
+                        {snap.rows}
                       </span>
-                      <span className="text-primary font-medium">
-                        {ds.quality}
+                      <span className="font-semibold text-[#0D9488]">
+                        {snap.quality}
                       </span>
-                      <span className="rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-500">
-                        {ds.status}
+                      <span
+                        className={`rounded-full px-2.5 py-0.5 font-semibold ${snap.statusClass}`}
+                      >
+                        {snap.status}
                       </span>
                     </div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
