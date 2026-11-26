@@ -1,23 +1,47 @@
-import Image from "next/image"
+import React from "react";
+import {
+  DatabricksLogo,
+  HuggingFaceLogo,
+  OpenAILogo,
+  SnowflakeLogo,
+  StripeLogo,
+  VercelLogo,
+} from "./BrandLogos";
+
+const PARTNERS = [
+  { name: "OpenAI", Logo: OpenAILogo, textClass: "font-semibold text-slate-50" },
+  { name: "databricks", Logo: DatabricksLogo, textClass: "font-bold text-slate-50" },
+  { name: "snowflake", Logo: SnowflakeLogo, textClass: "font-semibold text-sky-100" },
+  { name: "Hugging Face", Logo: HuggingFaceLogo, textClass: "font-bold text-amber-200" },
+  { name: "stripe", Logo: StripeLogo, textClass: "font-bold text-indigo-100" },
+  { name: "Vercel", Logo: VercelLogo, textClass: "font-bold text-white" },
+];
 
 export function SocialProof() {
   return (
-    <section className="self-stretch py-4 md:py-6 flex flex-col justify-center items-center gap-6 overflow-hidden">
-      <div className="text-center text-muted-foreground text-sm font-medium leading-tight">
-        Trusted by fast-growing startups
-      </div>
-      <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 md:gap-10 items-center justify-items-center">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <Image
-            key={i}
-            src={`/logos/social_proofs/logo0${i + 1}.svg`}
-            alt={`Company Logo ${i + 1}`}
-            width={280}
-            height={84}
-            className="w-full max-w-[200px] sm:max-w-[220px] md:max-w-[260px] h-auto object-contain transition-transform duration-200 hover:scale-105"
-          />
-        ))}
+    <section className="w-full py-10 md:py-12 border-y border-white/[0.06] bg-[#0C111A]/85 px-4 sm:px-6">
+      <div className="max-w-[1200px] mx-auto flex flex-col items-center gap-6">
+        <p className="text-center text-[11px] font-mono font-medium tracking-[0.16em] uppercase text-slate-400">
+          Built for modern AI &amp; data infrastructure teams
+        </p>
+
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center justify-items-center">
+          {PARTNERS.map((partner) => {
+            const Logo = partner.Logo;
+            return (
+              <div
+                key={partner.name}
+                className="inline-flex items-center gap-2.5 px-2 py-1 opacity-90 hover:opacity-100 hover:scale-[1.03] transition-all"
+              >
+                <Logo size={24} />
+                <span className={`text-[15px] tracking-tight ${partner.textClass}`}>
+                  {partner.name}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
-  )
+  );
 }
