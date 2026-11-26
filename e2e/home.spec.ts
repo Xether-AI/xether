@@ -15,7 +15,7 @@ test("landing page has title, hero, and interactive dashboard preview", async ({
 
 test("navigation to features section", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: "Features" }).first().click();
+  await page.getByRole("link", { name: "Platform" }).first().click();
   await expect(page).toHaveURL(/.*#features-section/);
 });
 
