@@ -1,175 +1,148 @@
-"use client";
-
+import React from "react";
 import Link from "next/link";
-import { Twitter, Github, Linkedin } from "lucide-react";
+import {
+  Building2,
+  Github,
+  Globe,
+  Layers,
+  ShieldCheck,
+  Twitter,
+} from "lucide-react";
+import { XetherBrandMark } from "./BrandLogos";
+
+const FOOTER_COLUMNS = [
+  {
+    title: "Product",
+    icon: Layers,
+    links: [
+      { label: "Streaming Engine", href: "/#features-section" },
+      { label: "Dataset Versioning", href: "/#architecture-section" },
+      { label: "Connectors", href: "/#architecture-section" },
+      { label: "Pricing", href: "/#pricing-section" },
+    ],
+  },
+  {
+    title: "Platform",
+    icon: ShieldCheck,
+    links: [
+      { label: "FORCE RLS Security", href: "/#architecture-section" },
+      { label: "SSE Telemetry", href: "/#architecture-section" },
+      { label: "API Reference", href: "/api" },
+      { label: "Status", href: "/dashboard" },
+    ],
+  },
+  {
+    title: "Company",
+    icon: Building2,
+    links: [
+      { label: "About", href: "/#features-section" },
+      { label: "Engineering Blog", href: "https://docs.xether.ai", external: true },
+      { label: "Sign In", href: "/login" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+];
 
 export function FooterSection() {
   return (
-    <footer className="w-full max-w-[1320px] mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-start gap-8 md:gap-12 py-8 md:py-12 border-t border-border">
-      {/* Left Section: Logo, Description, Social Links */}
-      <div className="flex flex-col justify-start items-start gap-6 p-2 md:p-4">
-        <Link href="/" className="flex gap-3 items-stretch justify-center">
-          <div className="text-center text-foreground text-xl font-semibold leading-4">
-            Xether <span className="text-primary">AI</span>
+    <footer className="w-full px-4 sm:px-6 pt-10 pb-14">
+      <div className="max-w-[1200px] mx-auto border-t border-white/[0.08] pt-10 space-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-10 items-start">
+          {/* Brand Column */}
+          <div className="space-y-3">
+            <Link href="/" className="inline-flex items-center gap-2.5">
+              <XetherBrandMark size={26} />
+              <span className="text-lg font-bold tracking-tight text-foreground">
+                Xether <span className="text-primary">AI</span>
+              </span>
+            </Link>
+            <p className="text-[13px] text-slate-500 leading-relaxed max-w-[270px]">
+              Data quality as infrastructure. Built for deterministic ML &amp;
+              enterprise governance.
+            </p>
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#0E2921] border border-[#1E5242] px-3 py-1 text-[11px] font-mono text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>All systems operational</span>
+            </div>
           </div>
-        </Link>
-        <p className="text-foreground/90 text-sm font-medium leading-[18px] text-left">
-          Data quality as infrastructure.
-        </p>
-        <div className="flex justify-start items-start gap-4">
-          <a
-            href="https://twitter.com/xetherai"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Twitter className="w-4 h-4" />
-          </a>
-          <a
-            href="https://github.com/xether-ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Github className="w-4 h-4" />
-          </a>
-          <a
-            href="https://linkedin.com/company/xether-ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Linkedin className="w-4 h-4" />
-          </a>
+
+          {/* Link Columns */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+            {FOOTER_COLUMNS.map((col) => {
+              const Icon = col.icon;
+              return (
+                <nav
+                  key={col.title}
+                  aria-label={`${col.title} links`}
+                  className="space-y-3"
+                >
+                  <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground">
+                    <Icon className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+                    <span>{col.title}</span>
+                  </div>
+                  <ul className="space-y-2">
+                    {col.links.map((lnk) => (
+                      <li key={lnk.label}>
+                        {lnk.external ? (
+                          <a
+                            href={lnk.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[13px] text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            {lnk.label}
+                          </a>
+                        ) : (
+                          <Link
+                            href={lnk.href}
+                            className="text-[13px] text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            {lnk.label}
+                          </Link>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      {/* Right Section: Product, Company, Resources */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12 p-2 md:p-4 w-full md:w-auto">
-        <nav
-          className="flex flex-col justify-start items-start gap-3"
-          aria-label="Product links"
-        >
-          <h3 className="text-muted-foreground text-sm font-medium leading-5">
-            Product
-          </h3>
-          <div className="flex flex-col justify-end items-start gap-2">
-            <Link
-              href="/#features-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Cleaning
-            </Link>
-            <Link
-              href="/#features-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Versioning
-            </Link>
-            <Link
-              href="/#features-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Integrations
-            </Link>
-            <Link
-              href="/#features-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Synthetic Data
-            </Link>
-            <Link
-              href="/#features-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Security
-            </Link>
+
+        {/* Bottom Legal + Social Bar */}
+        <div className="border-t border-white/[0.08] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p>© 2026 Xether AI Inc. All rights reserved.</p>
+          <div className="flex items-center gap-5">
+            <span>Privacy · Terms · Security</span>
+            <div className="flex items-center gap-3.5">
+              <a
+                href="https://github.com/xether-ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="text-slate-500 hover:text-primary transition-colors"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+              <a
+                href="https://twitter.com/xetherai"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="text-slate-500 hover:text-primary transition-colors"
+              >
+                <Twitter className="w-4 h-4" />
+              </a>
+              <Link
+                href="/"
+                aria-label="Website"
+                className="text-slate-500 hover:text-primary transition-colors"
+              >
+                <Globe className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
-        </nav>
-        <nav
-          className="flex flex-col justify-start items-start gap-3"
-          aria-label="Company links"
-        >
-          <h3 className="text-muted-foreground text-sm font-medium leading-5">
-            Company
-          </h3>
-          <div className="flex flex-col justify-center items-start gap-2">
-            <Link
-              href="/#features-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              About us
-            </Link>
-            <Link
-              href="/#testimonials-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Customers
-            </Link>
-            <Link
-              href="/#pricing-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/dashboard"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/contact"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Contact
-            </Link>
-          </div>
-        </nav>
-        <nav
-          className="flex flex-col justify-start items-start gap-3"
-          aria-label="Resource links"
-        >
-          <h3 className="text-muted-foreground text-sm font-medium leading-5">
-            Resources
-          </h3>
-          <div className="flex flex-col justify-center items-start gap-2">
-            <Link
-              href="/#faq-section"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              FAQ
-            </Link>
-            <Link
-              href="/api"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              API Reference
-            </Link>
-            <a
-              href="https://docs.xether.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Documentation
-            </a>
-            <Link
-              href="/login"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/contact"
-              className="text-foreground text-sm font-normal leading-5 hover:text-primary transition-colors"
-            >
-              Support
-            </Link>
-          </div>
-        </nav>
+        </div>
       </div>
     </footer>
   );

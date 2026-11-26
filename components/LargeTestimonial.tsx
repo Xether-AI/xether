@@ -1,28 +1,37 @@
-import Image from "next/image"
+import React from "react";
+import { Quote } from "lucide-react";
+import { DatabricksLogo } from "./BrandLogos";
 
 export function LargeTestimonial() {
   return (
-    <section className="w-full px-4 sm:px-6 overflow-hidden flex justify-center items-center">
-      <div className="w-full max-w-[1024px] py-6 md:py-10 lg:py-12 flex flex-col justify-center items-center gap-6 md:gap-8 lg:gap-10">
-        <blockquote className="text-center text-foreground leading-snug md:leading-tight lg:leading-[1.15] font-medium text-xl sm:text-2xl md:text-4xl lg:text-5xl">
-          {
-            "Xether's automated data validation and versioning changed how we ship models. It's the missing layer in the modern AI stack."
-          }
+    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-white/[0.06] bg-[#0C111A]/85">
+      <div className="max-w-[940px] mx-auto flex flex-col items-center text-center gap-6">
+        <Quote className="w-8 h-8 text-primary fill-primary/20" aria-hidden="true" />
+
+        <blockquote className="text-2xl sm:text-3xl md:text-[32px] font-medium leading-snug tracking-tight text-foreground">
+          &ldquo;Xether&apos;s deterministic checkpoints and SHA-256 dataset
+          versioning transformed how we ship production models. It&apos;s the
+          missing reliability layer in the AI stack.&rdquo;
         </blockquote>
-        <div className="flex justify-center items-center gap-4">
-          <Image
-            src="/images/avatars/dianne-russell.png"
-            alt="Dianne Russell avatar"
-            width={48}
-            height={48}
-            className="w-12 h-12 rounded-full border border-border object-cover"
-          />
-          <div className="flex flex-col justify-start items-start">
-            <div className="text-foreground text-base font-medium leading-6">Dianne Russell</div>
-            <div className="text-muted-foreground text-sm font-normal leading-6">{"VP of Data, TechFlow"}</div>
+
+        <div className="flex items-center justify-center gap-3.5 pt-2">
+          <div className="w-11 h-11 rounded-full bg-[#132D2F] border border-[#265955] flex items-center justify-center text-sm font-bold text-primary shrink-0">
+            DR
+          </div>
+          <div className="text-left">
+            <div className="text-[15px] font-semibold text-foreground">
+              Dianne Russell
+            </div>
+            <div className="flex items-center gap-2 text-xs sm:text-[13px] text-muted-foreground">
+              <span>VP of Data Infrastructure ·</span>
+              <DatabricksLogo size={14} />
+              <span className="font-medium text-foreground">
+                Databricks Partner
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

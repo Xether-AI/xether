@@ -1,217 +1,249 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import React, { useState } from "react";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Building2,
+  Check,
+  CreditCard,
+  Mail,
+  Sparkles,
+  Terminal,
+  Zap,
+} from "lucide-react";
+import {
+  AmazonS3Logo,
+  DuckDBLogo,
+  PostgresLogo,
+  SnowflakeLogo,
+  StripeLogo,
+} from "./BrandLogos";
 
 export function PricingSection() {
-  const [isAnnual, setIsAnnual] = useState(true)
+  const [isAnnual, setIsAnnual] = useState(true);
 
-  const pricingPlans = [
+  const plans = [
     {
-      name: "Starter",
-      monthlyPrice: "$49.99",
-      annualPrice: "$559.99",
-      description: "For small teams and side projects.",
+      name: "Free Sandbox",
+      icon: Terminal,
+      monthlyPrice: "$0",
+      annualPrice: "$0",
+      period: "/month",
+      badge: null,
+      description:
+        "Validate streaming pipelines and dataset versioning on real workloads.",
+      cta: "Start Free",
+      ctaIcon: ArrowRight,
+      href: "/signup",
+      featured: false,
       features: [
-        "10GB Storage",
-        "Basic Data Cleaning",
-        "2 Data Sources",
-        "30-day Version History",
-        "Community Support",
+        "3 team seats & basic RBAC",
+        "10 GiB versioned S3 storage",
+        "1 concurrent pipeline run",
+        "1 hr streaming compute / mo",
+        "SHA-256 multipart verification",
+        "S3 & REST pull connectors",
       ],
-      buttonText: "Get Started",
-      buttonClass:
-        "bg-zinc-300 shadow-[0px_1px_1px_-0.5px_rgba(16,24,40,0.20)] outline outline-0.5 outline-[#1e29391f] outline-offset-[-0.5px] text-gray-800 text-shadow-[0px_1px_1px_rgba(16,24,40,0.08)] hover:bg-zinc-400",
     },
     {
-      name: "Growth",
-      monthlyPrice: "$199.99",
-      annualPrice: "$2299.99",
-      description: "For scaling data teams.",
+      name: "Pro Team",
+      icon: Zap,
+      monthlyPrice: "$199",
+      annualPrice: "$159",
+      period: "/month",
+      badge: "MOST POPULAR",
+      description:
+        "Production out-of-core streaming, live SSE telemetry, and team workspaces.",
+      cta: "Start 14-Day Trial",
+      ctaIcon: Sparkles,
+      href: "/signup",
+      featured: true,
       features: [
-        "500GB Storage",
-        "Advanced Anomaly Detection",
-        "Unlimited Data Sources",
-        "Unlimited Version History",
-        "Synthetic Data Generation",
-        "Team Collaboration",
-        "Priority Support",
+        "15 team seats & workspace roles",
+        "500 GiB versioned S3 storage",
+        "5 concurrent pipeline runs",
+        "50 hrs streaming compute / mo",
+        "Live SSE progress & checkpoint resume",
+        "Postgres watermark, Snowflake & RBAC",
       ],
-      buttonText: "Start Trial",
-      buttonClass:
-        "bg-secondary-foreground text-secondary hover:bg-secondary-foreground/90",
-      popular: true,
     },
     {
-      name: "Enterprise",
+      name: "Enterprise Dedicated",
+      icon: Building2,
       monthlyPrice: "Custom",
       annualPrice: "Custom",
-      description: "For organizations with strict governance.",
+      period: "",
+      badge: "BYOC / VPC",
+      description:
+        "Dedicated tenant isolation, private VPC workers, and compliance SLAs.",
+      cta: "Contact Engineering",
+      ctaIcon: Mail,
+      href: "/contact",
+      featured: false,
       features: [
-        "Unlimited Storage",
-        "Private VPC Deployment",
-        "SSO & RBAC",
-        "Audit Logs & Compliance",
-        "Dedicated Account Manager",
-        "SLA Guarantees",
+        "100+ seats & custom policies",
+        "5 TiB+ storage & custom quotas",
+        "25+ fair worker concurrency slots",
+        "Dedicated VPC / BYOC deployment",
+        "Postgres FORCE RLS & SSO / SAML",
+        "24/7 SLA & immutable audit exports",
       ],
-      buttonText: "Contact Sales",
-      buttonClass:
-        "bg-secondary hover:bg-secondary/90",
     },
-  ]
+  ];
 
   return (
-    <section className="w-full px-5 overflow-hidden flex flex-col justify-start items-center my-0 py-4 md:py-6">
-      <div className="self-stretch relative flex flex-col justify-center items-center gap-2 py-0">
-        <div className="flex flex-col justify-start items-center gap-4">
-          <h2 className="text-center text-foreground text-4xl md:text-5xl font-semibold leading-tight md:leading-[40px]">
-            Pricing built for every developer
+    <section className="w-full px-4 sm:px-6 py-12 md:py-16">
+      <div className="max-w-[1200px] mx-auto flex flex-col items-center gap-10">
+        {/* Header */}
+        <div className="max-w-[700px] mx-auto flex flex-col items-center text-center gap-3.5">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[11px] font-mono font-semibold tracking-wider uppercase text-primary">
+            <CreditCard className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Transparent Pricing</span>
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-foreground leading-tight">
+            Predictable Infrastructure Pricing
           </h2>
-          <p className="self-stretch text-center text-muted-foreground text-sm font-medium leading-tight">
-            Choose a plan that fits your data volume, from startups <br /> to large enterprises.
+          <p className="text-sm sm:text-base text-muted-foreground max-w-[600px] leading-relaxed">
+            Start free in the Sandbox. Scale cleanly with transparent storage,
+            compute, and concurrency quotas.
           </p>
-        </div>
-        <div className="pt-4">
-          <div className="p-0.5 bg-muted rounded-lg outline outline-1 outline-[#0307120a] outline-offset-[-1px] flex justify-start items-center gap-1 md:mt-0">
+
+          {/* Toggle Pill */}
+          <div className="mt-2 p-1 rounded-full bg-card border border-[#222E3F] inline-flex items-center gap-1">
             <button
-              onClick={() => setIsAnnual(true)}
-              className={`pl-2 pr-1 py-1 flex justify-start items-start gap-2 rounded-md ${isAnnual ? "bg-accent shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.08)]" : ""}`}
+              type="button"
+              onClick={() => setIsAnnual(false)}
+              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                !isAnnual
+                  ? "bg-primary text-primary-foreground font-semibold"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              <span
-                className={`text-center text-sm font-medium leading-tight ${isAnnual ? "text-accent-foreground" : "text-zinc-400"}`}
-              >
-                Annually
-              </span>
+              Monthly
             </button>
             <button
-              onClick={() => setIsAnnual(false)}
-              className={`px-2 py-1 flex justify-start items-start rounded-md ${!isAnnual ? "bg-accent shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.08)]" : ""}`}
+              type="button"
+              onClick={() => setIsAnnual(true)}
+              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                isAnnual
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              <span
-                className={`text-center text-sm font-medium leading-tight ${!isAnnual ? "text-accent-foreground" : "text-zinc-400"}`}
-              >
-                Monthly
-              </span>
+              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>Annual · Save 20%</span>
             </button>
           </div>
         </div>
-      </div>
-      <div className="w-full px-2 sm:px-5 grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 max-w-[1100px] mx-auto items-stretch">
-        {pricingPlans.map((plan) => (
-          (() => {
-            const href =
-              plan.name === "Enterprise"
-                ? "/contact"
-                : "/signup"
+
+        {/* 3 Equal-Height Cards */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          {plans.map((plan) => {
+            const TierIcon = plan.icon;
+            const CtaIcon = plan.ctaIcon;
+            const price = isAnnual ? plan.annualPrice : plan.monthlyPrice;
 
             return (
-          <div
-            key={plan.name}
-            className={`w-full p-5 sm:p-6 overflow-hidden rounded-2xl flex flex-col justify-between items-start gap-6 border ${plan.popular ? "bg-primary border-primary shadow-[0px_4px_16px_-2px_rgba(0,0,0,0.18)]" : "bg-card/60 border-border"}`}
-          >
-            <div className="self-stretch flex flex-col justify-start items-start gap-6">
-              <div className="self-stretch flex flex-col justify-start items-start gap-6">
-                <div
-                  className={`w-full flex items-center text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}
-                >
-                  {plan.name}
-                  {plan.popular && (
-                    <div className="ml-2 px-2 overflow-hidden rounded-full justify-center items-center gap-2.5 inline-flex py-0.5 bg-background/90">
-                      <div className="text-center text-foreground text-xs font-medium leading-tight">
-                        Popular
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <div className="self-stretch flex flex-col justify-start items-start gap-1">
-                  <div className="flex justify-start items-center gap-1.5">
-                    <div
-                      className={`relative h-10 flex items-center text-3xl font-semibold leading-10 ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}
-                    >
-                      <span className="invisible">{isAnnual ? plan.annualPrice : plan.monthlyPrice}</span>
-                      <span
-                        className="absolute inset-0 flex items-center transition-all duration-500"
-                        style={{
-                          opacity: isAnnual ? 1 : 0,
-                          transform: `scale(${isAnnual ? 1 : 0.8})`,
-                          filter: `blur(${isAnnual ? 0 : 4}px)`,
-                        }}
-                        aria-hidden={!isAnnual}
-                      >
-                        {plan.annualPrice}
-                      </span>
-                      <span
-                        className="absolute inset-0 flex items-center transition-all duration-500"
-                        style={{
-                          opacity: !isAnnual ? 1 : 0,
-                          transform: `scale(${!isAnnual ? 1 : 0.8})`,
-                          filter: `blur(${!isAnnual ? 0 : 4}px)`,
-                        }}
-                        aria-hidden={isAnnual}
-                      >
-                        {plan.monthlyPrice}
-                      </span>
-                    </div>
-                    <div
-                      className={`text-center text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground/75" : "text-muted-foreground"}`}
-                    >
-                      /{isAnnual ? "annual" : "month"}
-                    </div>
-                  </div>
-                  <div
-                    className={`self-stretch text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}
-                  >
-                    {plan.description}
-                  </div>
-                </div>
-              </div>
-              <Button
-                asChild
-                className={`self-stretch px-5 py-2.5 rounded-[40px] flex justify-center items-center ${plan.buttonClass}`}
-              >
-                <Link href={href}>
-                  <div className="px-1.5 flex justify-center items-center gap-2">
-                    <span
-                      className={`text-center text-sm font-medium leading-tight`}
-                    >
-                      {plan.buttonText}
-                    </span>
-                  </div>
-                </Link>
-              </Button>
-            </div>
-            <div className="self-stretch flex flex-col justify-start items-start gap-4">
               <div
-                className={`self-stretch text-sm font-medium leading-tight ${plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}
+                key={plan.name}
+                className={`rounded-2xl p-6 sm:p-7 flex flex-col justify-between gap-6 border transition-colors ${
+                  plan.featured
+                    ? "bg-[#122029] border-primary/80 shadow-[0_16px_48px_-12px_rgba(120,252,214,0.16)]"
+                    : "bg-card border-[#222E3F] hover:border-[#2C3D54]"
+                }`}
               >
-                {plan.name === "Starter" ? "Get Started today:" : plan.name === "Enterprise" ? "Get Started today:" : plan.name === "Growth" ? "Everything in Free +" : ""}
-              </div>
-              <div className="self-stretch flex flex-col justify-start items-start gap-3">
-                {plan.features.map((feature) => (
-                  <div key={feature} className="self-stretch flex justify-start items-center gap-2">
-                    <div className="w-4 h-4 flex items-center justify-center">
-                      <Check
-                        className={`w-full h-full ${plan.popular ? "text-primary-foreground" : "text-muted-foreground"}`}
-                        strokeWidth={2}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="inline-flex items-center gap-2">
+                      <TierIcon
+                        className={`w-4 h-4 ${
+                          plan.featured ? "text-primary" : "text-muted-foreground"
+                        }`}
+                        aria-hidden="true"
                       />
+                      <h3 className="text-lg font-bold text-foreground">
+                        {plan.name}
+                      </h3>
                     </div>
-                    <div
-                      className={`leading-tight font-normal text-sm text-left ${plan.popular ? "text-primary-foreground" : "text-muted-foreground"}`}
-                    >
-                      {feature}
-                    </div>
+                    {plan.badge && (
+                      <span
+                        className={`rounded-full px-2.5 py-0.5 text-[10px] font-mono font-semibold border ${
+                          plan.featured
+                            ? "bg-[#10292B] border-[#265955] text-primary"
+                            : "bg-[#1A2434] border-[#222E3F] text-muted-foreground"
+                        }`}
+                      >
+                        {plan.badge}
+                      </span>
+                    )}
                   </div>
-                ))}
+
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-4xl font-bold tracking-tight text-foreground">
+                      {price}
+                    </span>
+                    {plan.period && (
+                      <span className="text-sm text-muted-foreground">
+                        {plan.period}
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {plan.description}
+                  </p>
+
+                  <Link
+                    href={plan.href}
+                    className={`w-full inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all ${
+                      plan.featured
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                        : "bg-[#17202E] border border-[#2C3D54] text-foreground hover:bg-[#1E2A3C]"
+                    }`}
+                  >
+                    <span>{plan.cta}</span>
+                    <CtaIcon className="w-4 h-4" aria-hidden="true" />
+                  </Link>
+
+                  <div className="h-px bg-[#222E3F]" />
+
+                  <ul className="space-y-2.5">
+                    {plan.features.map((feat) => (
+                      <li
+                        key={feat}
+                        className="flex items-center gap-2.5 text-[13px] text-muted-foreground"
+                      >
+                        <Check
+                          className={`w-3.5 h-3.5 shrink-0 ${
+                            plan.featured ? "text-primary" : "text-emerald-400"
+                          }`}
+                          aria-hidden="true"
+                        />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
+            );
+          })}
+        </div>
+
+        {/* Billing & Connector Attribution Strip */}
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-1 text-xs text-slate-400">
+          <StripeLogo size={18} />
+          <span>
+            Usage metering &amp; billing powered by Stripe · Native connectors:
+          </span>
+          <div className="inline-flex items-center gap-2.5">
+            <AmazonS3Logo size={16} />
+            <PostgresLogo size={16} />
+            <SnowflakeLogo size={16} />
+            <DuckDBLogo size={16} />
           </div>
-            )
-          })()
-        ))}
+        </div>
       </div>
     </section>
-  )
+  );
 }

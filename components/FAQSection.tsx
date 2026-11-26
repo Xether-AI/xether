@@ -1,122 +1,140 @@
 "use client";
 
-import type React from "react";
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import React, { useState } from "react";
+import { HelpCircle, Minus, Plus, Quote } from "lucide-react";
+import { HuggingFaceLogo, PostgresLogo } from "./BrandLogos";
 
-const faqData = [
+const FAQ_DATA = [
   {
-    question: "What is Xether AI and who is it for?",
+    question:
+      "How does Xether prevent out-of-memory crashes on multi-GB datasets?",
     answer:
-      "Xether AI is a data infrastructure platform for AI/ML teams, data engineers, and enterprises. It automates data preparation, versioning, and quality control, treating data with the same discipline as code.",
+      "All pipeline transforms compile to Polars LazyFrame streaming queries paired with DuckDB 2.0 out-of-core disk spill (DUCKDB_TEMP_DIR). Artifacts >=25 MB stream straight to S3 via multipart upload with incremental SHA-256 hashing.",
   },
   {
-    question: "How does the automated data cleaning work?",
+    question:
+      "How is multi-tenant isolation enforced across compute and storage?",
     answer:
-      "Our infrastructure analyzes your data streams in real-time to detect schema violations, outliers, and inconsistencies. It can automatically fix common issues or flag them for review, ensuring your models are always trained on high-quality data.",
+      "Every tenant database table enforces PostgreSQL FORCE ROW LEVEL SECURITY bound to session app.current_org_id, paired with hashed xth_live_ API keys, Redis jti revocation, and strict <org_id>/ S3 prefix scoping.",
   },
   {
-    question: "Can I connect Xether AI to my existing data warehouse?",
+    question: "What happens if a worker restarts mid-pipeline?",
     answer:
-      "Yes! Xether AI offers seamless integration with major data warehouses like Snowflake, BigQuery, and Redshift, as well as object storage like S3 and various databases (Postgres, MongoDB).",
+      "NATS JetStream pull workers send msg.in_progress() heartbeats and persist deterministic S3 stage checkpoints. Restarts resume cleanly from the last committed stage without recomputing completed transforms.",
   },
   {
-    question: "What is 'Dataset Version Control'?",
+    question: "Can we connect Postgres, Snowflake, or internal VPC sources?",
     answer:
-      "Similar to Git for code, Xether AI tracks every change to your datasets. You can branch, merge, and rollback datasets instantly, ensuring full reproducibility for your AI experiments.",
+      "Yes. Enterprise Dedicated workspaces support private VPC / BYOC worker deployments and vaulted credentials for Amazon S3, PostgreSQL incremental watermarks, Snowflake, MinIO, and paginated REST APIs.",
   },
   {
-    question: "How does synthetic augmentation help?",
+    question: "How are compute hours and storage quotas tracked?",
     answer:
-      "When you have missing or sparse data, Xether AI can generate high-fidelity synthetic data to fill the gaps, preserving the statistical properties of your original dataset while protecting privacy.",
-  },
-  {
-    question: "Is Xether AI suitable for sensitive enterprise data?",
-    answer:
-      "Absolutely. We are built for the enterprise with end-to-end encryption, RBAC, audit logs, and compliance with major standards. You can also deploy Xether AI on-premises or in your own VPC.",
+      "Execution workers and storage services emit idempotent UsageEvent ledgers reconciled dynamically into org_quotas, powering live quota bars inside your Team Dashboard.",
   },
 ];
 
-interface FAQItemProps {
-  question: string;
-  answer: string;
-  isOpen: boolean;
-  onToggle: () => void;
-}
-
-const FAQItem = ({ question, answer, isOpen, onToggle }: FAQItemProps) => {
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    onToggle();
-  };
-  return (
-    <div
-      className="w-full bg-card/75 shadow-sm overflow-hidden rounded-[10px] border border-border transition-all duration-500 ease-out cursor-pointer"
-      onClick={handleClick}
-    >
-      <div className="w-full px-5 py-[18px] pr-4 flex justify-between items-center gap-5 text-left transition-all duration-300 ease-out">
-        <div className="flex-1 text-foreground text-base font-medium leading-6 break-words">
-          {question}
-        </div>
-        <div className="flex justify-center items-center">
-          <ChevronDown
-            className={`w-6 h-6 text-muted-foreground transition-all duration-500 ease-out ${isOpen ? "rotate-180 scale-110" : "rotate-0 scale-100"}`}
-          />
-        </div>
-      </div>
-      <div
-        className={`overflow-hidden transition-all duration-500 ease-out ${isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}`}
-        style={{
-          transitionProperty: "max-height, opacity, padding",
-          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-        }}
-      >
-        <div
-          className={`px-5 transition-all duration-500 ease-out ${isOpen ? "pb-[18px] pt-2 translate-y-0" : "pb-0 pt-0 -translate-y-2"}`}
-        >
-          <div className="text-foreground/80 text-sm font-normal leading-6 break-words">
-            {answer}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+const ENGINEER_QUOTES = [
+  {
+    quote:
+      "Rolling back a corrupted merge took four seconds thanks to SHA-256 dataset snapshots.",
+    author: "Alex Chen · Staff ML Engineer",
+    Logo: HuggingFaceLogo,
+  },
+  {
+    quote:
+      "PostgreSQL FORCE RLS gave our security review team immediate sign-off.",
+    author: "David Park · Head of Security",
+    Logo: PostgresLogo,
+  },
+];
 
 export function FAQSection() {
-  const [openItems, setOpenItems] = useState<Set<number>>(new Set());
-  const toggleItem = (index: number) => {
-    const newOpenItems = new Set(openItems);
-    if (newOpenItems.has(index)) {
-      newOpenItems.delete(index);
-    } else {
-      newOpenItems.add(index);
-    }
-    setOpenItems(newOpenItems);
-  };
+  const [openIndex, setOpenIndex] = useState<number>(0);
+
   return (
-    <section className="w-full py-6 md:py-10 px-5 relative flex flex-col justify-center items-center">
-      <div className="w-[300px] h-[500px] absolute top-[150px] left-1/2 -translate-x-1/2 origin-top-left rotate-[-33.39deg] bg-primary/10 blur-[100px] z-0" />
-      <div className="self-stretch py-4 md:py-6 flex flex-col justify-center items-center gap-2 relative z-10">
-        <div className="flex flex-col justify-start items-center gap-4">
-          <h2 className="w-full max-w-[435px] text-center text-foreground text-4xl font-semibold leading-10 break-words">
-            Frequently Asked Questions
+    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-white/[0.06] bg-[#0C111A]/85">
+      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-10 lg:gap-12 items-start">
+        {/* Left Column: Intro + Proof Cards */}
+        <div className="space-y-4">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[11px] font-mono font-semibold tracking-wider uppercase text-primary">
+            <HelpCircle className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Architecture &amp; FAQ</span>
+          </span>
+
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground leading-tight">
+            Engineering-Grade Answers
           </h2>
-          <p className="self-stretch text-center text-muted-foreground text-sm font-medium leading-[18.20px] break-words">
-            Everything you need to know about Xether AI and how it can transform
-            your data workflow
+
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Built for teams running sensitive production workloads that cannot
+            afford silent schema drift or noisy-neighbor failures.
           </p>
+
+          <div className="space-y-3 pt-2">
+            {ENGINEER_QUOTES.map((item) => {
+              const Logo = item.Logo;
+              return (
+                <div
+                  key={item.author}
+                  className="rounded-xl border border-[#222E3F] bg-card p-4 space-y-2.5"
+                >
+                  <div className="flex items-start gap-2.5">
+                    <Quote
+                      className="w-4 h-4 text-primary shrink-0 mt-0.5 fill-primary/20"
+                      aria-hidden="true"
+                    />
+                    <p className="text-[13px] text-foreground leading-relaxed">
+                      &ldquo;{item.quote}&rdquo;
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 pl-6 text-[11px] font-mono font-medium text-primary">
+                    <Logo size={14} />
+                    <span>{item.author}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className="w-full max-w-[600px] pt-0.5 pb-10 flex flex-col justify-start items-start gap-4 relative z-10">
-        {faqData.map((faq, index) => (
-          <FAQItem
-            key={index}
-            {...faq}
-            isOpen={openItems.has(index)}
-            onToggle={() => toggleItem(index)}
-          />
-        ))}
+
+        {/* Right Column: Accessible Accordion */}
+        <div className="space-y-3">
+          {FAQ_DATA.map((faq, idx) => {
+            const isOpen = openIndex === idx;
+            return (
+              <div
+                key={faq.question}
+                className={`rounded-xl border transition-colors ${
+                  isOpen
+                    ? "bg-[#131C2A] border-[#265955]"
+                    : "bg-card border-[#222E3F] hover:border-[#2C3D54]"
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? -1 : idx)}
+                  aria-expanded={isOpen}
+                  className="w-full px-5 py-4 flex items-center justify-between gap-4 text-left"
+                >
+                  <span className="text-[15px] font-semibold text-foreground">
+                    {faq.question}
+                  </span>
+                  {isOpen ? (
+                    <Minus className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
+                  ) : (
+                    <Plus className="w-4 h-4 text-slate-500 shrink-0" aria-hidden="true" />
+                  )}
+                </button>
+                {isOpen && (
+                  <div className="px-5 pb-4 text-[13px] text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

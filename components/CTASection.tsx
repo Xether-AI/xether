@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, Mail, Sparkles } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -12,7 +12,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { api } from "@/lib/api/client";
 import { ApiError } from "@/lib/api/errors";
@@ -50,187 +49,67 @@ export function CTASection() {
   });
 
   return (
-    <section className="w-full pt-10 md:pt-16 lg:pt-20 pb-8 md:pb-12 px-4 sm:px-5 relative flex flex-col justify-center items-center overflow-hidden">
-      {/* Background SVG remains unchanged */}
-      <div className="absolute inset-0 top-[-90px]">
-        <svg
-          className="w-full h-full"
-          viewBox="0 0 1388 825"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <mask
-            id="mask0_182_1049"
-            style={{ maskType: "alpha" }}
-            maskUnits="userSpaceOnUse"
-            x="269"
-            y="27"
-            width="850"
-            height="493"
-          >
-            <rect
-              x="269.215"
-              y="27.4062"
-              width="849.57"
-              height="492.311"
-              fill="url(#paint0_linear_182_1049)"
-            />
-          </mask>
-          <g mask="url(#mask0_182_1049)">
-            <g filter="url(#filter0_f_182_1049)">
-              <ellipse
-                cx="694"
-                cy="-93.0414"
-                rx="670.109"
-                ry="354.908"
-                fill="url(#paint1_radial_182_1049)"
-                fillOpacity="0.8"
-              />
-            </g>
-            <ellipse
-              cx="694"
-              cy="-91.5385"
-              rx="670.109"
-              ry="354.908"
-              fill="url(#paint2_linear_182_1049)"
-            />
-            <ellipse
-              cx="694"
-              cy="-93.0414"
-              rx="670.109"
-              ry="354.908"
-              fill="url(#paint3_linear_182_1049)"
-            />
-          </g>
-          <defs>
-            <filter
-              id="filter0_f_182_1049"
-              x="-234.109"
-              y="-705.949"
-              width="1856.22"
-              height="1225.82"
-              filterUnits="userSpaceOnUse"
-              colorInterpolationFilters="sRGB"
-            >
-              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-              <feBlend
-                mode="normal"
-                in="SourceGraphic"
-                in2="BackgroundImageFix"
-                result="shape"
-              />
-              <feGaussianBlur
-                stdDeviation="129"
-                result="effect1_foregroundBlur_182_1049"
-              />
-            </filter>
-            <linearGradient
-              id="paint0_linear_182_1049"
-              x1="1118.79"
-              y1="273.562"
-              x2="269.215"
-              y2="273.562"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="hsl(var(--background))" stopOpacity="0" />
-              <stop
-                offset="0.2"
-                stopColor="hsl(var(--background))"
-                stopOpacity="0.8"
-              />
-              <stop
-                offset="0.8"
-                stopColor="hsl(var(--background))"
-                stopOpacity="0.8"
-              />
-              <stop
-                offset="1"
-                stopColor="hsl(var(--background))"
-                stopOpacity="0"
-              />
-            </linearGradient>
-            <radialGradient
-              id="paint1_radial_182_1049"
-              cx="0"
-              cy="0"
-              r="1"
-              gradientUnits="userSpaceOnUse"
-              gradientTransform="translate(683.482 245.884) rotate(-3.78676) scale(469.009 248.4)"
-            >
-              <stop offset="0.1294" stopColor="hsl(var(--primary-dark))" />
-              <stop offset="0.2347" stopColor="hsl(var(--primary))" />
-              <stop
-                offset="0.3"
-                stopColor="hsl(var(--primary))"
-                stopOpacity="0"
-              />
-            </radialGradient>
-            <linearGradient
-              id="paint2_linear_182_1049"
-              x1="694"
-              y1="-446.446"
-              x2="694"
-              y2="263.369"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="white" stopOpacity="0" />
-              <stop offset="1" stopColor="white" stopOpacity="0.1" />
-            </linearGradient>
-            <linearGradient
-              id="paint3_linear_182_1049"
-              x1="694"
-              y1="-447.949"
-              x2="694"
-              y2="261.866"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="hsl(var(--background))" />
-              <stop offset="1" stopColor="hsl(var(--background))" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+    <section className="w-full px-4 sm:px-6 pt-12 pb-6">
+      <div
+        className="max-w-[1200px] mx-auto rounded-[20px] border border-[#265955] px-6 sm:px-12 py-12 sm:py-14 flex flex-col items-center text-center gap-5 shadow-2xl"
+        style={{
+          background:
+            "radial-gradient(85% 95% at 50% 0%, #133235 0%, #101722 86%)",
+        }}
+      >
+        <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[11px] font-mono font-semibold tracking-wider uppercase text-primary">
+          <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+          <span>Ready to Launch</span>
+        </span>
 
-      <div className="relative z-10 flex flex-col justify-start items-center gap-9 max-w-4xl mx-auto">
-        <div className="flex flex-col justify-start items-center gap-4 text-center">
-          <h2 className="text-foreground text-4xl md:text-5xl lg:text-[68px] font-semibold leading-tight md:leading-tight lg:leading-[76px] break-words max-w-[500px]">
-            Data made effortless
-          </h2>
-          <p className="text-muted-foreground text-sm md:text-base font-medium leading-[18.20px] md:leading-relaxed break-words max-w-2xl">
-            Stop spending 80% of your time cleaning data. Let Xether AI handle
-            the mess so you can focus on models.
-          </p>
-        </div>
+        <h2 className="text-3xl sm:text-[42px] font-bold tracking-tight text-foreground leading-tight">
+          Data quality, made effortless.
+        </h2>
+
+        <p className="text-sm sm:text-base text-muted-foreground max-w-[560px] leading-relaxed">
+          Launch a Free Sandbox workspace in under two minutes or schedule an
+          engineering review.
+        </p>
 
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
-            className="flex flex-col sm:flex-row gap-4 items-center w-full max-w-md"
+            className="w-full max-w-[492px] mt-1"
           >
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="w-full">
+                <FormItem className="space-y-2">
                   <FormControl>
-                    <Input
-                      placeholder="Your email"
-                      className="bg-card/80 backdrop-blur-sm border-border h-11"
-                      {...field}
-                    />
+                    <div className="flex items-center justify-between gap-2 rounded-full bg-[#0A0E16] border border-[#2C3D54] pl-4 pr-1.5 py-1.5 focus-within:border-primary/60 transition-colors">
+                      <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                        <Mail
+                          className="w-4 h-4 text-slate-500 shrink-0"
+                          aria-hidden="true"
+                        />
+                        <input
+                          type="email"
+                          placeholder="name@company.com"
+                          autoComplete="email"
+                          className="w-full bg-transparent text-sm text-foreground placeholder:text-slate-500 focus:outline-none"
+                          {...field}
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        disabled={mutation.isPending}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-[13px] font-semibold hover:bg-primary/90 disabled:opacity-60 transition-all shrink-0 cursor-pointer"
+                      >
+                        <span>{mutation.isPending ? "Sending…" : "Get Started"}</span>
+                        <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                      </button>
+                    </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs text-rose-400" />
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              disabled={mutation.isPending}
-              className="px-[30px] h-11 bg-primary text-primary-foreground text-base font-medium leading-6 rounded-md shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all duration-200 w-full sm:w-auto"
-            >
-              {mutation.isPending ? "Submitting…" : "Start Automating"}
-            </Button>
           </form>
         </Form>
       </div>
