@@ -46,7 +46,7 @@ const FOOTER_COLUMNS = [
 export function FooterSection() {
   return (
     <footer className="w-full px-4 sm:px-6 pt-10 pb-14">
-      <div className="max-w-300 mx-auto border-t border-white/8 pt-10 space-y-10">
+      <div className="max-w-300 mx-auto border-t border-slate-200/90 pt-10 space-y-10">
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-10 items-start">
           {/* Brand Column */}
           <div className="space-y-3">
@@ -104,7 +104,7 @@ export function FooterSection() {
         </div>
 
         {/* Bottom Legal + Social Bar */}
-        <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="border-t border-slate-200/90 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© 2026 Xether AI Inc. All rights reserved.</p>
           <div className="flex items-center gap-5">
             <span>Privacy · Terms · Security</span>

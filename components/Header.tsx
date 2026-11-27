@@ -13,7 +13,6 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
 import { XetherBrandMark } from "./BrandLogos";
 
 const navItems = [
@@ -103,17 +102,17 @@ export function Header() {
             })}
           </nav>
 
-          {/* Right: Theme Toggle + Auth Action Pills */}
+          {/* Right: Auth Action Pills */}
           <div className="hidden md:flex items-center gap-2.5 shrink-0">
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium bg-[#131C2B]/75 border border-[#2D3F58] text-foreground hover:bg-[#1A263A] hover:border-primary/40 transition-all"
+              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium bg-white/85 border border-slate-200/90 text-slate-700 hover:bg-slate-50 hover:text-slate-950 hover:border-primary/40 shadow-2xs transition-all"
             >
               <span>Sign In</span>
             </Link>
             <Link
               href="/signup"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/15 transition-all"
+              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 transition-all"
             >
               <span>Start Free</span>
             </Link>
@@ -121,13 +120,12 @@ export function Header() {
 
           {/* Mobile Menu Controls */}
           <div className="flex items-center gap-2 md:hidden">
-            <ThemeToggle />
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
               aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isMobileMenuOpen}
-              className="p-2 rounded-full text-foreground hover:bg-white/10 transition-colors"
+              className="p-2 rounded-full text-slate-700 hover:bg-slate-900/5 transition-colors"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -137,7 +135,7 @@ export function Header() {
 
       {/* Mobile Floating Drawer */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-x-4 top-22 z-40 rounded-2xl bg-[#0D1420]/95 backdrop-blur-xl border border-primary/20 p-5 flex flex-col gap-3 shadow-2xl md:hidden">
+        <div className="fixed inset-x-4 top-22 z-40 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 p-5 flex flex-col gap-3 shadow-[0_20px_50px_rgba(15,23,42,0.14)] md:hidden">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -145,19 +143,19 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-medium text-foreground hover:bg-white/5 hover:text-primary transition-colors"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-primary transition-colors"
               >
                 <Icon className="w-4 h-4 text-primary" aria-hidden="true" />
                 <span>{item.name}</span>
               </Link>
             );
           })}
-          <div className="h-px bg-border my-1" />
+          <div className="h-px bg-slate-200 my-1" />
           <div className="grid grid-cols-2 gap-2.5">
             <Link
               href="/login"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="inline-flex items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-medium bg-[#131C2B] border border-[#2D3F58] text-foreground"
+              className="inline-flex items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-medium bg-slate-50 border border-slate-200 text-slate-800 hover:bg-slate-100"
             >
               <LogIn className="w-4 h-4" aria-hidden="true" />
               <span>Sign In</span>

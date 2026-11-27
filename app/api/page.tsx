@@ -22,11 +22,11 @@ export default function APIPage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="px-6 py-24 md:py-32">
+      <section className="px-6 pb-20 pt-28 md:pb-28 md:pt-36">
         <div className="container mx-auto max-w-screen-2xl">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="mb-6 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 bg-clip-text text-transparent">
                 API Reference
               </span>
             </h1>
@@ -103,7 +103,7 @@ export default function APIPage() {
               <CardHeader>
                 <div className="mb-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-sky-50 text-sky-600">
                       <Server className="h-6 w-6" />
                     </div>
                     <div>

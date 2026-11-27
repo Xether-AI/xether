@@ -20,12 +20,12 @@ export default function DashboardPage() {
   const { data: projects, isLoading: projectsLoading, error: projectsError } = useProjects();
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto px-6 pb-10 pt-24 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Dashboard</h1>
         {health && (
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <CheckCircle2 className="h-4 w-4 text-green-500" />
+            <CheckCircle2 className="h-4 w-4 text-green-600" />
             Backend: {health.status}
           </div>
         )}
@@ -35,8 +35,8 @@ export default function DashboardPage() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
-              <Workflow className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            <div className="p-3 bg-blue-100 rounded-lg">
+              <Workflow className="h-6 w-6 text-blue-600" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Pipelines</p>
@@ -49,8 +49,8 @@ export default function DashboardPage() {
 
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
-              <Database className="h-6 w-6 text-green-600 dark:text-green-400" />
+            <div className="p-3 bg-green-100 rounded-lg">
+              <Database className="h-6 w-6 text-green-600" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Datasets</p>
@@ -63,8 +63,8 @@ export default function DashboardPage() {
 
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
-              <FolderKanban className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+            <div className="p-3 bg-purple-100 rounded-lg">
+              <FolderKanban className="h-6 w-6 text-purple-600" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Projects</p>

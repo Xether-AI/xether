@@ -56,11 +56,11 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
-    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-white/6 bg-[#0C111A]/85">
+    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-slate-200/80 bg-slate-50/80">
       <div className="max-w-300 mx-auto grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-10 lg:gap-12 items-start">
         {/* Left Column: Intro + Proof Cards */}
         <div className="space-y-4">
-          <span className="inline-flex items-center justify-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[12px] tracking-wider uppercase text-primary">
+          <span className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[12px] font-semibold tracking-wider uppercase text-emerald-700">
             <HelpCircle className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Architecture &amp; FAQ</span>
           </span>
@@ -80,7 +80,7 @@ export function FAQSection() {
               return (
                 <div
                   key={item.author}
-                  className="rounded-xl border border-[#222E3F] bg-card p-4 space-y-2.5"
+                  className="rounded-xl border border-slate-200 bg-white p-4 space-y-2.5 shadow-xs"
                 >
                   <div className="flex items-start gap-2.5">
                     <Quote
@@ -91,13 +91,13 @@ export function FAQSection() {
                       &ldquo;{item.quote}&rdquo;
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 pl-6 text-[12px] font-medium text-primary">
+                  <div className="flex items-center gap-2 pl-6 text-[12px] font-medium text-emerald-700">
                     <Image
                       src={item.avatar}
                       alt={item.author}
                       width={20}
                       height={20}
-                      className="w-5 h-5 rounded-full object-cover border border-[#265955] shrink-0"
+                      className="w-5 h-5 rounded-full object-cover border border-emerald-200 shrink-0"
                     />
                     <span>{item.author}</span>
                     <Logo size={14} />
@@ -116,8 +116,8 @@ export function FAQSection() {
               <div
                 key={faq.question}
                 className={`rounded-xl border transition-colors ${isOpen
-                    ? "bg-[#131C2A] border-[#265955]"
-                    : "bg-card border-[#222E3F] hover:border-[#2C3D54]"
+                    ? "bg-white border-emerald-300 shadow-sm"
+                    : "bg-white/90 border-slate-200 hover:border-slate-300"
                   }`}
               >
                 <button

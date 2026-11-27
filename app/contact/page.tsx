@@ -5,9 +5,9 @@ import { ContactForm } from "@/components/ContactForm"
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-6 py-16">
+      <div className="max-w-2xl mx-auto px-6 pb-16 pt-28">
         <div className="mb-8">
-          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
+          <Link href="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Back to home
           </Link>

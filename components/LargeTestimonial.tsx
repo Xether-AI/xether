@@ -5,7 +5,7 @@ import { DatabricksLogo } from "./BrandLogos";
 
 export function LargeTestimonial() {
   return (
-    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-white/6 bg-[#0C111A]/85">
+    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-slate-200/80 bg-white/85">
       <div className="max-w-235 mx-auto flex flex-col items-center text-center gap-6">
         <Quote className="w-8 h-8 text-primary fill-primary/20" aria-hidden="true" />
 
@@ -21,7 +21,7 @@ export function LargeTestimonial() {
             alt="Dianne Russell avatar"
             width={48}
             height={48}
-            className="w-12 h-12 rounded-full object-cover border border-[#265955] shrink-0"
+            className="w-12 h-12 rounded-full object-cover border border-emerald-200 shrink-0"
           />
           <div className="text-left">
             <div className="text-[15px] font-semibold text-foreground">

@@ -31,14 +31,14 @@ export function BentoSection() {
     >
       {/* Subtle Ambient Mint Glow */}
       <div
-        className="pointer-events-none absolute top-72 left-1/2 -translate-x-1/2 w-135 h-135 rounded-full bg-primary/10 blur-[140px] z-0"
+        className="pointer-events-none absolute top-72 left-1/2 -translate-x-1/2 w-135 h-135 rounded-full bg-emerald-400/12 blur-[140px] z-0"
         aria-hidden="true"
       />
 
       <div className="max-w-310 mx-auto relative z-10 space-y-12">
         {/* Section Header */}
         <div className="max-w-175 mx-auto flex flex-col items-center text-center gap-3.5">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[12px] tracking-wider uppercase text-primary">
+          <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[12px] font-semibold tracking-wider uppercase text-emerald-700">
             <span>Core Infrastructure</span>
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-foreground leading-tight">
@@ -54,7 +54,7 @@ export function BentoSection() {
         {/* Staggered Floating Bento Canvas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-7 items-start">
           {/* 1. Zero-OOM Streaming Engine (Wide Upper-Left) */}
-          <article className="lg:col-span-5 rounded-2xl border border-[#222E3F] bg-card p-6 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5)] flex flex-col justify-between gap-4 hover:border-primary/35 transition-colors">
+          <article className="lg:col-span-5 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_14px_38px_-12px_rgba(15,23,42,0.08)] flex flex-col justify-between gap-4 hover:border-primary/40 transition-colors">
             <div className="flex items-center justify-between gap-3">
               <div className="inline-flex items-center gap-2.5">
                 <Zap className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
@@ -68,19 +68,21 @@ export function BentoSection() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-[#f8fafb] border border-[#1E293B] p-4 space-y-2.5">
+            <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-4 space-y-2.5">
               <div className="flex items-center justify-between text-[11px]">
-                <span className="text-muted-foreground">Input Parquet Batch</span>
-                <span className="font-semibold text-foreground">64.0 GiB</span>
+                <span className="text-slate-600">Input Parquet Batch</span>
+                <span className="font-semibold text-slate-900">64.0 GiB</span>
               </div>
-              <div className="h-2.5 w-full rounded-full bg-[#1B2535] overflow-hidden">
-                <div className="h-full w-[90%] rounded-full bg-slate-600" />
+              <div className="h-2.5 w-full rounded-full bg-slate-200/90 overflow-hidden">
+                <div className="h-full w-[90%] rounded-full bg-slate-400" />
               </div>
               <div className="flex items-center justify-between text-[11px] pt-1">
-                <span className="text-primary">Worker Peak RSS (Spill OK)</span>
-                <span className="font-semibold text-primary">1.4 GiB</span>
+                <span className="font-medium text-emerald-700">
+                  Worker Peak RSS (Spill OK)
+                </span>
+                <span className="font-semibold text-emerald-700">1.4 GiB</span>
               </div>
-              <div className="h-2.5 w-full rounded-full bg-[#1B2535] overflow-hidden">
+              <div className="h-2.5 w-full rounded-full bg-slate-200/90 overflow-hidden">
                 <div className="h-full w-[16%] rounded-full bg-primary" />
               </div>
             </div>
@@ -93,12 +95,12 @@ export function BentoSection() {
 
           {/* 2. Cryptographic Versioning (Offset Center-Top + Floating DuckDB Badge) */}
           <div className="lg:col-span-4 lg:mt-4 flex flex-col items-start justify-center gap-3">
-            <span className="hidden lg:inline-flex items-center justify-center gap-2 rounded-full bg-[#1D1B11] border border-[#4D441A] px-3 py-1.5 text-[11px] text-amber-200 shadow-sm">
+            <span className="hidden lg:inline-flex items-center justify-center gap-2 rounded-full bg-amber-50 border border-amber-200 px-3 py-1.5 text-[11px] font-medium text-amber-900 shadow-xs">
               <DuckDBLogo size={15} />
               <span>DuckDB 2.0 Out-of-Core Spill</span>
             </span>
 
-            <article className="w-full rounded-2xl border border-[#222E3F] bg-card p-6 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5)] flex flex-col justify-between gap-4 hover:border-primary/35 transition-colors">
+            <article className="w-full rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_14px_38px_-12px_rgba(15,23,42,0.08)] flex flex-col justify-between gap-4 hover:border-primary/40 transition-colors">
               <div className="flex items-center justify-between gap-3">
                 <div className="inline-flex items-center gap-2.5">
                   <GitBranch className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
@@ -112,13 +114,13 @@ export function BentoSection() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-[#0D131D] border border-[#1E293B] p-3.5 space-y-2.5">
-                <div className="flex items-center justify-between gap-2 rounded-lg bg-[#112529] border border-[#265955] px-3 py-2 text-[11px] font-mono">
-                  <span className="font-semibold text-primary">v2.3.0 · main</span>
-                  <span className="text-slate-400">sha256:9f3a8c1</span>
+              <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-3.5 space-y-2.5">
+                <div className="flex items-center justify-between gap-2 rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-[11px] font-mono">
+                  <span className="font-semibold text-emerald-800">v2.3.0 · main</span>
+                  <span className="text-emerald-700">sha256:9f3a8c1</span>
                 </div>
-                <div className="flex items-center justify-between gap-2 rounded-lg bg-[#141C2A] border border-[#222E3F] px-3 py-2 text-[11px] font-mono">
-                  <span className="font-semibold text-foreground">v2.2.4 · feat/dedup</span>
+                <div className="flex items-center justify-between gap-2 rounded-lg bg-white border border-slate-200 px-3 py-2 text-[11px] font-mono">
+                  <span className="font-semibold text-slate-800">v2.2.4 · feat/dedup</span>
                   <span className="text-slate-500">sha256:4b12e09</span>
                 </div>
               </div>
@@ -131,7 +133,7 @@ export function BentoSection() {
           </div>
 
           {/* 3. Multi-Tenant FORCE RLS (Tall Upper-Right Staggered Higher) */}
-          <article className="lg:col-span-3 lg:-mt-3 rounded-2xl border border-[#222E3F] bg-card p-6 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5)] flex flex-col justify-between gap-4 hover:border-primary/35 transition-colors">
+          <article className="lg:col-span-3 lg:-mt-3 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_14px_38px_-12px_rgba(15,23,42,0.08)] flex flex-col justify-between gap-4 hover:border-primary/40 transition-colors">
             <div className="flex items-center justify-between gap-2">
               <div className="inline-flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
@@ -145,16 +147,16 @@ export function BentoSection() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-[#0D131D] border border-[#1E293B] p-3 space-y-2">
-              <div className="flex items-center gap-2 rounded-md bg-[#131B28] border border-[#222E3F] px-2.5 py-2 text-[10px] font-mono text-primary truncate">
+            <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-3 space-y-2">
+              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] font-mono text-emerald-700 truncate">
                 <PostgresLogo size={14} />
                 <span className="truncate">app.current_org_id = &apos;org_7f2a&apos;</span>
               </div>
-              <div className="flex items-center gap-2 rounded-md bg-[#131B28] border border-[#222E3F] px-2.5 py-2 text-[10px] font-mono text-sky-400 truncate">
+              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] font-mono text-sky-700 truncate">
                 <RedisLogo size={14} />
                 <span className="truncate">jti:revoked · xth_live_sha256</span>
               </div>
-              <div className="flex items-center gap-2 rounded-md bg-[#131B28] border border-[#222E3F] px-2.5 py-2 text-[10px] font-mono text-emerald-400 truncate">
+              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] font-mono text-slate-700 truncate">
                 <AmazonS3Logo size={14} />
                 <span className="truncate">s3://artifacts/org_7f2a/ds_09/</span>
               </div>
@@ -168,7 +170,7 @@ export function BentoSection() {
 
           {/* 4. Durable JetStream Workers (Staggered Bottom-Left + Floating S3 Badge) */}
           <div className="lg:col-span-4 lg:ml-4 lg:-mt-2 flex flex-col items-start gap-3.5">
-            <article className="w-full rounded-2xl border border-[#222E3F] bg-card p-6 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5)] flex flex-col justify-between gap-4 hover:border-primary/35 transition-colors">
+            <article className="w-full rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_14px_38px_-12px_rgba(15,23,42,0.08)] flex flex-col justify-between gap-4 hover:border-primary/40 transition-colors">
               <div className="flex items-center justify-between gap-3">
                 <div className="inline-flex items-center gap-2.5">
                   <Activity className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
@@ -182,26 +184,26 @@ export function BentoSection() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-[#0D131D] border border-[#1E293B] p-3.5 space-y-2.5">
+              <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-3.5 space-y-2.5">
                 <div className="flex items-center justify-between gap-1.5 text-[10px] font-mono">
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#182233] border border-[#222E3F] px-2 py-1 text-foreground">
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-white border border-slate-200 px-2 py-1 text-slate-800">
                     <PostgresLogo size={12} />
                     <span>Outbox</span>
                   </span>
                   <ArrowRight className="w-3 h-3 text-primary shrink-0" aria-hidden="true" />
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#10292B] border border-[#265955] px-2 py-1 text-primary">
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-1 text-emerald-800 font-semibold">
                     <NatsLogo size={12} />
                     <span>JetStream</span>
                   </span>
                   <ArrowRight className="w-3 h-3 text-primary shrink-0" aria-hidden="true" />
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#182233] border border-[#222E3F] px-2 py-1 text-emerald-400">
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-white border border-slate-200 px-2 py-1 text-emerald-700 font-semibold">
                     <PrefectLogo size={12} />
                     <span>Prefect 3</span>
                   </span>
                 </div>
-                <div className="flex items-center justify-between rounded-lg bg-[#131B28] px-3 py-2 text-[10px] font-mono">
-                  <span className="text-sky-400">Heartbeat: msg.in_progress()</span>
-                  <span className="font-semibold text-emerald-400">DLQ: 0</span>
+                <div className="flex items-center justify-between rounded-lg bg-white border border-slate-200 px-3 py-2 text-[10px] font-mono">
+                  <span className="text-sky-700">Heartbeat: msg.in_progress()</span>
+                  <span className="font-semibold text-emerald-700">DLQ: 0</span>
                 </div>
               </div>
 
@@ -211,14 +213,14 @@ export function BentoSection() {
               </p>
             </article>
 
-            <span className="hidden lg:inline-flex items-center gap-2 ml-6 rounded-full bg-[#221712] border border-[#523022] px-3.5 py-1.5 text-[11px] font-mono text-orange-200 shadow-sm">
+            <span className="hidden lg:inline-flex items-center gap-2 ml-6 rounded-full bg-orange-50 border border-orange-200 px-3.5 py-1.5 text-[11px] font-mono text-orange-900 shadow-xs">
               <AmazonS3Logo size={15} />
               <span>SHA-256 S3 Multipart &gt;= 25 MB</span>
             </span>
           </div>
 
           {/* 5. Vaulted Data Connectors (Centerpiece Staggered Lower) */}
-          <article className="lg:col-span-4 lg:mt-6 rounded-2xl border border-[#222E3F] bg-card p-6 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5)] flex flex-col justify-between gap-4 hover:border-primary/35 transition-colors">
+          <article className="lg:col-span-4 lg:mt-6 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_14px_38px_-12px_rgba(15,23,42,0.08)] flex flex-col justify-between gap-4 hover:border-primary/40 transition-colors">
             <div className="flex items-center justify-between gap-3">
               <div className="inline-flex items-center gap-2.5">
                 <Plug className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
@@ -233,7 +235,7 @@ export function BentoSection() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-[#0D131D] border border-[#1E293B] p-3.5 grid grid-cols-2 gap-2.5">
+            <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-3.5 grid grid-cols-2 gap-2.5">
               {[
                 { name: "Amazon S3", Logo: AmazonS3Logo },
                 { name: "PostgreSQL", Logo: PostgresLogo },
@@ -246,7 +248,7 @@ export function BentoSection() {
                 return (
                   <div
                     key={conn.name}
-                    className="flex items-center gap-2 rounded-lg bg-[#141D2B] border border-[#222E3F] px-2.5 py-2 text-[11px] font-semibold text-foreground"
+                    className="flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-2.5 py-2 text-[11px] font-semibold text-slate-800 shadow-2xs"
                   >
                     <ConnLogo size={15} />
                     <span className="truncate">{conn.name}</span>
@@ -263,7 +265,7 @@ export function BentoSection() {
 
           {/* 6. Real-Time Usage Metering (Bottom-Right + Floating RLS Verified Pill) */}
           <div className="lg:col-span-4 lg:mt-2 flex flex-col items-end gap-3.5">
-            <article className="w-full rounded-2xl border border-[#222E3F] bg-card p-6 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5)] flex flex-col justify-between gap-4 hover:border-primary/35 transition-colors">
+            <article className="w-full rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_14px_38px_-12px_rgba(15,23,42,0.08)] flex flex-col justify-between gap-4 hover:border-primary/40 transition-colors">
               <div className="flex items-center justify-between gap-3">
                 <div className="inline-flex items-center gap-2.5">
                   <BarChart2 className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
@@ -277,22 +279,22 @@ export function BentoSection() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-[#0D131D] border border-[#1E293B] p-4 space-y-2.5">
+              <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-4 space-y-2.5">
                 {[
-                  { label: "Storage Quota", val: "320/500 GiB", pct: "64%", color: "bg-primary text-primary" },
-                  { label: "Compute Hours", val: "19.2/50 hrs", pct: "38%", color: "bg-sky-400 text-sky-400" },
-                  { label: "Worker Slots", val: "2/5 active", pct: "40%", color: "bg-emerald-400 text-emerald-400" },
+                  { label: "Storage Quota", val: "320/500 GiB", pct: "64%", barColor: "bg-primary", textColor: "text-emerald-700" },
+                  { label: "Compute Hours", val: "19.2/50 hrs", pct: "38%", barColor: "bg-sky-500", textColor: "text-sky-700" },
+                  { label: "Worker Slots", val: "2/5 active", pct: "40%", barColor: "bg-emerald-500", textColor: "text-emerald-700" },
                 ].map((bar) => (
                   <div key={bar.label} className="space-y-1">
                     <div className="flex items-center justify-between text-[10px]">
-                      <span className="text-muted-foreground">{bar.label}</span>
-                      <span className={`font-mono font-semibold bg-transparent ${bar.color.split(" ")[1]}`}>
+                      <span className="text-slate-600">{bar.label}</span>
+                      <span className={`font-mono font-semibold ${bar.textColor}`}>
                         {bar.val}
                       </span>
                     </div>
-                    <div className="h-1.5 w-full rounded-full bg-[#1B2535] overflow-hidden">
+                    <div className="h-1.5 w-full rounded-full bg-slate-200/90 overflow-hidden">
                       <div
-                        className={`h-full rounded-full ${bar.color.split(" ")[0]}`}
+                        className={`h-full rounded-full ${bar.barColor}`}
                         style={{ width: bar.pct }}
                       />
                     </div>
@@ -306,7 +308,7 @@ export function BentoSection() {
               </p>
             </article>
 
-            <span className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[#111C2E] border border-[#25426B] px-3.5 py-1.5 text-[11px] font-mono text-sky-200 shadow-sm">
+            <span className="hidden lg:inline-flex items-center gap-2 rounded-full bg-sky-50 border border-sky-200 px-3.5 py-1.5 text-[11px] font-mono text-sky-900 shadow-xs">
               <PostgresLogo size={15} />
               <span>PostgreSQL FORCE RLS Verified</span>
             </span>

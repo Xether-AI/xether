@@ -250,7 +250,7 @@ export function DashboardPreview() {
   ];
 
   return (
-    <div className="w-full max-w-305 mx-auto rounded-2xl border border-slate-300/90 bg-white text-slate-900 shadow-[0_32px_72px_-12px_rgba(0,0,0,0.72)] overflow-hidden">
+    <div className="w-full max-w-305 mx-auto rounded-2xl border border-slate-200/90 bg-white text-slate-900 shadow-[0_24px_70px_-15px_rgba(15,23,42,0.14)] overflow-hidden">
       {/* Light-Mode App Top Bar: Org -> Team -> Project Context Switchers */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-5 h-auto min-h-13.5 py-2.5 border-b border-slate-200 bg-white">
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 min-w-0">

@@ -51,13 +51,13 @@ export function CTASection() {
   return (
     <section className="w-full px-4 sm:px-6 pt-12 pb-6">
       <div
-        className="max-w-300 mx-auto rounded-[20px] border border-[#265955] px-6 sm:px-12 py-12 sm:py-14 flex flex-col items-center text-center gap-5 shadow-2xl"
+        className="max-w-300 mx-auto rounded-[20px] border border-emerald-200/90 px-6 sm:px-12 py-12 sm:py-14 flex flex-col items-center text-center gap-5 shadow-[0_20px_55px_-15px_rgba(14,165,122,0.15)]"
         style={{
           background:
-            "radial-gradient(85% 95% at 50% 0%, #133235 0%, #101722 86%)",
+            "radial-gradient(85% 95% at 50% 0%, #e6fbf4 0%, #ffffff 82%)",
         }}
       >
-        <span className="inline-flex items-center justify-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[11px] font-normal tracking-wider uppercase text-primary">
+        <span className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-100/80 border border-emerald-300/70 px-3 py-1 text-[11px] font-medium tracking-wider uppercase text-emerald-800">
           <span>Ready to Launch</span>
         </span>
 
@@ -81,30 +81,30 @@ export function CTASection() {
               render={({ field }) => (
                 <FormItem className="space-y-2">
                   <FormControl>
-                    <div className="flex items-center justify-between gap-2 rounded-full bg-[#0A0E16] border border-[#2C3D54] pl-4 pr-1.5 py-1.5 focus-within:border-primary/60 transition-colors">
+                    <div className="flex items-center justify-between gap-2 rounded-full bg-white border border-slate-300/90 pl-4 pr-1.5 py-1.5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15 transition-all">
                       <div className="flex items-center gap-2.5 flex-1 min-w-0">
                         <Mail
-                          className="w-4 h-4 text-slate-500 shrink-0"
+                          className="w-4 h-4 text-slate-400 shrink-0"
                           aria-hidden="true"
                         />
                         <input
                           type="email"
                           placeholder="name@company.com"
                           autoComplete="email"
-                          className="w-full bg-transparent text-sm text-foreground placeholder:text-slate-500 focus:outline-none"
+                          className="w-full bg-transparent text-sm text-foreground placeholder:text-slate-400 focus:outline-none"
                           {...field}
                         />
                       </div>
                       <button
                         type="submit"
                         disabled={mutation.isPending}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-[13px] font-semibold hover:bg-primary/90 disabled:opacity-60 transition-all shrink-0 cursor-pointer"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-[13px] font-semibold hover:bg-primary/90 disabled:opacity-60 transition-all shrink-0 cursor-pointer shadow-sm"
                       >
                         <span>{mutation.isPending ? "Sending…" : "Get Started"}</span>
                       </button>
                     </div>
                   </FormControl>
-                  <FormMessage className="text-xs text-rose-400" />
+                  <FormMessage className="text-xs text-rose-600" />
                 </FormItem>
               )}
             />
