@@ -50,3 +50,20 @@ test("website enforces light-only mode without a dark-mode toggle", async ({ pag
     page.getByRole("button", { name: /Switch to (light|dark) mode/ }),
   ).toHaveCount(0);
 });
+
+test("footer globe language switcher switches locale to French", async ({ page }) => {
+  await page.goto("/");
+
+  const switcher = page.getByTestId("language-switcher");
+  await expect(switcher).toBeVisible();
+  await expect(switcher).toContainText("EN");
+
+  await switcher.click();
+  await expect(page.getByRole("menuitemradio", { name: /English/i })).toBeVisible();
+  await expect(page.getByRole("menuitemradio", { name: /Français/i })).toBeVisible();
+  await expect(page.getByRole("menuitemradio", { name: /Español/i })).toBeVisible();
+
+  await page.getByRole("menuitemradio", { name: /Français/i }).click();
+  await expect(switcher).toContainText("FR");
+  await expect(page.getByRole("link", { name: "Plateforme" }).first()).toBeVisible();
+});
