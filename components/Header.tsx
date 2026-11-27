@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   BookOpen,
   Cpu,
@@ -27,22 +28,32 @@ const navItems = [
   },
 ];
 
+const AUTH_ROUTES = ["/login", "/signup", "/forgot-password"];
+
 export function Header() {
+  const pathname = usePathname();
+  const isAuthRoute = AUTH_ROUTES.some(
+    (route) => pathname === route || pathname?.startsWith(`${route}/`),
+  );
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    if (isAuthRoute) return;
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 18);
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isAuthRoute]);
+
+  if (isAuthRoute) return null;
 
   return (
     <>
-      <header className="floating-nav-container sm:px-6">
+      <header className="floating-nav-container px-3 sm:px-6">
         <div
           data-scrolled={isScrolled ? "true" : "false"}
           className="floating-nav-pill max-w-306 mx-auto h-16 px-4 sm:px-5 rounded-full flex items-center justify-between gap-4"
