@@ -117,11 +117,11 @@ export function BentoSection() {
               </div>
 
               <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-3.5 space-y-2.5">
-                <div className="flex items-center justify-between gap-2 rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-[11px] font-mono">
+                <div className="flex items-center justify-between gap-2 rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-[11px]">
                   <span className="font-semibold text-emerald-800">v2.3.0 · main</span>
                   <span className="text-emerald-700">sha256:9f3a8c1</span>
                 </div>
-                <div className="flex items-center justify-between gap-2 rounded-lg bg-white border border-slate-200 px-3 py-2 text-[11px] font-mono">
+                <div className="flex items-center justify-between gap-2 rounded-lg bg-white border border-slate-200 px-3 py-2 text-[11px]">
                   <span className="font-semibold text-slate-800">v2.2.4 · feat/dedup</span>
                   <span className="text-slate-500">sha256:4b12e09</span>
                 </div>
@@ -149,15 +149,15 @@ export function BentoSection() {
             </div>
 
             <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-3 space-y-2">
-              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] font-mono text-emerald-700 truncate">
+              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] text-emerald-700 truncate">
                 <PostgresLogo size={14} />
                 <span className="truncate">app.current_org_id = &apos;org_7f2a&apos;</span>
               </div>
-              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] font-mono text-sky-700 truncate">
+              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] text-sky-700 truncate">
                 <RedisLogo size={14} />
                 <span className="truncate">jti:revoked · xth_live_sha256</span>
               </div>
-              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] font-mono text-slate-700 truncate">
+              <div className="flex items-center gap-2 rounded-md bg-white border border-slate-200 px-2.5 py-2 text-[10px] text-slate-700 truncate">
                 <AmazonS3Logo size={14} />
                 <span className="truncate">s3://artifacts/org_7f2a/ds_09/</span>
               </div>
@@ -174,7 +174,7 @@ export function BentoSection() {
               <div className="flex items-center justify-between gap-3">
                 <div className="inline-flex items-center gap-2.5">
                   <Activity className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
-                  <h3 className="text-base sm:text-[17px] font-bold text-foreground">
+                  <h3 className="text-base sm:text-[17px] text-foreground">
                     {t("workers.title")}
                   </h3>
                 </div>
@@ -185,8 +185,8 @@ export function BentoSection() {
               </div>
 
               <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-3.5 space-y-2.5">
-                <div className="flex items-center justify-between gap-1.5 text-[10px] font-mono">
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-white border border-slate-200 px-2 py-1 text-slate-800">
+                <div className="flex items-center justify-between gap-1.5 text-[10px]">
+                  <span className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-white border border-slate-200 px-2 py-1 text-slate-800">
                     <PostgresLogo size={12} />
                     <span>{t("workers.outbox")}</span>
                   </span>
@@ -201,7 +201,7 @@ export function BentoSection() {
                     <span>{t("workers.prefect")}</span>
                   </span>
                 </div>
-                <div className="flex items-center justify-between rounded-lg bg-white border border-slate-200 px-3 py-2 text-[10px] font-mono">
+                <div className="flex items-center justify-between rounded-lg bg-white border border-slate-200 px-3 py-2 text-[10px]">
                   <span className="text-sky-700">{t("workers.heartbeat")}</span>
                   <span className="font-semibold text-emerald-700">{t("workers.dlq")}</span>
                 </div>
@@ -212,7 +212,7 @@ export function BentoSection() {
               </p>
             </article>
 
-            <span className="hidden lg:inline-flex items-center gap-2 ml-6 rounded-full bg-orange-50 border border-orange-200 px-3.5 py-1.5 text-[11px] font-mono text-orange-900 shadow-xs">
+            <span className="hidden lg:inline-flex items-center gap-2 ml-6 rounded-full bg-orange-50 border border-orange-200 px-3.5 py-1.5 text-[11px] text-orange-900 shadow-xs">
               <AmazonS3Logo size={15} />
               <span>{t("badges.s3")}</span>
             </span>
@@ -247,7 +247,7 @@ export function BentoSection() {
                 return (
                   <div
                     key={conn.name}
-                    className="flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-2.5 py-2 text-[11px] font-semibold text-slate-800 shadow-2xs"
+                    className="flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-2.5 py-2 text-[11px] font-semibold text-slate-800 shadow-xs"
                   >
                     <ConnLogo size={15} />
                     <span className="truncate">{conn.name}</span>
@@ -286,7 +286,7 @@ export function BentoSection() {
                   <div key={bar.label} className="space-y-1">
                     <div className="flex items-center justify-between text-[10px]">
                       <span className="text-slate-600">{bar.label}</span>
-                      <span className={`font-mono font-semibold ${bar.textColor}`}>
+                      <span className={`font-semibold ${bar.textColor}`}>
                         {bar.val}
                       </span>
                     </div>
@@ -305,7 +305,7 @@ export function BentoSection() {
               </p>
             </article>
 
-            <span className="hidden lg:inline-flex items-center gap-2 rounded-full bg-sky-50 border border-sky-200 px-3.5 py-1.5 text-[11px] font-mono text-sky-900 shadow-xs">
+            <span className="hidden lg:inline-flex items-center gap-2 rounded-full bg-sky-50 border border-sky-200 px-3.5 py-1.5 text-[11px] text-sky-900 shadow-xs">
               <PostgresLogo size={15} />
               <span>{t("badges.rlsVerified")}</span>
             </span>

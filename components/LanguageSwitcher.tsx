@@ -74,14 +74,14 @@ export function LanguageSwitcher() {
         aria-label={t("languageSwitcherLabel")}
         disabled={isPending}
         onClick={() => setOpen((prev) => !prev)}
-        className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-2xs hover:border-primary/40 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-60 transition-all cursor-pointer"
+        className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-700 hover:border-primary/40 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-60 transition-all cursor-pointer"
       >
         <Globe className="w-3.5 h-3.5 text-primary shrink-0" aria-hidden="true" />
-        <span className="font-mono text-[11px] font-semibold text-slate-900">
+        <span className="text-[11px] font-semibold text-slate-900">
           {current.code}
         </span>
-        <span className="text-slate-400" aria-hidden="true">
-          ·
+        <span className="text-slate-400 flex items-center justify-center" aria-hidden="true">
+          -
         </span>
         <span>{current.nativeLabel}</span>
         <ChevronUp

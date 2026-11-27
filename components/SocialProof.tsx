@@ -27,7 +27,7 @@ export function SocialProof() {
   return (
     <section className="w-full py-10 md:py-12 border-y border-slate-200/80 bg-white/80 px-4 sm:px-6">
       <div className="max-w-300 mx-auto flex flex-col items-center gap-6">
-        <p className="text-center text-[11px] font-mono font-medium tracking-[0.16em] uppercase text-slate-500">
+        <p className="text-center text-[11px] font-medium tracking-[0.16em] uppercase text-slate-500">
           {t("eyebrow")}
         </p>
 
