@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { HelpCircle, Minus, Plus, Quote } from "lucide-react";
+import { Minus, Plus, Quote } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { HuggingFaceLogo, PostgresLogo } from "./BrandLogos";
@@ -25,7 +25,6 @@ export function FAQSection() {
         {/* Left Column: Intro + Proof Cards */}
         <div className="space-y-4">
           <span className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[12px] font-semibold tracking-wider uppercase text-emerald-700">
-            <HelpCircle className="w-3.5 h-3.5" aria-hidden="true" />
             <span>{t("badge")}</span>
           </span>
 

@@ -59,7 +59,7 @@ export function CTASection() {
             "radial-gradient(85% 95% at 50% 0%, #e6fbf4 0%, #ffffff 82%)",
         }}
       >
-        <span className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-100/80 border border-emerald-300/70 px-3 py-1 text-[11px] font-medium tracking-wider uppercase text-emerald-800">
+        <span className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-100/80 border border-emerald-300/70 px-3 py-1 text-[12px] font-bold tracking-wider uppercase text-emerald-800">
           <span>{t("badge")}</span>
         </span>
 
