@@ -42,12 +42,11 @@ test("contact and api pages render cleanly", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "API Reference" })).toBeVisible();
 });
 
-test("theme toggle switches between dark and light mode", async ({ page }) => {
+test("website enforces light-only mode without a dark-mode toggle", async ({ page }) => {
   await page.goto("/");
   const html = page.locator("html");
-  const toggleBtn = page.getByRole("button", {
-    name: /Switch to (light|dark) mode/,
-  });
-  await toggleBtn.click();
-  await expect(html).toHaveClass(/(light|dark)/);
+  await expect(html).not.toHaveClass(/\bdark\b/);
+  await expect(
+    page.getByRole("button", { name: /Switch to (light|dark) mode/ }),
+  ).toHaveCount(0);
 });
