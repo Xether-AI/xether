@@ -1,0 +1,303 @@
+{
+  "Header": {
+    "primaryNav": "Primary navigation",
+    "nav": {
+      "platform": "Platform",
+      "architecture": "Architecture",
+      "pricing": "Pricing",
+      "docs": "Docs"
+    },
+    "signIn": "Sign In",
+    "startFree": "Start Free",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu"
+  },
+  "Hero": {
+    "eyebrow": "v2.4 Streaming Engine · Zero-OOM Polars + DuckDB",
+    "headlineLine1": "Reliable Data,",
+    "headlineLine2": "Ready for AI.",
+    "subtitle": "Automate ingestion, validation, and cryptographic dataset versioning—so every training run is deterministic, multi-tenant isolated, and audit-ready.",
+    "startAutomating": "Start Automating",
+    "readDocs": "Read the Docs",
+    "trustSandbox": "Free secure Sandbox included",
+    "trustNoCard": "Zero credit card required",
+    "trustRls": "PostgreSQL FORCE RLS isolated"
+  },
+  "SocialProof": {
+    "eyebrow": "Built for modern AI & data infrastructure teams"
+  },
+  "Bento": {
+    "badge": "Core Infrastructure",
+    "title": "Data Quality as Infrastructure",
+    "subtitle": "Every pipeline stage streams out-of-core, checkpoints deterministically to S3, and verifies SHA-256 digests before model training begins.",
+    "streaming": {
+      "title": "Zero-OOM Streaming Engine",
+      "inputLabel": "Input Parquet Batch",
+      "workerLabel": "Worker Peak RSS (Spill OK)",
+      "description": "Polars LazyFrame scans and DuckDB out-of-core disk spill process multi-GB Parquet tables inside strict bounded RSS."
+    },
+    "versioning": {
+      "title": "Cryptographic Versioning",
+      "description": "Branch datasets like Git, verify >=25 MB S3 multipart uploads with SHA-256, and roll back cleanly."
+    },
+    "rls": {
+      "title": "Multi-Tenant RLS",
+      "description": "Isolation enforced inside PostgreSQL row-level security, hashed xth_live_ keys, and S3 <org_id>/ prefixes."
+    },
+    "workers": {
+      "title": "Durable JetStream Workers",
+      "outbox": "Outbox",
+      "jetstream": "JetStream",
+      "prefect": "Prefect 3",
+      "heartbeat": "Heartbeat: msg.in_progress()",
+      "dlq": "DLQ: 0",
+      "description": "Transactional outbox dispatch, per-org concurrency caps, S3 stage checkpoints, and cooperative SSE cancellation."
+    },
+    "connectors": {
+      "title": "Vaulted Data Connectors",
+      "restApi": "REST / httpx",
+      "description": "Encrypted credential vault for Amazon S3, PostgreSQL watermarks, Snowflake analytics, MinIO, DuckDB, and REST."
+    },
+    "metering": {
+      "title": "Real-Time Metering",
+      "storageQuota": "Storage Quota",
+      "computeHours": "Compute Hours",
+      "workerSlots": "Worker Slots",
+      "activeSlots": "2/5 active",
+      "description": "Idempotent UsageEvent ledgers enforce storage & compute quotas dynamically via Go :9091."
+    },
+    "badges": {
+      "duckdb": "DuckDB 2.0 Out-of-Core Spill",
+      "s3": "SHA-256 S3 Multipart >= 25 MB",
+      "rlsVerified": "PostgreSQL FORCE RLS Verified"
+    }
+  },
+  "Testimonial": {
+    "quote": "“Xether's deterministic checkpoints and SHA-256 dataset versioning transformed how we ship production models. It's the missing reliability layer in the AI stack.”",
+    "role": "VP of Data Infrastructure ·",
+    "partner": "Databricks Partner"
+  },
+  "Pricing": {
+    "badge": "Transparent Pricing",
+    "title": "Predictable Infrastructure Pricing",
+    "subtitle": "Start free in the Sandbox. Scale cleanly with transparent storage, compute, and concurrency quotas.",
+    "monthly": "Monthly",
+    "annualSave": "Annual · Save 20%",
+    "perMonth": "/month",
+    "attribution": "Usage metering & billing powered by Stripe · Native connectors:",
+    "plans": {
+      "sandbox": {
+        "name": "Free Sandbox",
+        "description": "Validate streaming pipelines and dataset versioning on real workloads.",
+        "cta": "Start Free",
+        "features": [
+          "3 team seats & basic RBAC",
+          "10 GiB versioned S3 storage",
+          "1 concurrent pipeline run",
+          "1 hr streaming compute / mo",
+          "SHA-256 multipart verification",
+          "S3 & REST pull connectors"
+        ]
+      },
+      "pro": {
+        "name": "Pro Team",
+        "badge": "MOST POPULAR",
+        "description": "Production out-of-core streaming, live SSE telemetry, and team workspaces.",
+        "cta": "Start 14-Day Trial",
+        "features": [
+          "15 team seats & workspace roles",
+          "500 GiB versioned S3 storage",
+          "5 concurrent pipeline runs",
+          "50 hrs streaming compute / mo",
+          "Live SSE progress & checkpoint resume",
+          "Postgres watermark, Snowflake & RBAC"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise Dedicated",
+        "badge": "BYOC / VPC",
+        "description": "Dedicated tenant isolation, private VPC workers, and compliance SLAs.",
+        "cta": "Contact Engineering",
+        "features": [
+          "100+ seats & custom policies",
+          "5 TiB+ storage & custom quotas",
+          "25+ fair worker concurrency slots",
+          "Dedicated VPC / BYOC deployment",
+          "Postgres FORCE RLS & SSO / SAML",
+          "24/7 SLA & immutable audit exports"
+        ]
+      }
+    }
+  },
+  "FAQ": {
+    "badge": "Architecture & FAQ",
+    "title": "Engineering-Grade Answers",
+    "subtitle": "Built for teams running sensitive production workloads that cannot afford silent schema drift or noisy-neighbor failures.",
+    "quotes": [
+      {
+        "quote": "Rolling back a corrupted merge took four seconds thanks to SHA-256 dataset snapshots.",
+        "author": "Alex Chen · Staff ML Engineer"
+      },
+      {
+        "quote": "PostgreSQL FORCE RLS gave our security review team immediate sign-off.",
+        "author": "David Park · Head of Security"
+      }
+    ],
+    "items": [
+      {
+        "question": "How does Xether prevent out-of-memory crashes on multi-GB datasets?",
+        "answer": "All pipeline transforms compile to Polars LazyFrame streaming queries paired with DuckDB 2.0 out-of-core disk spill (DUCKDB_TEMP_DIR). Artifacts >=25 MB stream straight to S3 via multipart upload with incremental SHA-256 hashing."
+      },
+      {
+        "question": "How is multi-tenant isolation enforced across compute and storage?",
+        "answer": "Every tenant database table enforces PostgreSQL FORCE ROW LEVEL SECURITY bound to session app.current_org_id, paired with hashed xth_live_ API keys, Redis jti revocation, and strict <org_id>/ S3 prefix scoping."
+      },
+      {
+        "question": "What happens if a worker restarts mid-pipeline?",
+        "answer": "NATS JetStream pull workers send msg.in_progress() heartbeats and persist deterministic S3 stage checkpoints. Restarts resume cleanly from the last committed stage without recomputing completed transforms."
+      },
+      {
+        "question": "Can we connect Postgres, Snowflake, or internal VPC sources?",
+        "answer": "Yes. Enterprise Dedicated workspaces support private VPC / BYOC worker deployments and vaulted credentials for Amazon S3, PostgreSQL incremental watermarks, Snowflake, MinIO, and paginated REST APIs."
+      },
+      {
+        "question": "How are compute hours and storage quotas tracked?",
+        "answer": "Execution workers and storage services emit idempotent UsageEvent ledgers reconciled dynamically into org_quotas, powering live quota bars inside your Team Dashboard."
+      }
+    ]
+  },
+  "CTA": {
+    "badge": "Ready to Launch",
+    "title": "Data quality, made effortless.",
+    "subtitle": "Launch a Free Sandbox workspace in under two minutes or schedule an engineering review.",
+    "placeholder": "name@company.com",
+    "submit": "Get Started",
+    "submitting": "Sending…",
+    "invalidEmail": "Please enter a valid email address.",
+    "successToast": "Thanks for your interest! We'll be in touch soon.",
+    "errorToast": "Something went wrong. Please try again."
+  },
+  "Footer": {
+    "tagline": "Data quality as infrastructure. Built for deterministic ML & enterprise governance.",
+    "columns": {
+      "product": {
+        "title": "Product",
+        "streamingEngine": "Streaming Engine",
+        "datasetVersioning": "Dataset Versioning",
+        "connectors": "Connectors",
+        "pricing": "Pricing"
+      },
+      "platform": {
+        "title": "Platform",
+        "forceRls": "FORCE RLS Security",
+        "sseTelemetry": "SSE Telemetry",
+        "apiReference": "API Reference",
+        "status": "Status"
+      },
+      "company": {
+        "title": "Company",
+        "about": "About",
+        "blog": "Engineering Blog",
+        "signIn": "Sign In",
+        "contact": "Contact"
+      }
+    },
+    "copyright": "© 2026 Xether AI Inc. All rights reserved.",
+    "legal": "Privacy · Terms · Security",
+    "languageSwitcherLabel": "Change language",
+    "selectLanguage": "Select language"
+  },
+  "Auth": {
+    "cloudPlatform": "Cloud Platform",
+    "backToHome": "Back to home",
+    "operationalStatus": "All data planes operational · TLS 1.3 · SOC 2 ready",
+    "allRightsReserved": "All rights reserved.",
+    "docs": "Docs",
+    "api": "API",
+    "support": "Support",
+    "hero": {
+      "badge": "Deterministic ML Data Infrastructure",
+      "headlinePrefix": "Ship training data with",
+      "headlineAccent": "git-grade precision",
+      "subtitle": "Streaming ETL execution, immutable dataset versioning, and strict multi-tenant isolation—built so ML teams move faster with zero pipeline drift.",
+      "capabilities": [
+        {
+          "title": "Zero-OOM Streaming ETL",
+          "description": "Process 100GB+ Parquet streams with bounded worker memory."
+        },
+        {
+          "title": "Immutable Dataset Lineage",
+          "description": "Branch, diff, and rollback snapshots with cryptographic provenance."
+        },
+        {
+          "title": "Multi-Tenant Isolation",
+          "description": "Workspace-scoped RBAC, encrypted credentials, and full audit trails."
+        }
+      ]
+    },
+    "login": {
+      "title": "Welcome back",
+      "subtitlePrefix": "Sign in to access your",
+      "subtitleSuffix": "workspace",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create one for free",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@company.com",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot password?",
+      "rememberMe": "Remember me for 30 days",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "invalidEmail": "Please enter a valid email.",
+      "passwordMin": "Password must be at least 8 characters.",
+      "successToast": "Logged in. Redirecting…",
+      "errorToast": "Login failed. Please check your credentials and try again."
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitlePrefix": "Get started with",
+      "subtitleSuffix": "automated data infrastructure.",
+      "hasAccount": "Already have an account?",
+      "signInHere": "Sign in here",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Jane Doe",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "janedoe",
+      "workEmailLabel": "Work Email",
+      "workEmailPlaceholder": "you@company.com",
+      "phoneLabel": "Phone Number (optional)",
+      "phonePlaceholder": "+1 234 567 890",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "nameRequired": "Full name is required.",
+      "usernameMin": "Username must be at least 3 characters.",
+      "invalidEmail": "Please enter a valid email.",
+      "passwordMin": "Password must be at least 8 characters.",
+      "passwordsMismatch": "Passwords do not match.",
+      "successToast": "Account created. Redirecting…",
+      "errorToast": "Sign up failed. Please try again."
+    },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "subtitle": "Enter your email address and we'll send you a secure reset link.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@company.com",
+      "submit": "Send reset link",
+      "submitting": "Sending…",
+      "backToSignIn": "Back to sign in",
+      "invalidEmail": "Please enter a valid email.",
+      "successToast": "If that email exists, you’ll receive a reset link shortly.",
+      "errorToast": "Request failed. Please try again."
+    },
+    "oauth": {
+      "enterpriseSso": "Continue with Enterprise SSO",
+      "orContinueWithEmail": "or continue with email"
+    }
+  }
+}

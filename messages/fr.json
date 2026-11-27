@@ -1,0 +1,303 @@
+{
+  "Header": {
+    "primaryNav": "Navigation principale",
+    "nav": {
+      "platform": "Plateforme",
+      "architecture": "Architecture",
+      "pricing": "Tarifs",
+      "docs": "Docs"
+    },
+    "signIn": "Connexion",
+    "startFree": "Essai gratuit",
+    "openMenu": "Ouvrir le menu de navigation",
+    "closeMenu": "Fermer le menu de navigation"
+  },
+  "Hero": {
+    "eyebrow": "Moteur Streaming v2.4 · Polars + DuckDB sans OOM",
+    "headlineLine1": "Données fiables,",
+    "headlineLine2": "prêtes pour l'IA.",
+    "subtitle": "Automatisez l'ingestion, la validation et le versionnage cryptographique des jeux de données afin que chaque entraînement reste déterministe, isolé par tenant et prêt pour l'audit.",
+    "startAutomating": "Automatiser maintenant",
+    "readDocs": "Lire la documentation",
+    "trustSandbox": "Sandbox sécurisée gratuite incluse",
+    "trustNoCard": "Aucune carte bancaire requise",
+    "trustRls": "Isolation PostgreSQL FORCE RLS"
+  },
+  "SocialProof": {
+    "eyebrow": "Conçu pour les équipes d'IA et d'infrastructure data modernes"
+  },
+  "Bento": {
+    "badge": "Infrastructure cœur",
+    "title": "La qualité des données comme infrastructure",
+    "subtitle": "Chaque étape s'exécute en streaming hors mémoire, sauvegarde ses points de reprise sur S3 et vérifie les empreintes SHA-256 avant l'entraînement.",
+    "streaming": {
+      "title": "Moteur Streaming sans OOM",
+      "inputLabel": "Lot Parquet en entrée",
+      "workerLabel": "Pic RSS du worker (débordement disque OK)",
+      "description": "Les analyses LazyFrame Polars et le débordement disque DuckDB traitent des tables Parquet multi-Go dans une mémoire RSS strictement bornée."
+    },
+    "versioning": {
+      "title": "Versionnage cryptographique",
+      "description": "Branchez vos jeux de données comme Git, vérifiez les transferts S3 multipart >= 25 Mo en SHA-256 et revenez en arrière proprement."
+    },
+    "rls": {
+      "title": "RLS multi-tenant",
+      "description": "Isolation garantie au cœur de PostgreSQL via Row-Level Security, clés hachées xth_live_ et préfixes S3 <org_id>/."
+    },
+    "workers": {
+      "title": "Workers JetStream durables",
+      "outbox": "Outbox",
+      "jetstream": "JetStream",
+      "prefect": "Prefect 3",
+      "heartbeat": "Battement : msg.in_progress()",
+      "dlq": "DLQ : 0",
+      "description": "Distribution transactionnelle par outbox, plafonds de concurrence par organisation, points de reprise S3 et annulation SSE coopérative."
+    },
+    "connectors": {
+      "title": "Connecteurs coffrés",
+      "restApi": "REST / httpx",
+      "description": "Coffre-fort chiffré d'identifiants pour Amazon S3, filigranes PostgreSQL, Snowflake, MinIO, DuckDB et API REST."
+    },
+    "metering": {
+      "title": "Mesure en temps réel",
+      "storageQuota": "Quota de stockage",
+      "computeHours": "Heures de calcul",
+      "workerSlots": "Emplacements worker",
+      "activeSlots": "2/5 actifs",
+      "description": "Des journaux idempotents UsageEvent appliquent dynamiquement les quotas de stockage et de calcul via Go :9091."
+    },
+    "badges": {
+      "duckdb": "Débordement disque DuckDB 2.0",
+      "s3": "S3 Multipart SHA-256 >= 25 Mo",
+      "rlsVerified": "PostgreSQL FORCE RLS vérifié"
+    }
+  },
+  "Testimonial": {
+    "quote": "« Les points de reprise déterministes et le versionnage SHA-256 de Xether ont transformé notre mise en production de modèles. C'est la couche de fiabilité qui manquait à la pile IA. »",
+    "role": "VP Infrastructure Data ·",
+    "partner": "Partenaire Databricks"
+  },
+  "Pricing": {
+    "badge": "Tarification transparente",
+    "title": "Une tarification d'infrastructure prévisible",
+    "subtitle": "Commencez gratuitement dans la Sandbox. Passez à l'échelle avec des quotas clairs de stockage, calcul et concurrence.",
+    "monthly": "Mensuel",
+    "annualSave": "Annuel · -20 %",
+    "perMonth": "/mois",
+    "attribution": "Mesure d'usage et facturation via Stripe · Connecteurs natifs :",
+    "plans": {
+      "sandbox": {
+        "name": "Sandbox gratuite",
+        "description": "Validez vos pipelines streaming et le versionnage sur des charges réelles.",
+        "cta": "Commencer gratuitement",
+        "features": [
+          "3 sièges d'équipe et RBAC de base",
+          "10 Gio de stockage S3 versionné",
+          "1 exécution de pipeline simultanée",
+          "1 h de calcul streaming / mois",
+          "Vérification multipart SHA-256",
+          "Connecteurs S3 et REST en lecture"
+        ]
+      },
+      "pro": {
+        "name": "Équipe Pro",
+        "badge": "PLUS POPULAIRE",
+        "description": "Streaming hors mémoire en production, télémétrie SSE en direct et espaces d'équipe.",
+        "cta": "Essai gratuit de 14 jours",
+        "features": [
+          "15 sièges et rôles par espace de travail",
+          "500 Gio de stockage S3 versionné",
+          "5 exécutions de pipeline simultanées",
+          "50 h de calcul streaming / mois",
+          "Progression SSE en direct et reprise",
+          "Filigrane Postgres, Snowflake et RBAC"
+        ]
+      },
+      "enterprise": {
+        "name": "Entreprise dédiée",
+        "badge": "BYOC / VPC",
+        "description": "Isolation dédiée par tenant, workers VPC privés et SLA de conformité.",
+        "cta": "Contacter l'ingénierie",
+        "features": [
+          "100+ sièges et politiques sur mesure",
+          "5 Tio+ de stockage et quotas personnalisés",
+          "25+ slots de concurrence équitables",
+          "Déploiement VPC / BYOC dédié",
+          "Postgres FORCE RLS et SSO / SAML",
+          "SLA 24/7 et exports d'audit immuables"
+        ]
+      }
+    }
+  },
+  "FAQ": {
+    "badge": "Architecture & FAQ",
+    "title": "Des réponses d'ingénierie précises",
+    "subtitle": "Conçu pour les équipes qui exploitent des charges sensibles et ne peuvent tolérer aucune dérive silencieuse de schéma.",
+    "quotes": [
+      {
+        "quote": "Revenir après une fusion corrompue a pris quatre secondes grâce aux instantanés SHA-256.",
+        "author": "Alex Chen · Ingénieur ML Principal"
+      },
+      {
+        "quote": "PostgreSQL FORCE RLS a convaincu notre équipe sécurité dès la première revue.",
+        "author": "David Park · Responsable Sécurité"
+      }
+    ],
+    "items": [
+      {
+        "question": "Comment Xether évite-t-il les erreurs OOM sur des jeux de données multi-Go ?",
+        "answer": "Toutes les transformations sont compilées en requêtes streaming Polars LazyFrame associées au débordement disque DuckDB 2.0 (DUCKDB_TEMP_DIR). Les artefacts >= 25 Mo sont envoyés en streaming multipart vers S3 avec hachage SHA-256 incrémental."
+      },
+      {
+        "question": "Comment l'isolation multi-tenant est-elle appliquée au calcul et au stockage ?",
+        "answer": "Chaque table tenant applique PostgreSQL FORCE ROW LEVEL SECURITY lié à app.current_org_id, combiné aux clés API hachées xth_live_, à la révocation Redis jti et au cloisonnement S3 par préfixe <org_id>/."
+      },
+      {
+        "question": "Que se passe-t-il si un worker redémarre en cours de pipeline ?",
+        "answer": "Les workers NATS JetStream envoient des battements msg.in_progress() et persistent des points de reprise déterministes sur S3. Les reprises repartent du dernier jalon validé sans recalculer les étapes terminées."
+      },
+      {
+        "question": "Pouvons-nous connecter Postgres, Snowflake ou des sources VPC internes ?",
+        "answer": "Oui. Les espaces Entreprise dédiée prennent en charge des workers VPC / BYOC privés et des identifiants chiffrés pour Amazon S3, les filigranes PostgreSQL, Snowflake, MinIO et les API REST paginées."
+      },
+      {
+        "question": "Comment les heures de calcul et quotas de stockage sont-ils suivis ?",
+        "answer": "Les workers d'exécution et services de stockage émettent des journaux UsageEvent idempotents réconciliés dynamiquement dans org_quotas, alimentant les jauges en direct de votre tableau de bord."
+      }
+    ]
+  },
+  "CTA": {
+    "badge": "Prêt au lancement",
+    "title": "La qualité des données, sans effort.",
+    "subtitle": "Démarrez un espace Sandbox gratuit en moins de deux minutes ou planifiez une revue technique.",
+    "placeholder": "nom@entreprise.com",
+    "submit": "Commencer",
+    "submitting": "Envoi…",
+    "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
+    "successToast": "Merci pour votre intérêt ! Nous vous contacterons très bientôt.",
+    "errorToast": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "Footer": {
+    "tagline": "La qualité des données comme infrastructure. Conçu pour le ML déterministe et la gouvernance d'entreprise.",
+    "columns": {
+      "product": {
+        "title": "Produit",
+        "streamingEngine": "Moteur Streaming",
+        "datasetVersioning": "Versionnage des données",
+        "connectors": "Connecteurs",
+        "pricing": "Tarifs"
+      },
+      "platform": {
+        "title": "Plateforme",
+        "forceRls": "Sécurité FORCE RLS",
+        "sseTelemetry": "Télémétrie SSE",
+        "apiReference": "Référence API",
+        "status": "Statut"
+      },
+      "company": {
+        "title": "Entreprise",
+        "about": "À propos",
+        "blog": "Blog technique",
+        "signIn": "Connexion",
+        "contact": "Contact"
+      }
+    },
+    "copyright": "© 2026 Xether AI Inc. Tous droits réservés.",
+    "legal": "Confidentialité · Conditions · Sécurité",
+    "languageSwitcherLabel": "Changer de langue",
+    "selectLanguage": "Choisir la langue"
+  },
+  "Auth": {
+    "cloudPlatform": "Plateforme Cloud",
+    "backToHome": "Retour à l'accueil",
+    "operationalStatus": "Tous les plans de données opérationnels · TLS 1.3 · Prêt SOC 2",
+    "allRightsReserved": "Tous droits réservés.",
+    "docs": "Docs",
+    "api": "API",
+    "support": "Support",
+    "hero": {
+      "badge": "Infrastructure data ML déterministe",
+      "headlinePrefix": "Livrez vos données avec une",
+      "headlineAccent": "précision digne de Git",
+      "subtitle": "Exécution ETL streaming, versionnage immuable et isolation multi-tenant stricte—pour que vos équipes ML avancent vite sans dérive de pipeline.",
+      "capabilities": [
+        {
+          "title": "ETL Streaming sans OOM",
+          "description": "Traitez plus de 100 Go de flux Parquet avec une mémoire worker bornée."
+        },
+        {
+          "title": "Lignage immuable",
+          "description": "Branchez, comparez et restaurez vos instantanés avec preuve cryptographique."
+        },
+        {
+          "title": "Isolation multi-tenant",
+          "description": "RBAC par espace de travail, identifiants chiffrés et journaux d'audit complets."
+        }
+      ]
+    },
+    "login": {
+      "title": "Bon retour",
+      "subtitlePrefix": "Connectez-vous pour accéder à votre espace",
+      "subtitleSuffix": "",
+      "noAccount": "Vous n'avez pas encore de compte ?",
+      "createAccount": "Créer un compte gratuit",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@entreprise.com",
+      "passwordLabel": "Mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "rememberMe": "Se souvenir de moi pendant 30 jours",
+      "submit": "Se connecter",
+      "submitting": "Connexion…",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "invalidEmail": "Veuillez saisir un e-mail valide.",
+      "passwordMin": "Le mot de passe doit contenir au moins 8 caractères.",
+      "successToast": "Connexion réussie. Redirection…",
+      "errorToast": "Échec de connexion. Vérifiez vos identifiants et réessayez."
+    },
+    "signup": {
+      "title": "Créer votre compte",
+      "subtitlePrefix": "Démarrez avec l'infrastructure data automatisée de",
+      "subtitleSuffix": "",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "signInHere": "Se connecter ici",
+      "fullNameLabel": "Nom complet",
+      "fullNamePlaceholder": "Camille Laurent",
+      "usernameLabel": "Nom d'utilisateur",
+      "usernamePlaceholder": "camillelaurent",
+      "workEmailLabel": "E-mail professionnel",
+      "workEmailPlaceholder": "vous@entreprise.com",
+      "phoneLabel": "Téléphone (optionnel)",
+      "phonePlaceholder": "+33 6 12 34 56 78",
+      "passwordLabel": "Mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "submit": "Créer un compte",
+      "submitting": "Création du compte…",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "nameRequired": "Le nom complet est requis.",
+      "usernameMin": "Le nom d'utilisateur doit contenir au moins 3 caractères.",
+      "invalidEmail": "Veuillez saisir un e-mail valide.",
+      "passwordMin": "Le mot de passe doit contenir au moins 8 caractères.",
+      "passwordsMismatch": "Les mots de passe ne correspondent pas.",
+      "successToast": "Compte créé. Redirection…",
+      "errorToast": "Échec de l'inscription. Veuillez réessayer."
+    },
+    "forgotPassword": {
+      "title": "Réinitialiser votre mot de passe",
+      "subtitle": "Saisissez votre adresse e-mail pour recevoir un lien de réinitialisation sécurisé.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@entreprise.com",
+      "submit": "Envoyer le lien",
+      "submitting": "Envoi…",
+      "backToSignIn": "Retour à la connexion",
+      "invalidEmail": "Veuillez saisir un e-mail valide.",
+      "successToast": "Si cet e-mail existe, vous recevrez un lien de réinitialisation sous peu.",
+      "errorToast": "La demande a échoué. Veuillez réessayer."
+    },
+    "oauth": {
+      "enterpriseSso": "Continuer avec Enterprise SSO",
+      "orContinueWithEmail": "ou continuer par e-mail"
+    }
+  }
+}
