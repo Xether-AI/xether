@@ -31,9 +31,11 @@ const inputClassName =
 export function LoginForm({
   redirectTo,
   initialError,
+  onForgotPassword,
 }: {
   redirectTo?: string;
   initialError?: string;
+  onForgotPassword?: () => void;
 }) {
   const t = useTranslations("Auth");
   const [showPassword, setShowPassword] = useState(false);
@@ -108,12 +110,22 @@ export function LoginForm({
               <FormItem>
                 <div className="flex items-center justify-between">
                   <FormLabel>{t("login.passwordLabel")}</FormLabel>
-                  <Link
-                    href="/forgot-password"
-                    className="text-xs font-medium text-primary hover:underline"
-                  >
-                    {t("login.forgotPassword")}
-                  </Link>
+                  {onForgotPassword ? (
+                    <button
+                      type="button"
+                      onClick={onForgotPassword}
+                      className="text-xs font-medium text-primary hover:underline cursor-pointer"
+                    >
+                      {t("login.forgotPassword")}
+                    </button>
+                  ) : (
+                    <Link
+                      href="/login?mode=forgot"
+                      className="text-xs font-medium text-primary hover:underline"
+                    >
+                      {t("login.forgotPassword")}
+                    </Link>
+                  )}
                 </div>
                 <FormControl>
                   <div className="relative">

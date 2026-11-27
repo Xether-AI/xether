@@ -23,7 +23,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-export function ForgotPasswordForm() {
+export function ForgotPasswordForm({
+  onBackToSignIn,
+}: {
+  onBackToSignIn?: () => void;
+}) {
   const t = useTranslations("Auth");
 
   const schema = useMemo(
@@ -98,13 +102,24 @@ export function ForgotPasswordForm() {
       </Form>
 
       <div className="pt-1 text-center">
-        <Link
-          href="/login"
-          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-primary hover:border-primary/40 transition-all"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          {t("forgotPassword.backToSignIn")}
-        </Link>
+        {onBackToSignIn ? (
+          <button
+            type="button"
+            onClick={onBackToSignIn}
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-primary hover:border-primary/40 transition-all cursor-pointer"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            {t("forgotPassword.backToSignIn")}
+          </button>
+        ) : (
+          <Link
+            href="/login"
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-primary hover:border-primary/40 transition-all"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            {t("forgotPassword.backToSignIn")}
+          </Link>
+        )}
       </div>
     </div>
   );

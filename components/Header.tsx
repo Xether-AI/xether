@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { XetherBrandMark } from "./BrandLogos";
 
-const AUTH_ROUTES = ["/login", "/signup", "/forgot-password"];
+const AUTH_ROUTES = ["/login", "/signup"];
 
 export function Header() {
   const pathname = usePathname();

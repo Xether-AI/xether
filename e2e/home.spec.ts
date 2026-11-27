@@ -23,14 +23,17 @@ test("auth pages render cleanly", async ({ page }) => {
   await page.goto("/login");
   await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
 
+  await page.getByRole("button", { name: "Forgot password?" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Reset your password" }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Back to sign in" }).click();
+  await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
+
   await page.goto("/signup");
   await expect(
     page.getByRole("heading", { name: "Create your account" }),
-  ).toBeVisible();
-
-  await page.goto("/forgot-password");
-  await expect(
-    page.getByRole("heading", { name: "Reset your password" }),
   ).toBeVisible();
 });
 

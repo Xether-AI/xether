@@ -11,7 +11,6 @@ auth:
           - "components/auth/**"
           - "app/login/**"
           - "app/signup/**"
-          - "app/forgot-password/**"
           - "app/api/auth/**"
 
 ui:
