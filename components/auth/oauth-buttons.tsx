@@ -82,7 +82,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
             <Button
               asChild
               variant="outline"
-              className="h-10 rounded-xl border-border bg-background/60 hover:bg-accent/60 hover:border-primary/40 transition-all"
+              className="h-10 rounded-xl border-border/90 bg-background/70 hover:bg-accent/70 hover:border-primary/40 transition-all"
             >
               <a
                 href="/api/auth/oauth2/google"
@@ -98,7 +98,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
             <Button
               asChild
               variant="outline"
-              className="h-10 rounded-xl border-border bg-background/60 hover:bg-accent/60 hover:border-primary/40 transition-all"
+              className="h-10 rounded-xl border-border/90 bg-background/70 hover:bg-accent/70 hover:border-primary/40 transition-all"
             >
               <a
                 href="/api/auth/oauth2/github"
@@ -114,7 +114,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
             <Button
               asChild
               variant="outline"
-              className="h-10 rounded-xl border-border bg-background/60 hover:bg-accent/60 hover:border-primary/40 transition-all"
+              className="h-10 rounded-xl border-border/90 bg-background/70 hover:bg-accent/70 hover:border-primary/40 transition-all"
             >
               <a
                 href="/api/auth/oauth2/gitlab"
@@ -131,7 +131,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
         <Button
           asChild
           variant="outline"
-          className="w-full h-10 rounded-xl border-border bg-background/60 hover:bg-accent/60 hover:border-primary/40 transition-all"
+          className="w-full h-10 rounded-xl border-border/90 bg-background/70 hover:bg-accent/70 hover:border-primary/40 transition-all"
         >
           <a
             href="/api/auth/oauth2/start"

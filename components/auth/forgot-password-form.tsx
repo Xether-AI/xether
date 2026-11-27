@@ -65,7 +65,7 @@ export function ForgotPasswordForm() {
                     <Input
                       placeholder="you@company.com"
                       autoComplete="email"
-                      className="h-11 rounded-xl pl-10 bg-background/60 border-border focus-visible:border-primary"
+                      className="h-11 rounded-xl pl-10 bg-background/70 border-border/90 focus-visible:border-primary focus-visible:ring-primary/20"
                       {...field}
                     />
                   </div>
@@ -77,7 +77,7 @@ export function ForgotPasswordForm() {
           <Button
             type="submit"
             disabled={mutation.isPending}
-            className="w-full h-11 rounded-xl font-semibold shadow-lg shadow-primary/15"
+            className="w-full h-11 rounded-xl font-semibold bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
           >
             {mutation.isPending ? (
               <>
@@ -94,7 +94,7 @@ export function ForgotPasswordForm() {
       <div className="pt-1 text-center">
         <Link
           href="/login"
-          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-background/60 px-3.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-primary hover:border-primary/40 transition-all"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           Back to sign in
