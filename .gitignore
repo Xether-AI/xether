@@ -16,9 +16,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# environment files (commit only the documented template)
-.env*
+# environment files and local secrets (commit only .env.example)
+.env
+.env.*
 !.env.example
+*.pem
+*.key
 
 # vercel
 .vercel
