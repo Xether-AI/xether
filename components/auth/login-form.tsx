@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import * as z from "zod";
 
 import { api, safeRelativeRedirect } from "@/lib/api/client";
@@ -24,12 +25,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-const schema = z.object({
-  email: z.string().email("Please enter a valid email."),
-  password: z.string().min(8, "Password must be at least 8 characters."),
-  rememberMe: z.boolean(),
-});
-
 const inputClassName =
   "h-11 rounded-xl pl-10 bg-slate-50/75 border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:bg-white focus-visible:border-primary focus-visible:ring-primary/20";
 
@@ -40,7 +35,18 @@ export function LoginForm({
   redirectTo?: string;
   initialError?: string;
 }) {
+  const t = useTranslations("Auth");
   const [showPassword, setShowPassword] = useState(false);
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        email: z.string().email(t("login.invalidEmail")),
+        password: z.string().min(8, t("login.passwordMin")),
+        rememberMe: z.boolean(),
+      }),
+    [t],
+  );
 
   useEffect(() => {
     if (initialError) toast.error(initialError);
@@ -54,15 +60,13 @@ export function LoginForm({
   const mutation = useMutation({
     mutationFn: api.login,
     onSuccess: () => {
-      toast.success("Logged in. Redirecting…");
+      toast.success(t("login.successToast"));
       const fallback = process.env.NEXT_PUBLIC_APP_URL || "/";
       window.location.assign(safeRelativeRedirect(redirectTo, fallback));
     },
     onError: (err) =>
       toast.error(
-        err instanceof ApiError
-          ? err.message
-          : "Login failed. Please check your credentials and try again.",
+        err instanceof ApiError ? err.message : t("login.errorToast"),
       ),
   });
 
@@ -80,12 +84,12 @@ export function LoginForm({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t("login.emailLabel")}</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Mail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-600" />
                     <Input
-                      placeholder="you@company.com"
+                      placeholder={t("login.emailPlaceholder")}
                       autoComplete="email"
                       className={inputClassName}
                       {...field}
@@ -103,12 +107,12 @@ export function LoginForm({
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center justify-between">
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("login.passwordLabel")}</FormLabel>
                   <Link
                     href="/forgot-password"
                     className="text-xs font-medium text-primary hover:underline"
                   >
-                    Forgot password?
+                    {t("login.forgotPassword")}
                   </Link>
                 </div>
                 <FormControl>
@@ -125,7 +129,9 @@ export function LoginForm({
                       type="button"
                       onClick={() => setShowPassword((prev) => !prev)}
                       aria-label={
-                        showPassword ? "Hide password" : "Show password"
+                        showPassword
+                          ? t("login.hidePassword")
+                          : t("login.showPassword")
                       }
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                     >
@@ -154,7 +160,7 @@ export function LoginForm({
                   />
                 </FormControl>
                 <FormLabel className="text-sm font-normal text-muted-foreground cursor-pointer">
-                  Remember me for 30 days
+                  {t("login.rememberMe")}
                 </FormLabel>
               </FormItem>
             )}
@@ -168,10 +174,10 @@ export function LoginForm({
             {mutation.isPending ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                Signing in…
+                {t("login.submitting")}
               </>
             ) : (
-              "Sign in"
+              t("login.submit")
             )}
           </Button>
         </form>

@@ -1,10 +1,12 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { ArrowLeft, Loader2, Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import * as z from "zod";
 
 import { api } from "@/lib/api/client";
@@ -21,11 +23,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-const schema = z.object({
-  email: z.string().email("Please enter a valid email."),
-});
-
 export function ForgotPasswordForm() {
+  const t = useTranslations("Auth");
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        email: z.string().email(t("forgotPassword.invalidEmail")),
+      }),
+    [t],
+  );
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: { email: "" },
@@ -34,14 +42,12 @@ export function ForgotPasswordForm() {
   const mutation = useMutation({
     mutationFn: api.forgotPassword,
     onSuccess: () => {
-      toast.success("If that email exists, you’ll receive a reset link shortly.");
+      toast.success(t("forgotPassword.successToast"));
       form.reset();
     },
     onError: (err) => {
       const message =
-        err instanceof ApiError
-          ? err.message
-          : "Request failed. Please try again.";
+        err instanceof ApiError ? err.message : t("forgotPassword.errorToast");
       toast.error(message);
     },
   });
@@ -58,12 +64,12 @@ export function ForgotPasswordForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t("forgotPassword.emailLabel")}</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Mail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-600" />
                     <Input
-                      placeholder="you@company.com"
+                      placeholder={t("forgotPassword.emailPlaceholder")}
                       autoComplete="email"
                       className="h-11 rounded-xl pl-10 bg-slate-50/75 border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:bg-white focus-visible:border-primary focus-visible:ring-primary/20"
                       {...field}
@@ -82,10 +88,10 @@ export function ForgotPasswordForm() {
             {mutation.isPending ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                Sending…
+                {t("forgotPassword.submitting")}
               </>
             ) : (
-              "Send reset link"
+              t("forgotPassword.submit")
             )}
           </Button>
         </form>
@@ -97,7 +103,7 @@ export function ForgotPasswordForm() {
           className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-primary hover:border-primary/40 transition-all"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          Back to sign in
+          {t("forgotPassword.backToSignIn")}
         </Link>
       </div>
     </div>

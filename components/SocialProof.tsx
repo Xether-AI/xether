@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { useTranslations } from "next-intl";
+
 import {
   DatabricksLogo,
   HuggingFaceLogo,
@@ -18,11 +22,13 @@ const PARTNERS = [
 ];
 
 export function SocialProof() {
+  const t = useTranslations("SocialProof");
+
   return (
     <section className="w-full py-10 md:py-12 border-y border-slate-200/80 bg-white/80 px-4 sm:px-6">
       <div className="max-w-300 mx-auto flex flex-col items-center gap-6">
         <p className="text-center text-[11px] font-mono font-medium tracking-[0.16em] uppercase text-slate-500">
-          Built for modern AI &amp; data infrastructure teams
+          {t("eyebrow")}
         </p>
 
         <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center justify-items-center">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { KeyRound } from "lucide-react";
 
@@ -67,6 +68,7 @@ function GitLabIcon() {
 }
 
 export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
+  const t = useTranslations("Auth");
   const googleEnabled =
     process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED !== "false";
   const githubEnabled =
@@ -138,7 +140,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
             className="flex items-center justify-center gap-2"
           >
             <KeyRound className="h-4 w-4 text-primary" />
-            <span>Continue with Enterprise SSO</span>
+            <span>{t("oauth.enterpriseSso")}</span>
           </a>
         </Button>
       </div>
@@ -150,7 +152,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
           </div>
           <div className="relative flex justify-center text-xs uppercase tracking-wider">
             <span className="bg-white px-3 text-slate-500 rounded-full">
-              or continue with email
+              {t("oauth.orContinueWithEmail")}
             </span>
           </div>
         </div>

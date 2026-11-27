@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { UserPlus } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { SignupForm } from "@/components/auth/signup-form";
 import { AuthSplitLayout } from "@/components/auth/auth-split-layout";
@@ -16,6 +17,9 @@ export default async function SignupPage(props: {
 
   if (await isAuthenticated()) redirect(redirectTo);
 
+  const t = await getTranslations("Auth");
+  const subtitleSuffix = t("signup.subtitleSuffix");
+
   return (
     <AuthSplitLayout>
       <div className="w-full max-w-md mx-auto">
@@ -27,12 +31,12 @@ export default async function SignupPage(props: {
               <UserPlus className="h-5 w-5" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950">
-              Create your account
+              {t("signup.title")}
             </h1>
             <p className="text-sm text-slate-600">
-              Get started with{" "}
-              <span className="text-primary font-semibold">Xether AI</span>{" "}
-              automated data infrastructure.
+              {t("signup.subtitlePrefix")}{" "}
+              <span className="text-primary font-semibold">Xether AI</span>
+              {subtitleSuffix ? ` ${subtitleSuffix}` : ""}
             </p>
           </div>
 
@@ -43,12 +47,12 @@ export default async function SignupPage(props: {
         </div>
 
         <p className="mt-6 text-center text-sm text-slate-600">
-          Already have an account?{" "}
+          {t("signup.hasAccount")}{" "}
           <Link
             href="/login"
             className="text-primary hover:underline font-semibold"
           >
-            Sign in here
+            {t("signup.signInHere")}
           </Link>
         </p>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -14,6 +14,7 @@ import {
   User,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import * as z from "zod";
 
 import { api, safeRelativeRedirect } from "@/lib/api/client";
@@ -31,22 +32,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-const schema = z
-  .object({
-    name: z.string().min(1, "Full name is required."),
-    username: z.string().min(3, "Username must be at least 3 characters."),
-    email: z.string().email("Please enter a valid email."),
-    phone_number: z.string().optional(),
-    password: z.string().min(8, "Password must be at least 8 characters."),
-    confirmPassword: z
-      .string()
-      .min(8, "Password must be at least 8 characters."),
-  })
-  .refine((value) => value.password === value.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match.",
-  });
-
 const inputClassName =
   "h-10 rounded-xl pl-9 bg-slate-50/75 border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:bg-white focus-visible:border-primary focus-visible:ring-primary/20";
 
@@ -57,7 +42,26 @@ export function SignupForm({
   redirectTo?: string;
   initialError?: string;
 }) {
+  const t = useTranslations("Auth");
   const [showPassword, setShowPassword] = useState(false);
+
+  const schema = useMemo(
+    () =>
+      z
+        .object({
+          name: z.string().min(1, t("signup.nameRequired")),
+          username: z.string().min(3, t("signup.usernameMin")),
+          email: z.string().email(t("signup.invalidEmail")),
+          phone_number: z.string().optional(),
+          password: z.string().min(8, t("signup.passwordMin")),
+          confirmPassword: z.string().min(8, t("signup.passwordMin")),
+        })
+        .refine((value) => value.password === value.confirmPassword, {
+          path: ["confirmPassword"],
+          message: t("signup.passwordsMismatch"),
+        }),
+    [t],
+  );
 
   useEffect(() => {
     if (initialError) toast.error(initialError);
@@ -85,16 +89,14 @@ export function SignupForm({
         password: values.password,
       }),
     onSuccess: () => {
-      toast.success("Account created. Redirecting…");
+      toast.success(t("signup.successToast"));
       window.location.assign(
         safeRelativeRedirect(redirectTo, process.env.NEXT_PUBLIC_APP_URL || "/"),
       );
     },
     onError: (err) =>
       toast.error(
-        err instanceof ApiError
-          ? err.message
-          : "Sign up failed. Please try again.",
+        err instanceof ApiError ? err.message : t("signup.errorToast"),
       ),
   });
 
@@ -113,12 +115,12 @@ export function SignupForm({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>{t("signup.fullNameLabel")}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <User className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
                       <Input
-                        placeholder="Jane Doe"
+                        placeholder={t("signup.fullNamePlaceholder")}
                         autoComplete="name"
                         className={inputClassName}
                         {...field}
@@ -135,12 +137,12 @@ export function SignupForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>{t("signup.usernameLabel")}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <AtSign className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-violet-600" />
                       <Input
-                        placeholder="janedoe"
+                        placeholder={t("signup.usernamePlaceholder")}
                         autoComplete="username"
                         className={inputClassName}
                         {...field}
@@ -158,12 +160,12 @@ export function SignupForm({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Work Email</FormLabel>
+                <FormLabel>{t("signup.workEmailLabel")}</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-600" />
                     <Input
-                      placeholder="you@company.com"
+                      placeholder={t("signup.workEmailPlaceholder")}
                       autoComplete="email"
                       className={inputClassName}
                       {...field}
@@ -180,12 +182,12 @@ export function SignupForm({
             name="phone_number"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number (optional)</FormLabel>
+                <FormLabel>{t("signup.phoneLabel")}</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Phone className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-amber-600" />
                     <Input
-                      placeholder="+1 234 567 890"
+                      placeholder={t("signup.phonePlaceholder")}
                       autoComplete="tel"
                       className={inputClassName}
                       {...field}
@@ -203,7 +205,7 @@ export function SignupForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("signup.passwordLabel")}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600" />
@@ -218,7 +220,9 @@ export function SignupForm({
                         type="button"
                         onClick={() => setShowPassword((prev) => !prev)}
                         aria-label={
-                          showPassword ? "Hide password" : "Show password"
+                          showPassword
+                            ? t("signup.hidePassword")
+                            : t("signup.showPassword")
                         }
                         className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                       >
@@ -240,7 +244,7 @@ export function SignupForm({
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
+                  <FormLabel>{t("signup.confirmPasswordLabel")}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600" />
@@ -267,10 +271,10 @@ export function SignupForm({
             {mutation.isPending ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                Creating account…
+                {t("signup.submitting")}
               </>
             ) : (
-              "Create account"
+              t("signup.submit")
             )}
           </Button>
         </form>

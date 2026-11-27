@@ -4,6 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+
 import { AuthVisualHero } from "./auth-visual-hero";
 import {
   AmazonS3Logo,
@@ -55,6 +57,8 @@ const SCATTERED_STACK_TAGS = [
 ];
 
 export function AuthSplitLayout({ children }: { children: React.ReactNode }) {
+  const t = useTranslations("Auth");
+
   return (
     <div className="relative min-h-screen w-full bg-[#f8fafc] text-slate-900 overflow-x-hidden flex flex-col">
       {/* Unified Light Architectural Grid + Soft Ambient Washes */}
@@ -116,7 +120,7 @@ export function AuthSplitLayout({ children }: { children: React.ReactNode }) {
             </span>
           </span>
           <span className="hidden sm:inline-flex rounded-full border border-slate-200 bg-white/85 px-2.5 py-0.5 text-[11px] font-medium text-slate-600 shadow-2xs">
-            Cloud Platform
+            {t("cloudPlatform")}
           </span>
         </Link>
 
@@ -125,7 +129,7 @@ export function AuthSplitLayout({ children }: { children: React.ReactNode }) {
           className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/85 backdrop-blur-md px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-950 hover:border-primary/40 shadow-2xs transition-all group"
         >
           <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
-          <span>Back to home</span>
+          <span>{t("backToHome")}</span>
         </Link>
       </header>
 
@@ -168,14 +172,14 @@ export function AuthSplitLayout({ children }: { children: React.ReactNode }) {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span>All data planes operational · TLS 1.3 · SOC 2 ready</span>
+          <span>{t("operationalStatus")}</span>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3.5">
           <span>
             &copy; {new Date().getFullYear()}{" "}
-            <span className="text-primary font-semibold">Xether AI</span>. All
-            rights reserved.
+            <span className="text-primary font-semibold">Xether AI</span>.{" "}
+            {t("allRightsReserved")}
           </span>
           <span className="hidden sm:inline text-slate-300">•</span>
           <div className="flex items-center gap-3.5">
@@ -185,16 +189,16 @@ export function AuthSplitLayout({ children }: { children: React.ReactNode }) {
               rel="noopener noreferrer"
               className="hover:text-slate-900 transition-colors"
             >
-              Docs
+              {t("docs")}
             </a>
             <Link href="/api" className="hover:text-slate-900 transition-colors">
-              API
+              {t("api")}
             </Link>
             <Link
               href="/contact"
               className="hover:text-slate-900 transition-colors"
             >
-              Support
+              {t("support")}
             </Link>
           </div>
         </div>

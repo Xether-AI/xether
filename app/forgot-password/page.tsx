@@ -1,9 +1,12 @@
 import { KeyRound } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { ForgotPasswordForm } from "@/components/auth/forgot-password-form";
 import { AuthSplitLayout } from "@/components/auth/auth-split-layout";
 
-export default function ForgotPasswordPage() {
+export default async function ForgotPasswordPage() {
+  const t = await getTranslations("Auth");
+
   return (
     <AuthSplitLayout>
       <div className="w-full max-w-md mx-auto">
@@ -15,11 +18,10 @@ export default function ForgotPasswordPage() {
               <KeyRound className="h-5 w-5" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950">
-              Reset your password
+              {t("forgotPassword.title")}
             </h1>
             <p className="text-sm text-slate-600">
-              Enter your email address and we&apos;ll send you a secure reset
-              link.
+              {t("forgotPassword.subtitle")}
             </p>
           </div>
 

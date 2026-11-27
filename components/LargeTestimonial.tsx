@@ -1,18 +1,22 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { Quote } from "lucide-react";
+import { useTranslations } from "next-intl";
+
 import { DatabricksLogo } from "./BrandLogos";
 
 export function LargeTestimonial() {
+  const t = useTranslations("Testimonial");
+
   return (
     <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-slate-200/80 bg-white/85">
       <div className="max-w-235 mx-auto flex flex-col items-center text-center gap-6">
         <Quote className="w-8 h-8 text-primary fill-primary/20" aria-hidden="true" />
 
         <blockquote className="text-2xl sm:text-3xl md:text-[32px] font-medium leading-snug tracking-tight text-foreground">
-          &ldquo;Xether&apos;s deterministic checkpoints and SHA-256 dataset
-          versioning transformed how we ship production models. It&apos;s the
-          missing reliability layer in the AI stack.&rdquo;
+          {t("quote")}
         </blockquote>
 
         <div className="flex items-center justify-center gap-3.5 pt-2">
@@ -28,10 +32,10 @@ export function LargeTestimonial() {
               Dianne Russell
             </div>
             <div className="flex items-center gap-2 text-xs sm:text-[13px] text-muted-foreground">
-              <span>VP of Data Infrastructure ·</span>
+              <span>{t("role")}</span>
               <DatabricksLogo size={14} />
               <span className="font-medium text-foreground">
-                Databricks Partner
+                {t("partner")}
               </span>
             </div>
           </div>

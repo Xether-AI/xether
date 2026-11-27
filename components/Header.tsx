@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   BookOpen,
   Cpu,
@@ -15,28 +16,29 @@ import {
 } from "lucide-react";
 import { XetherBrandMark } from "./BrandLogos";
 
-const navItems = [
-  { name: "Platform", href: "/#features-section", icon: Layers },
-  { name: "Architecture", href: "/#architecture-section", icon: Cpu },
-  { name: "Pricing", href: "/#pricing-section", icon: CreditCard },
-  {
-    name: "Docs",
-    href: "https://docs.xether.ai",
-    icon: BookOpen,
-    external: true,
-  },
-];
-
 const AUTH_ROUTES = ["/login", "/signup", "/forgot-password"];
 
 export function Header() {
   const pathname = usePathname();
+  const t = useTranslations("Header");
   const isAuthRoute = AUTH_ROUTES.some(
     (route) => pathname === route || pathname?.startsWith(`${route}/`),
   );
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: t("nav.platform"), href: "/#features-section", icon: Layers },
+    { name: t("nav.architecture"), href: "/#architecture-section", icon: Cpu },
+    { name: t("nav.pricing"), href: "/#pricing-section", icon: CreditCard },
+    {
+      name: t("nav.docs"),
+      href: "https://docs.xether.ai",
+      icon: BookOpen,
+      external: true,
+    },
+  ];
 
   useEffect(() => {
     if (isAuthRoute) return;
@@ -71,16 +73,16 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Center: Compact Navigation with Icons */}
+          {/* Center: Compact Navigation */}
           <nav
             className="hidden lg:flex items-center gap-6"
-            aria-label="Primary navigation"
+            aria-label={t("primaryNav")}
           >
             {navItems.map((item) => {
               if (item.external) {
                 return (
                   <a
-                    key={item.name}
+                    key={item.href}
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -92,7 +94,7 @@ export function Header() {
               }
               return (
                 <Link
-                  key={item.name}
+                  key={item.href}
                   href={item.href}
                   className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
@@ -108,13 +110,13 @@ export function Header() {
               href="/login"
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium bg-white/85 border border-slate-200/90 text-slate-700 hover:bg-slate-50 hover:text-slate-950 hover:border-primary/40 shadow-2xs transition-all"
             >
-              <span>Sign In</span>
+              <span>{t("signIn")}</span>
             </Link>
             <Link
               href="/signup"
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 transition-all"
             >
-              <span>Start Free</span>
+              <span>{t("startFree")}</span>
             </Link>
           </div>
 
@@ -123,7 +125,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-label={isMobileMenuOpen ? t("closeMenu") : t("openMenu")}
               aria-expanded={isMobileMenuOpen}
               className="p-2 rounded-full text-slate-700 hover:bg-slate-900/5 transition-colors"
             >
@@ -140,7 +142,7 @@ export function Header() {
             const Icon = item.icon;
             return (
               <Link
-                key={item.name}
+                key={item.href}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-primary transition-colors"
@@ -158,7 +160,7 @@ export function Header() {
               className="inline-flex items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-medium bg-slate-50 border border-slate-200 text-slate-800 hover:bg-slate-100"
             >
               <LogIn className="w-4 h-4" aria-hidden="true" />
-              <span>Sign In</span>
+              <span>{t("signIn")}</span>
             </Link>
             <Link
               href="/signup"
@@ -166,7 +168,7 @@ export function Header() {
               className="inline-flex items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-bold bg-primary text-primary-foreground"
             >
               <Sparkles className="w-4 h-4" aria-hidden="true" />
-              <span>Start Free</span>
+              <span>{t("startFree")}</span>
             </Link>
           </div>
         </div>

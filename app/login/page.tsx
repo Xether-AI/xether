@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { LogIn } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { LoginForm } from "@/components/auth/login-form";
 import { AuthSplitLayout } from "@/components/auth/auth-split-layout";
@@ -16,6 +17,9 @@ export default async function LoginPage(props: {
 
   if (await isAuthenticated()) redirect(redirectTo);
 
+  const t = await getTranslations("Auth");
+  const subtitleSuffix = t("login.subtitleSuffix");
+
   return (
     <AuthSplitLayout>
       <div className="w-full max-w-md mx-auto">
@@ -27,12 +31,12 @@ export default async function LoginPage(props: {
               <LogIn className="h-5 w-5" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950">
-              Welcome back
+              {t("login.title")}
             </h1>
             <p className="text-sm text-slate-600">
-              Sign in to access your{" "}
-              <span className="text-primary font-semibold">Xether AI</span>{" "}
-              workspace
+              {t("login.subtitlePrefix")}{" "}
+              <span className="text-primary font-semibold">Xether AI</span>
+              {subtitleSuffix ? ` ${subtitleSuffix}` : ""}
             </p>
           </div>
 
@@ -40,12 +44,12 @@ export default async function LoginPage(props: {
         </div>
 
         <p className="mt-6 text-center text-sm text-slate-600">
-          Don&apos;t have an account?{" "}
+          {t("login.noAccount")}{" "}
           <Link
             href="/signup"
             className="text-primary hover:underline font-semibold"
           >
-            Create one for free
+            {t("login.createAccount")}
           </Link>
         </p>
       </div>

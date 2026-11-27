@@ -1,49 +1,53 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import {
-  Building2,
-  Github,
-  Globe,
-  Layers,
-  ShieldCheck,
-  Twitter,
-} from "lucide-react";
-import { XetherBrandMark } from "./BrandLogos";
+import { Building2, Github, Layers, ShieldCheck, Twitter } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-const FOOTER_COLUMNS = [
-  {
-    title: "Product",
-    icon: Layers,
-    links: [
-      { label: "Streaming Engine", href: "/#features-section" },
-      { label: "Dataset Versioning", href: "/#architecture-section" },
-      { label: "Connectors", href: "/#architecture-section" },
-      { label: "Pricing", href: "/#pricing-section" },
-    ],
-  },
-  {
-    title: "Platform",
-    icon: ShieldCheck,
-    links: [
-      { label: "FORCE RLS Security", href: "/#architecture-section" },
-      { label: "SSE Telemetry", href: "/#architecture-section" },
-      { label: "API Reference", href: "/api" },
-      { label: "Status", href: "/dashboard" },
-    ],
-  },
-  {
-    title: "Company",
-    icon: Building2,
-    links: [
-      { label: "About", href: "/#features-section" },
-      { label: "Engineering Blog", href: "https://docs.xether.ai", external: true },
-      { label: "Sign In", href: "/login" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-];
+import { XetherBrandMark } from "./BrandLogos";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function FooterSection() {
+  const t = useTranslations("Footer");
+
+  const footerColumns = [
+    {
+      title: t("columns.product.title"),
+      icon: Layers,
+      links: [
+        { label: t("columns.product.streamingEngine"), href: "/#features-section" },
+        { label: t("columns.product.datasetVersioning"), href: "/#architecture-section" },
+        { label: t("columns.product.connectors"), href: "/#architecture-section" },
+        { label: t("columns.product.pricing"), href: "/#pricing-section" },
+      ],
+    },
+    {
+      title: t("columns.platform.title"),
+      icon: ShieldCheck,
+      links: [
+        { label: t("columns.platform.forceRls"), href: "/#architecture-section" },
+        { label: t("columns.platform.sseTelemetry"), href: "/#architecture-section" },
+        { label: t("columns.platform.apiReference"), href: "/api" },
+        { label: t("columns.platform.status"), href: "/dashboard" },
+      ],
+    },
+    {
+      title: t("columns.company.title"),
+      icon: Building2,
+      links: [
+        { label: t("columns.company.about"), href: "/#features-section" },
+        {
+          label: t("columns.company.blog"),
+          href: "https://docs.xether.ai",
+          external: true,
+        },
+        { label: t("columns.company.signIn"), href: "/login" },
+        { label: t("columns.company.contact"), href: "/contact" },
+      ],
+    },
+  ];
+
   return (
     <footer className="w-full px-4 sm:px-6 pt-10 pb-14">
       <div className="max-w-300 mx-auto border-t border-slate-200/90 pt-10 space-y-10">
@@ -57,14 +61,13 @@ export function FooterSection() {
               </span>
             </Link>
             <p className="text-[13px] text-slate-500 leading-relaxed max-w-67.5">
-              Data quality as infrastructure. Built for deterministic ML &amp;
-              enterprise governance.
+              {t("tagline")}
             </p>
           </div>
 
           {/* Link Columns */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-            {FOOTER_COLUMNS.map((col) => {
+            {footerColumns.map((col) => {
               return (
                 <nav
                   key={col.title}
@@ -103,11 +106,12 @@ export function FooterSection() {
           </div>
         </div>
 
-        {/* Bottom Legal + Social Bar */}
+        {/* Bottom Legal, Language Switcher & Social Bar */}
         <div className="border-t border-slate-200/90 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© 2026 Xether AI Inc. All rights reserved.</p>
-          <div className="flex items-center gap-5">
-            <span>Privacy · Terms · Security</span>
+          <p>{t("copyright")}</p>
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
+            <span>{t("legal")}</span>
+            <LanguageSwitcher />
             <div className="flex items-center gap-3.5">
               <a
                 href="https://github.com/xether-ai"
@@ -127,13 +131,6 @@ export function FooterSection() {
               >
                 <Twitter className="w-4 h-4" />
               </a>
-              <Link
-                href="/"
-                aria-label="Website"
-                className="text-slate-500 hover:text-primary transition-colors"
-              >
-                <Globe className="w-4 h-4" />
-              </Link>
             </div>
           </div>
         </div>

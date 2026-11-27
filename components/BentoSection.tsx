@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { useTranslations } from "next-intl";
 import {
   Activity,
   ArrowRight,
@@ -24,6 +27,8 @@ import {
 } from "./BrandLogos";
 
 export function BentoSection() {
+  const t = useTranslations("Bento");
+
   return (
     <section
       id="architecture-section"
@@ -39,15 +44,13 @@ export function BentoSection() {
         {/* Section Header */}
         <div className="max-w-175 mx-auto flex flex-col items-center text-center gap-3.5">
           <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[12px] font-semibold tracking-wider uppercase text-emerald-700">
-            <span>Core Infrastructure</span>
+            <span>{t("badge")}</span>
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-foreground leading-tight">
-            Data Quality as Infrastructure
+            {t("title")}
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-157.5 leading-relaxed">
-            Every pipeline stage streams out-of-core, checkpoints
-            deterministically to S3, and verifies SHA-256 digests before model
-            training begins.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -59,7 +62,7 @@ export function BentoSection() {
               <div className="inline-flex items-center gap-2.5">
                 <Zap className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 <h3 className="text-base sm:text-[17px] font-bold text-foreground">
-                  Zero-OOM Streaming Engine
+                  {t("streaming.title")}
                 </h3>
               </div>
               <div className="inline-flex items-center gap-1.5">
@@ -70,7 +73,7 @@ export function BentoSection() {
 
             <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-4 space-y-2.5">
               <div className="flex items-center justify-between text-[11px]">
-                <span className="text-slate-600">Input Parquet Batch</span>
+                <span className="text-slate-600">{t("streaming.inputLabel")}</span>
                 <span className="font-semibold text-slate-900">64.0 GiB</span>
               </div>
               <div className="h-2.5 w-full rounded-full bg-slate-200/90 overflow-hidden">
@@ -78,7 +81,7 @@ export function BentoSection() {
               </div>
               <div className="flex items-center justify-between text-[11px] pt-1">
                 <span className="font-medium text-emerald-700">
-                  Worker Peak RSS (Spill OK)
+                  {t("streaming.workerLabel")}
                 </span>
                 <span className="font-semibold text-emerald-700">1.4 GiB</span>
               </div>
@@ -88,8 +91,7 @@ export function BentoSection() {
             </div>
 
             <p className="text-[13px] text-muted-foreground leading-relaxed">
-              Polars LazyFrame scans and DuckDB out-of-core disk spill process
-              multi-GB Parquet tables inside strict bounded RSS.
+              {t("streaming.description")}
             </p>
           </article>
 
@@ -97,7 +99,7 @@ export function BentoSection() {
           <div className="lg:col-span-4 lg:mt-4 flex flex-col items-start justify-center gap-3">
             <span className="hidden lg:inline-flex items-center justify-center gap-2 rounded-full bg-amber-50 border border-amber-200 px-3 py-1.5 text-[11px] font-medium text-amber-900 shadow-xs">
               <DuckDBLogo size={15} />
-              <span>DuckDB 2.0 Out-of-Core Spill</span>
+              <span>{t("badges.duckdb")}</span>
             </span>
 
             <article className="w-full rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_14px_38px_-12px_rgba(15,23,42,0.08)] flex flex-col justify-between gap-4 hover:border-primary/40 transition-colors">
@@ -105,7 +107,7 @@ export function BentoSection() {
                 <div className="inline-flex items-center gap-2.5">
                   <GitBranch className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                   <h3 className="text-base sm:text-[17px] font-bold text-foreground">
-                    Cryptographic Versioning
+                    {t("versioning.title")}
                   </h3>
                 </div>
                 <div className="inline-flex items-center gap-1.5">
@@ -126,8 +128,7 @@ export function BentoSection() {
               </div>
 
               <p className="text-[13px] text-muted-foreground leading-relaxed">
-                Branch datasets like Git, verify &gt;=25 MB S3 multipart uploads
-                with SHA-256, and roll back cleanly.
+                {t("versioning.description")}
               </p>
             </article>
           </div>
@@ -138,7 +139,7 @@ export function BentoSection() {
               <div className="inline-flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 <h3 className="text-base font-bold text-foreground">
-                  Multi-Tenant RLS
+                  {t("rls.title")}
                 </h3>
               </div>
               <div className="inline-flex items-center gap-1.5">
@@ -163,8 +164,7 @@ export function BentoSection() {
             </div>
 
             <p className="text-[13px] text-muted-foreground leading-relaxed">
-              Isolation enforced inside PostgreSQL row-level security, hashed
-              xth_live_ keys, and S3 &lt;org_id&gt;/ prefixes.
+              {t("rls.description")}
             </p>
           </article>
 
@@ -175,7 +175,7 @@ export function BentoSection() {
                 <div className="inline-flex items-center gap-2.5">
                   <Activity className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                   <h3 className="text-base sm:text-[17px] font-bold text-foreground">
-                    Durable JetStream Workers
+                    {t("workers.title")}
                   </h3>
                 </div>
                 <div className="inline-flex items-center gap-1.5">
@@ -188,34 +188,33 @@ export function BentoSection() {
                 <div className="flex items-center justify-between gap-1.5 text-[10px] font-mono">
                   <span className="inline-flex items-center gap-1.5 rounded-lg bg-white border border-slate-200 px-2 py-1 text-slate-800">
                     <PostgresLogo size={12} />
-                    <span>Outbox</span>
+                    <span>{t("workers.outbox")}</span>
                   </span>
                   <ArrowRight className="w-3 h-3 text-primary shrink-0" aria-hidden="true" />
                   <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-1 text-emerald-800 font-semibold">
                     <NatsLogo size={12} />
-                    <span>JetStream</span>
+                    <span>{t("workers.jetstream")}</span>
                   </span>
                   <ArrowRight className="w-3 h-3 text-primary shrink-0" aria-hidden="true" />
                   <span className="inline-flex items-center gap-1.5 rounded-lg bg-white border border-slate-200 px-2 py-1 text-emerald-700 font-semibold">
                     <PrefectLogo size={12} />
-                    <span>Prefect 3</span>
+                    <span>{t("workers.prefect")}</span>
                   </span>
                 </div>
                 <div className="flex items-center justify-between rounded-lg bg-white border border-slate-200 px-3 py-2 text-[10px] font-mono">
-                  <span className="text-sky-700">Heartbeat: msg.in_progress()</span>
-                  <span className="font-semibold text-emerald-700">DLQ: 0</span>
+                  <span className="text-sky-700">{t("workers.heartbeat")}</span>
+                  <span className="font-semibold text-emerald-700">{t("workers.dlq")}</span>
                 </div>
               </div>
 
               <p className="text-[13px] text-muted-foreground leading-relaxed">
-                Transactional outbox dispatch, per-org concurrency caps, S3 stage
-                checkpoints, and cooperative SSE cancellation.
+                {t("workers.description")}
               </p>
             </article>
 
             <span className="hidden lg:inline-flex items-center gap-2 ml-6 rounded-full bg-orange-50 border border-orange-200 px-3.5 py-1.5 text-[11px] font-mono text-orange-900 shadow-xs">
               <AmazonS3Logo size={15} />
-              <span>SHA-256 S3 Multipart &gt;= 25 MB</span>
+              <span>{t("badges.s3")}</span>
             </span>
           </div>
 
@@ -225,7 +224,7 @@ export function BentoSection() {
               <div className="inline-flex items-center gap-2.5">
                 <Plug className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 <h3 className="text-base sm:text-[17px] font-bold text-foreground">
-                  Vaulted Data Connectors
+                  {t("connectors.title")}
                 </h3>
               </div>
               <div className="inline-flex items-center gap-1.5">
@@ -242,7 +241,7 @@ export function BentoSection() {
                 { name: "Snowflake", Logo: SnowflakeLogo },
                 { name: "MinIO Store", Logo: MinIOLogo },
                 { name: "DuckDB 2.0", Logo: DuckDBLogo },
-                { name: "REST / httpx", Logo: RestApiLogo },
+                { name: t("connectors.restApi"), Logo: RestApiLogo },
               ].map((conn) => {
                 const ConnLogo = conn.Logo;
                 return (
@@ -258,8 +257,7 @@ export function BentoSection() {
             </div>
 
             <p className="text-[13px] text-muted-foreground leading-relaxed">
-              Encrypted credential vault for Amazon S3, PostgreSQL watermarks,
-              Snowflake analytics, MinIO, DuckDB, and REST.
+              {t("connectors.description")}
             </p>
           </article>
 
@@ -270,7 +268,7 @@ export function BentoSection() {
                 <div className="inline-flex items-center gap-2.5">
                   <BarChart2 className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                   <h3 className="text-base sm:text-[17px] font-bold text-foreground">
-                    Real-Time Metering
+                    {t("metering.title")}
                   </h3>
                 </div>
                 <div className="inline-flex items-center gap-1.5">
@@ -281,9 +279,9 @@ export function BentoSection() {
 
               <div className="rounded-xl bg-slate-50/90 border border-slate-200/80 p-4 space-y-2.5">
                 {[
-                  { label: "Storage Quota", val: "320/500 GiB", pct: "64%", barColor: "bg-primary", textColor: "text-emerald-700" },
-                  { label: "Compute Hours", val: "19.2/50 hrs", pct: "38%", barColor: "bg-sky-500", textColor: "text-sky-700" },
-                  { label: "Worker Slots", val: "2/5 active", pct: "40%", barColor: "bg-emerald-500", textColor: "text-emerald-700" },
+                  { label: t("metering.storageQuota"), val: "320/500 GiB", pct: "64%", barColor: "bg-primary", textColor: "text-emerald-700" },
+                  { label: t("metering.computeHours"), val: "19.2/50 hrs", pct: "38%", barColor: "bg-sky-500", textColor: "text-sky-700" },
+                  { label: t("metering.workerSlots"), val: t("metering.activeSlots"), pct: "40%", barColor: "bg-emerald-500", textColor: "text-emerald-700" },
                 ].map((bar) => (
                   <div key={bar.label} className="space-y-1">
                     <div className="flex items-center justify-between text-[10px]">
@@ -303,14 +301,13 @@ export function BentoSection() {
               </div>
 
               <p className="text-[13px] text-muted-foreground leading-relaxed">
-                Idempotent UsageEvent ledgers enforce storage &amp; compute
-                quotas dynamically via Go :9091.
+                {t("metering.description")}
               </p>
             </article>
 
             <span className="hidden lg:inline-flex items-center gap-2 rounded-full bg-sky-50 border border-sky-200 px-3.5 py-1.5 text-[11px] font-mono text-sky-900 shadow-xs">
               <PostgresLogo size={15} />
-              <span>PostgreSQL FORCE RLS Verified</span>
+              <span>{t("badges.rlsVerified")}</span>
             </span>
           </div>
         </div>

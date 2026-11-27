@@ -5,6 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
+
 import {
   Form,
   FormControl,
@@ -17,13 +19,15 @@ import { api } from "@/lib/api/client";
 import { ApiError } from "@/lib/api/errors";
 import { analytics } from "@/lib/analytics";
 
-const formSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-});
-
 export function CTASection() {
+  const t = useTranslations("CTA");
+
+  const formSchema = z.object({
+    email: z.string().email({
+      message: t("invalidEmail"),
+    }),
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,16 +38,14 @@ export function CTASection() {
   const mutation = useMutation({
     mutationFn: api.submitEmailCapture,
     onSuccess: () => {
-      toast.success("Thanks for your interest! We'll be in touch soon.");
+      toast.success(t("successToast"));
       analytics.trackFormSubmit("cta_email_capture", "success");
       form.reset();
     },
     onError: (err) => {
       analytics.trackFormSubmit("cta_email_capture", "error");
       const message =
-        err instanceof ApiError
-          ? err.message
-          : "Something went wrong. Please try again.";
+        err instanceof ApiError ? err.message : t("errorToast");
       toast.error(message);
     },
   });
@@ -58,16 +60,15 @@ export function CTASection() {
         }}
       >
         <span className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-100/80 border border-emerald-300/70 px-3 py-1 text-[11px] font-medium tracking-wider uppercase text-emerald-800">
-          <span>Ready to Launch</span>
+          <span>{t("badge")}</span>
         </span>
 
         <h2 className="text-3xl sm:text-[42px] font-bold tracking-tight text-foreground leading-tight">
-          Data quality, made effortless.
+          {t("title")}
         </h2>
 
         <p className="text-sm sm:text-base text-muted-foreground max-w-140 leading-relaxed">
-          Launch a Free Sandbox workspace in under two minutes or schedule an
-          engineering review.
+          {t("subtitle")}
         </p>
 
         <Form {...form}>
@@ -89,7 +90,7 @@ export function CTASection() {
                         />
                         <input
                           type="email"
-                          placeholder="name@company.com"
+                          placeholder={t("placeholder")}
                           autoComplete="email"
                           className="w-full bg-transparent text-sm text-foreground placeholder:text-slate-400 focus:outline-none"
                           {...field}
@@ -100,7 +101,9 @@ export function CTASection() {
                         disabled={mutation.isPending}
                         className="inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-[13px] font-semibold hover:bg-primary/90 disabled:opacity-60 transition-all shrink-0 cursor-pointer shadow-sm"
                       >
-                        <span>{mutation.isPending ? "Sending…" : "Get Started"}</span>
+                        <span>
+                          {mutation.isPending ? t("submitting") : t("submit")}
+                        </span>
                       </button>
                     </div>
                   </FormControl>

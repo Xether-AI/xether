@@ -11,6 +11,8 @@ import {
   Terminal,
   Zap,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
+
 import {
   AmazonS3Logo,
   DuckDBLogo,
@@ -20,73 +22,50 @@ import {
 
 export function PricingSection() {
   const [isAnnual, setIsAnnual] = useState(true);
+  const t = useTranslations("Pricing");
 
   const plans = [
     {
-      name: "Free Sandbox",
+      name: t("plans.sandbox.name"),
       icon: Terminal,
       monthlyPrice: "$0",
       annualPrice: "$0",
-      period: "/month",
+      period: t("perMonth"),
       badge: null,
-      description:
-        "Validate streaming pipelines and dataset versioning on real workloads.",
-      cta: "Start Free",
+      description: t("plans.sandbox.description"),
+      cta: t("plans.sandbox.cta"),
       ctaIcon: ArrowRight,
       href: "/signup",
       featured: false,
-      features: [
-        "3 team seats & basic RBAC",
-        "10 GiB versioned S3 storage",
-        "1 concurrent pipeline run",
-        "1 hr streaming compute / mo",
-        "SHA-256 multipart verification",
-        "S3 & REST pull connectors",
-      ],
+      features: t.raw("plans.sandbox.features") as string[],
     },
     {
-      name: "Pro Team",
+      name: t("plans.pro.name"),
       icon: Zap,
       monthlyPrice: "$199",
       annualPrice: "$159",
-      period: "/month",
-      badge: "MOST POPULAR",
-      description:
-        "Production out-of-core streaming, live SSE telemetry, and team workspaces.",
-      cta: "Start 14-Day Trial",
+      period: t("perMonth"),
+      badge: t("plans.pro.badge"),
+      description: t("plans.pro.description"),
+      cta: t("plans.pro.cta"),
       ctaIcon: Sparkles,
       href: "/signup",
       featured: true,
-      features: [
-        "15 team seats & workspace roles",
-        "500 GiB versioned S3 storage",
-        "5 concurrent pipeline runs",
-        "50 hrs streaming compute / mo",
-        "Live SSE progress & checkpoint resume",
-        "Postgres watermark, Snowflake & RBAC",
-      ],
+      features: t.raw("plans.pro.features") as string[],
     },
     {
-      name: "Enterprise Dedicated",
+      name: t("plans.enterprise.name"),
       icon: Building2,
       monthlyPrice: "Custom",
       annualPrice: "Custom",
       period: "",
-      badge: "BYOC / VPC",
-      description:
-        "Dedicated tenant isolation, private VPC workers, and compliance SLAs.",
-      cta: "Contact Engineering",
+      badge: t("plans.enterprise.badge"),
+      description: t("plans.enterprise.description"),
+      cta: t("plans.enterprise.cta"),
       ctaIcon: Mail,
       href: "/contact",
       featured: false,
-      features: [
-        "100+ seats & custom policies",
-        "5 TiB+ storage & custom quotas",
-        "25+ fair worker concurrency slots",
-        "Dedicated VPC / BYOC deployment",
-        "Postgres FORCE RLS & SSO / SAML",
-        "24/7 SLA & immutable audit exports",
-      ],
+      features: t.raw("plans.enterprise.features") as string[],
     },
   ];
 
@@ -96,14 +75,13 @@ export function PricingSection() {
         {/* Header */}
         <div className="max-w-175 mx-auto flex flex-col items-center text-center gap-3.5">
           <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[12px] font-semibold tracking-wider uppercase text-emerald-700">
-            <span>Transparent Pricing</span>
+            <span>{t("badge")}</span>
           </span>
           <h2 className="text-3xl sm:text-5xl font-normal tracking-tight text-foreground leading-tight">
-            Predictable Infrastructure Pricing
+            {t("title")}
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-150 leading-relaxed">
-            Start free in the Sandbox. Scale cleanly with transparent storage,
-            compute, and concurrency quotas.
+            {t("subtitle")}
           </p>
 
           {/* Toggle Pill */}
@@ -116,7 +94,7 @@ export function PricingSection() {
                 : "text-slate-600 hover:text-slate-900"
                 }`}
             >
-              Monthly
+              {t("monthly")}
             </button>
             <button
               type="button"
@@ -126,7 +104,7 @@ export function PricingSection() {
                 : "text-slate-600 hover:text-slate-900"
                 }`}
             >
-              <span>Annual · Save 20%</span>
+              <span>{t("annualSave")}</span>
             </button>
           </div>
         </div>
@@ -213,9 +191,7 @@ export function PricingSection() {
 
         {/* Billing & Connector Attribution Strip */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-1 text-xs text-slate-500">
-          <span>
-            Usage metering &amp; billing powered by Stripe · Native connectors:
-          </span>
+          <span>{t("attribution")}</span>
           <div className="inline-flex items-center gap-2.5">
             <AmazonS3Logo size={16} />
             <PostgresLogo size={16} />
