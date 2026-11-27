@@ -1,0 +1,35 @@
+name: Bug Report
+description: Report broken behavior, visual regressions, or localization issues
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting an issue with the Xether AI website.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Clear description of the bug and where it appeared.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open `/`
+        2. Switch language or navigate to `/login`
+        3. Observe...
+    validations:
+      required: true
+  - type: input
+    id: route
+    attributes:
+      label: Affected route & locale
+      placeholder: "e.g. / (fr), /login (en)"
+  - type: textarea
+    id: environment
+    attributes:
+      label: Browser / Environment
+      placeholder: "e.g. Chrome 131 on Linux"

@@ -1,37 +1,48 @@
-# Contributing to Xether AI
+# Contributing to Xether AI Website
 
-Thank you for your interest in contributing to Xether AI! We welcome contributions from the community to help make our data infrastructure platform even better.
+Thank you for contributing to the **Xether AI** marketing website and auth portal.
 
-## How to Contribute
+## Local Development
 
-### Reporting Bugs
+```bash
+npm ci
+npm run dev
+```
 
-If you find a bug, please create a new issue on GitHub. Include as much detail as possible:
+The app runs in **light-only mode** with Next.js 16, Tailwind CSS v4, and `next-intl` localization (`en`, `fr`, `es`).
 
-- Steps to reproduce the bug.
-- Expected behavior.
-- Actual behavior.
-- Environment details (OS, Browser, Node.js version).
+## Branching & Atomic Commits
 
-### Suggesting Features
+- Keep commits small, focused, and atomic using Conventional Commits (`feat`, `fix`, `style`, `refactor`, `test`, `ci`, `docs`, `chore`).
+- Pull request titles must also follow Conventional Commits (enforced by `.github/workflows/pr-checks.yml`).
 
-We love hearing new ideas! Please open an issue to discuss any feature suggestions before starting implementation.
+## Internationalization (`en`, `fr`, `es`)
 
-### Pull Requests
+All user-facing copy lives in:
 
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix (`git checkout -b feature/my-feature`).
-3. Make your changes and ensure they follow our coding standards.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature/my-feature`).
-6. Open a Pull Request.
+- `messages/en.json`
+- `messages/fr.json`
+- `messages/es.json`
 
-## Coding Standards
+Locale selection is cookie-backed (`XETHER_LOCALE`, defaulting to `Accept-Language` resolution and `en`) via `POST /api/locale` and the footer globe switcher. Whenever you add or rename a key in one dictionary, update all three files—unit tests enforce strict key parity across `en`, `fr`, and `es`.
 
-- Follow the existing code style (leveraging Prettier and ESLint).
-- Ensure all new features are accompanied by appropriate documentation.
-- Maintain a high bar for UI/UX excellence.
+## Pre-PR Verification
+
+Run all checks locally before opening a pull request:
+
+```bash
+npx tsc --noEmit
+npm run lint
+npm run test
+npm run build
+```
+
+For end-to-end verification in Chromium:
+
+```bash
+npx playwright test --project=chromium
+```
 
 ## Licensing
 
-By contributing to Xether AI, you agree that your contributions will be licensed under the MIT License.
+By contributing to Xether AI, you agree that your contributions will be licensed under the terms of `LICENSE`.

@@ -1,0 +1,9 @@
+# Xether AI Website Code Owners
+#
+# Uncomment and assign GitHub organization teams once created under @Xether-AI:
+#   *                                   @Xether-AI/maintainers
+#   /.github/                           @Xether-AI/platform
+#   /app/api/                           @Xether-AI/security
+#   /lib/security/                      @Xether-AI/security
+#   /i18n/                              @Xether-AI/frontend
+#   /messages/                          @Xether-AI/frontend

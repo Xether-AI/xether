@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability Report
+    url: https://github.com/Xether-AI/website.xether/security/advisories/new
+    about: Report security issues privately instead of opening a public issue.
+  - name: Xether AI Documentation
+    url: https://docs.xether.ai
+    about: Browse platform architecture, API, and SDK documentation.

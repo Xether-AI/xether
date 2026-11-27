@@ -1,0 +1,55 @@
+i18n:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "messages/**"
+          - "i18n/**"
+          - "app/api/locale/**"
+
+auth:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "components/auth/**"
+          - "app/login/**"
+          - "app/signup/**"
+          - "app/forgot-password/**"
+          - "app/api/auth/**"
+
+ui:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "components/**"
+          - "app/globals.css"
+
+api:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "app/api/**"
+          - "lib/**"
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
+          - "Dockerfile"
+          - "next.config.ts"
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "e2e/**"
+          - "**/*.test.ts"
+          - "**/*.test.tsx"
+          - "playwright.config.ts"
+          - "vitest.config.ts"
+
+docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "*.md"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "package.json"
+          - "package-lock.json"
