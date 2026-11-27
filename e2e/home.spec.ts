@@ -34,12 +34,9 @@ test("auth pages render cleanly", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("contact and api pages render cleanly", async ({ page }) => {
+test("contact page renders cleanly", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.getByRole("heading", { name: "Contact sales" })).toBeVisible();
-
-  await page.goto("/api");
-  await expect(page.getByRole("heading", { name: "API Reference" })).toBeVisible();
 });
 
 test("website enforces light-only mode without a dark-mode toggle", async ({ page }) => {

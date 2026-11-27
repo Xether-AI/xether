@@ -2,10 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import { Building2, Github, Layers, ShieldCheck, Twitter } from "lucide-react";
+import { Building2, Github, Layers, ShieldCheck, Twitch, Twitter, Youtube } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { XetherBrandMark } from "./BrandLogos";
+import { HuggingFaceLogo, XetherBrandMark } from "./BrandLogos";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function FooterSection() {
@@ -28,8 +28,12 @@ export function FooterSection() {
       links: [
         { label: t("columns.platform.forceRls"), href: "/#architecture-section" },
         { label: t("columns.platform.sseTelemetry"), href: "/#architecture-section" },
-        { label: t("columns.platform.apiReference"), href: "/api" },
-        { label: t("columns.platform.status"), href: "/dashboard" },
+        {
+          label: t("columns.platform.apiReference"),
+          href: "https://docs.xether.ai",
+          external: true,
+        },
+        { label: t("columns.platform.status"), href: "/#architecture-section" },
       ],
     },
     {
@@ -130,6 +134,33 @@ export function FooterSection() {
                 className="text-slate-500 hover:text-primary transition-colors"
               >
                 <Twitter className="w-4 h-4" />
+              </a>
+              <a
+                href="https://twitch.tv/xetherai"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitch"
+                className="text-slate-500 hover:text-primary transition-colors"
+              >
+                <Twitch className="w-4 h-4" />
+              </a>
+              <a
+                href="https://youtube.com/@xetherai"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="text-slate-500 hover:text-primary transition-colors"
+              >
+                <Youtube className="w-4 h-4" />
+              </a>
+              <a
+                href="https://huggingface.co/xether-ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Hugging Face"
+                className="text-slate-500 hover:text-primary transition-colors"
+              >
+                <HuggingFaceLogo className="w-4 h-4" />
               </a>
             </div>
           </div>

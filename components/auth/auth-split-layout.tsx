@@ -191,9 +191,14 @@ export function AuthSplitLayout({ children }: { children: React.ReactNode }) {
             >
               {t("docs")}
             </a>
-            <Link href="/api" className="hover:text-slate-900 transition-colors">
+            <a
+              href="https://docs.xether.ai/api"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-slate-900 transition-colors"
+            >
               {t("api")}
-            </Link>
+            </a>
             <Link
               href="/contact"
               className="hover:text-slate-900 transition-colors"
