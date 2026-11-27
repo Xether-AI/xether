@@ -46,7 +46,7 @@ const FOOTER_COLUMNS = [
 export function FooterSection() {
   return (
     <footer className="w-full px-4 sm:px-6 pt-10 pb-14">
-      <div className="max-w-[1200px] mx-auto border-t border-white/[0.08] pt-10 space-y-10">
+      <div className="max-w-300 mx-auto border-t border-white/8 pt-10 space-y-10">
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-10 items-start">
           {/* Brand Column */}
           <div className="space-y-3">
@@ -56,20 +56,15 @@ export function FooterSection() {
                 Xether <span className="text-primary">AI</span>
               </span>
             </Link>
-            <p className="text-[13px] text-slate-500 leading-relaxed max-w-[270px]">
+            <p className="text-[13px] text-slate-500 leading-relaxed max-w-67.5">
               Data quality as infrastructure. Built for deterministic ML &amp;
               enterprise governance.
             </p>
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#0E2921] border border-[#1E5242] px-3 py-1 text-[11px] font-mono text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>All systems operational</span>
-            </div>
           </div>
 
           {/* Link Columns */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
             {FOOTER_COLUMNS.map((col) => {
-              const Icon = col.icon;
               return (
                 <nav
                   key={col.title}
@@ -77,7 +72,6 @@ export function FooterSection() {
                   className="space-y-3"
                 >
                   <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground">
-                    <Icon className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
                     <span>{col.title}</span>
                   </div>
                   <ul className="space-y-2">
@@ -110,7 +104,7 @@ export function FooterSection() {
         </div>
 
         {/* Bottom Legal + Social Bar */}
-        <div className="border-t border-white/[0.08] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© 2026 Xether AI Inc. All rights reserved.</p>
           <div className="flex items-center gap-5">
             <span>Privacy · Terms · Security</span>

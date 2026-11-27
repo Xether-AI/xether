@@ -42,10 +42,10 @@ export function Header() {
 
   return (
     <>
-      <header className="floating-nav-container px-4 sm:px-6">
+      <header className="floating-nav-container sm:px-6">
         <div
           data-scrolled={isScrolled ? "true" : "false"}
-          className="floating-nav-pill max-w-[1120px] mx-auto h-16 px-4 sm:px-5 rounded-full flex items-center justify-between gap-4"
+          className="floating-nav-pill max-w-306 mx-auto h-16 px-4 sm:px-5 rounded-full flex items-center justify-between gap-4"
         >
           {/* Left: Geometric Brand Mark + Wordmark */}
           <Link
@@ -67,7 +67,6 @@ export function Header() {
             aria-label="Primary navigation"
           >
             {navItems.map((item) => {
-              const Icon = item.icon;
               if (item.external) {
                 return (
                   <a
@@ -77,7 +76,6 @@ export function Header() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <Icon className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
                     <span>{item.name}</span>
                   </a>
                 );
@@ -88,7 +86,6 @@ export function Header() {
                   href={item.href}
                   className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <Icon className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
                   <span>{item.name}</span>
                 </Link>
               );
@@ -97,19 +94,16 @@ export function Header() {
 
           {/* Right: Theme Toggle + Auth Action Pills */}
           <div className="hidden md:flex items-center gap-2.5 shrink-0">
-            <ThemeToggle />
             <Link
               href="/login"
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium bg-[#131C2B]/75 border border-[#2D3F58] text-foreground hover:bg-[#1A263A] hover:border-primary/40 transition-all"
             >
-              <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Sign In</span>
             </Link>
             <Link
               href="/signup"
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/15 transition-all"
             >
-              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Start Free</span>
             </Link>
           </div>

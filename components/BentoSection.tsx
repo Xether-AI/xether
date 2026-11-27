@@ -3,7 +3,6 @@ import {
   Activity,
   ArrowRight,
   BarChart2,
-  Cpu,
   GitBranch,
   Plug,
   ShieldCheck,
@@ -32,21 +31,20 @@ export function BentoSection() {
     >
       {/* Subtle Ambient Mint Glow */}
       <div
-        className="pointer-events-none absolute top-72 left-1/2 -translate-x-1/2 w-[540px] h-[540px] rounded-full bg-primary/10 blur-[140px] -z-0"
+        className="pointer-events-none absolute top-72 left-1/2 -translate-x-1/2 w-135 h-135 rounded-full bg-primary/10 blur-[140px] z-0"
         aria-hidden="true"
       />
 
-      <div className="max-w-[1240px] mx-auto relative z-10 space-y-12">
+      <div className="max-w-310 mx-auto relative z-10 space-y-12">
         {/* Section Header */}
-        <div className="max-w-[700px] mx-auto flex flex-col items-center text-center gap-3.5">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[11px] font-mono font-semibold tracking-wider uppercase text-primary">
-            <Cpu className="w-3.5 h-3.5" aria-hidden="true" />
+        <div className="max-w-175 mx-auto flex flex-col items-center text-center gap-3.5">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[12px] tracking-wider uppercase text-primary">
             <span>Core Infrastructure</span>
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-foreground leading-tight">
             Data Quality as Infrastructure
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-[630px] leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-157.5 leading-relaxed">
             Every pipeline stage streams out-of-core, checkpoints
             deterministically to S3, and verifies SHA-256 digests before model
             training begins.
@@ -70,15 +68,15 @@ export function BentoSection() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-[#0D131D] border border-[#1E293B] p-4 space-y-2.5">
-              <div className="flex items-center justify-between text-[11px] font-mono">
+            <div className="rounded-xl bg-[#f8fafb] border border-[#1E293B] p-4 space-y-2.5">
+              <div className="flex items-center justify-between text-[11px]">
                 <span className="text-muted-foreground">Input Parquet Batch</span>
                 <span className="font-semibold text-foreground">64.0 GiB</span>
               </div>
               <div className="h-2.5 w-full rounded-full bg-[#1B2535] overflow-hidden">
                 <div className="h-full w-[90%] rounded-full bg-slate-600" />
               </div>
-              <div className="flex items-center justify-between text-[11px] font-mono pt-1">
+              <div className="flex items-center justify-between text-[11px] pt-1">
                 <span className="text-primary">Worker Peak RSS (Spill OK)</span>
                 <span className="font-semibold text-primary">1.4 GiB</span>
               </div>
@@ -94,8 +92,8 @@ export function BentoSection() {
           </article>
 
           {/* 2. Cryptographic Versioning (Offset Center-Top + Floating DuckDB Badge) */}
-          <div className="lg:col-span-4 lg:mt-4 flex flex-col items-start gap-3">
-            <span className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[#1D1B11] border border-[#4D441A] px-3 py-1.5 text-[11px] font-mono text-amber-200 shadow-sm">
+          <div className="lg:col-span-4 lg:mt-4 flex flex-col items-start justify-center gap-3">
+            <span className="hidden lg:inline-flex items-center justify-center gap-2 rounded-full bg-[#1D1B11] border border-[#4D441A] px-3 py-1.5 text-[11px] text-amber-200 shadow-sm">
               <DuckDBLogo size={15} />
               <span>DuckDB 2.0 Out-of-Core Spill</span>
             </span>

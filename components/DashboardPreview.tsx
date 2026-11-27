@@ -148,7 +148,7 @@ const PIPELINE_STAGES = [
     status: "Running",
     badgeClass: "bg-[#F0F9FF] text-[#0284C7]",
     icon: (
-      <span className="inline-flex items-center justify-center w-[20px] h-[20px] rounded-full bg-slate-900 p-0.5 shrink-0">
+      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-900 p-0.5 shrink-0">
         <DuckDBLogo size={14} />
       </span>
     ),
@@ -250,9 +250,9 @@ export function DashboardPreview() {
   ];
 
   return (
-    <div className="w-full max-w-[1220px] mx-auto rounded-2xl border border-slate-300/90 bg-white text-slate-900 shadow-[0_32px_72px_-12px_rgba(0,0,0,0.72)] overflow-hidden">
+    <div className="w-full max-w-305 mx-auto rounded-2xl border border-slate-300/90 bg-white text-slate-900 shadow-[0_32px_72px_-12px_rgba(0,0,0,0.72)] overflow-hidden">
       {/* Light-Mode App Top Bar: Org -> Team -> Project Context Switchers */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-5 h-auto min-h-[54px] py-2.5 border-b border-slate-200 bg-white">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-5 h-auto min-h-13.5 py-2.5 border-b border-slate-200 bg-white">
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 min-w-0">
           <XetherBrandMark size={24} variant="light" />
           <span className="text-slate-300 font-mono text-sm">/</span>
@@ -282,7 +282,7 @@ export function DashboardPreview() {
             className="inline-flex items-center gap-1.5 rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1 hover:bg-slate-100 transition-colors"
           >
             <span
-              className={`inline-flex items-center justify-center w-[18px] h-[18px] rounded text-white ${activeTeam.badgeBg}`}
+              className={`inline-flex items-center justify-center w-4.5 h-4.5 rounded text-white ${activeTeam.badgeBg}`}
             >
               <TeamIcon className="w-2.5 h-2.5" aria-hidden="true" />
             </span>
@@ -348,7 +348,7 @@ export function DashboardPreview() {
       {/* App Body: Scrollable Sidebar + Main Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-[244px_1fr]">
         {/* Detailed Scrollable Light Sidebar */}
-        <aside className="hidden lg:flex flex-col justify-between border-r border-slate-200 bg-slate-50 p-3.5 max-h-[675px] dashboard-sidebar-scroller">
+        <aside className="hidden lg:flex flex-col justify-between border-r border-slate-200 bg-slate-50 p-3.5 max-h-168.75 dashboard-sidebar-scroller">
           <div className="space-y-4">
             {/* Active Team Card with Real Avatar Stack */}
             <button
@@ -582,7 +582,7 @@ export function DashboardPreview() {
                 {QUALITY_BARS.map((val, idx) => (
                   <div key={idx} className="flex-1 h-full flex items-end">
                     <div
-                      className="w-full rounded-t-[3px] bg-gradient-to-t from-[#5EEAD4]/80 to-[#0D9488]"
+                      className="w-full rounded-t-[3px] bg-linear-to-t from-[#5EEAD4]/80 to-[#0D9488]"
                       style={{ height: `${val}%` }}
                     />
                   </div>
@@ -620,7 +620,7 @@ export function DashboardPreview() {
                     key={snap.name}
                     className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs hover:bg-slate-50/70 transition-colors"
                   >
-                    <div className="flex items-center gap-2.5 min-w-[200px]">
+                    <div className="flex items-center gap-2.5 min-w-50">
                       <SnapLogo size={18} />
                       <div>
                         <p className="font-mono font-semibold text-slate-900 text-[11px]">

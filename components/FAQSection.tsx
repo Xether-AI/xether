@@ -56,11 +56,11 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
-    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-white/[0.06] bg-[#0C111A]/85">
-      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-10 lg:gap-12 items-start">
+    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-white/6 bg-[#0C111A]/85">
+      <div className="max-w-300 mx-auto grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-10 lg:gap-12 items-start">
         {/* Left Column: Intro + Proof Cards */}
         <div className="space-y-4">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[11px] font-mono font-semibold tracking-wider uppercase text-primary">
+          <span className="inline-flex items-center justify-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[12px] tracking-wider uppercase text-primary">
             <HelpCircle className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Architecture &amp; FAQ</span>
           </span>
@@ -91,7 +91,7 @@ export function FAQSection() {
                       &ldquo;{item.quote}&rdquo;
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 pl-6 text-[11px] font-mono font-medium text-primary">
+                  <div className="flex items-center gap-2 pl-6 text-[12px] font-medium text-primary">
                     <Image
                       src={item.avatar}
                       alt={item.author}
@@ -99,8 +99,8 @@ export function FAQSection() {
                       height={20}
                       className="w-5 h-5 rounded-full object-cover border border-[#265955] shrink-0"
                     />
-                    <Logo size={14} />
                     <span>{item.author}</span>
+                    <Logo size={14} />
                   </div>
                 </div>
               );
@@ -115,11 +115,10 @@ export function FAQSection() {
             return (
               <div
                 key={faq.question}
-                className={`rounded-xl border transition-colors ${
-                  isOpen
+                className={`rounded-xl border transition-colors ${isOpen
                     ? "bg-[#131C2A] border-[#265955]"
                     : "bg-card border-[#222E3F] hover:border-[#2C3D54]"
-                }`}
+                  }`}
               >
                 <button
                   type="button"

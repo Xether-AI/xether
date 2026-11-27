@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
   Building2,
   Check,
-  CreditCard,
   Mail,
   Sparkles,
   Terminal,
@@ -17,7 +16,6 @@ import {
   DuckDBLogo,
   PostgresLogo,
   SnowflakeLogo,
-  StripeLogo,
 } from "./BrandLogos";
 
 export function PricingSection() {
@@ -94,17 +92,16 @@ export function PricingSection() {
 
   return (
     <section className="w-full px-4 sm:px-6 py-12 md:py-16">
-      <div className="max-w-[1200px] mx-auto flex flex-col items-center gap-10">
+      <div className="max-w-300 mx-auto flex flex-col items-center gap-10">
         {/* Header */}
-        <div className="max-w-[700px] mx-auto flex flex-col items-center text-center gap-3.5">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[11px] font-mono font-semibold tracking-wider uppercase text-primary">
-            <CreditCard className="w-3.5 h-3.5" aria-hidden="true" />
+        <div className="max-w-175 mx-auto flex flex-col items-center text-center gap-3.5">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#10292B] border border-[#265955] px-3 py-1 text-[12px] font-semibold tracking-wider uppercase text-primary">
             <span>Transparent Pricing</span>
           </span>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-foreground leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-normal tracking-tight text-foreground leading-tight">
             Predictable Infrastructure Pricing
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-[600px] leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-150 leading-relaxed">
             Start free in the Sandbox. Scale cleanly with transparent storage,
             compute, and concurrency quotas.
           </p>
@@ -114,24 +111,21 @@ export function PricingSection() {
             <button
               type="button"
               onClick={() => setIsAnnual(false)}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                !isAnnual
-                  ? "bg-primary text-primary-foreground font-semibold"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${!isAnnual
+                ? "bg-primary text-primary-foreground font-semibold"
+                : "text-muted-foreground hover:text-foreground"
+                }`}
             >
               Monthly
             </button>
             <button
               type="button"
               onClick={() => setIsAnnual(true)}
-              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                isAnnual
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${isAnnual
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground"
+                }`}
             >
-              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Annual · Save 20%</span>
             </button>
           </div>
@@ -140,39 +134,29 @@ export function PricingSection() {
         {/* 3 Equal-Height Cards */}
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {plans.map((plan) => {
-            const TierIcon = plan.icon;
-            const CtaIcon = plan.ctaIcon;
             const price = isAnnual ? plan.annualPrice : plan.monthlyPrice;
 
             return (
               <div
                 key={plan.name}
-                className={`rounded-2xl p-6 sm:p-7 flex flex-col justify-between gap-6 border transition-colors ${
-                  plan.featured
-                    ? "bg-[#122029] border-primary/80 shadow-[0_16px_48px_-12px_rgba(120,252,214,0.16)]"
-                    : "bg-card border-[#222E3F] hover:border-[#2C3D54]"
-                }`}
+                className={`rounded-2xl p-6 sm:p-7 flex flex-col justify-between gap-6 border transition-colors ${plan.featured
+                  ? "bg-[#122029] border-primary/80"
+                  : "bg-card border-[#222E3F] hover:border-[#2C3D54]"
+                  }`}
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between gap-2">
                     <div className="inline-flex items-center gap-2">
-                      <TierIcon
-                        className={`w-4 h-4 ${
-                          plan.featured ? "text-primary" : "text-muted-foreground"
-                        }`}
-                        aria-hidden="true"
-                      />
                       <h3 className="text-lg font-bold text-foreground">
                         {plan.name}
                       </h3>
                     </div>
                     {plan.badge && (
                       <span
-                        className={`rounded-full px-2.5 py-0.5 text-[10px] font-mono font-semibold border ${
-                          plan.featured
-                            ? "bg-[#10292B] border-[#265955] text-primary"
-                            : "bg-[#1A2434] border-[#222E3F] text-muted-foreground"
-                        }`}
+                        className={`flex items-center justify-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold border ${plan.featured
+                          ? "bg-[#10292B] border-[#265955] text-primary"
+                          : "bg-[#1A2434] border-[#222E3F] text-muted-foreground"
+                          }`}
                       >
                         {plan.badge}
                       </span>
@@ -196,14 +180,12 @@ export function PricingSection() {
 
                   <Link
                     href={plan.href}
-                    className={`w-full inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all ${
-                      plan.featured
-                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                        : "bg-[#17202E] border border-[#2C3D54] text-foreground hover:bg-[#1E2A3C]"
-                    }`}
+                    className={`w-full inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all ${plan.featured
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "bg-[#17202E] border border-[#2C3D54] text-foreground hover:bg-[#1E2A3C]"
+                      }`}
                   >
                     <span>{plan.cta}</span>
-                    <CtaIcon className="w-4 h-4" aria-hidden="true" />
                   </Link>
 
                   <div className="h-px bg-[#222E3F]" />
@@ -215,9 +197,8 @@ export function PricingSection() {
                         className="flex items-center gap-2.5 text-[13px] text-muted-foreground"
                       >
                         <Check
-                          className={`w-3.5 h-3.5 shrink-0 ${
-                            plan.featured ? "text-primary" : "text-emerald-400"
-                          }`}
+                          className={`w-3.5 h-3.5 shrink-0 ${plan.featured ? "text-primary" : "text-emerald-400"
+                            }`}
                           aria-hidden="true"
                         />
                         <span>{feat}</span>
@@ -232,7 +213,6 @@ export function PricingSection() {
 
         {/* Billing & Connector Attribution Strip */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-1 text-xs text-slate-400">
-          <StripeLogo size={18} />
           <span>
             Usage metering &amp; billing powered by Stripe · Native connectors:
           </span>

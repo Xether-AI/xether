@@ -5,8 +5,8 @@ import { DatabricksLogo } from "./BrandLogos";
 
 export function LargeTestimonial() {
   return (
-    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-white/[0.06] bg-[#0C111A]/85">
-      <div className="max-w-[940px] mx-auto flex flex-col items-center text-center gap-6">
+    <section className="w-full py-16 md:py-20 px-4 sm:px-6 border-y border-white/6 bg-[#0C111A]/85">
+      <div className="max-w-235 mx-auto flex flex-col items-center text-center gap-6">
         <Quote className="w-8 h-8 text-primary fill-primary/20" aria-hidden="true" />
 
         <blockquote className="text-2xl sm:text-3xl md:text-[32px] font-medium leading-snug tracking-tight text-foreground">

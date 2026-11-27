@@ -19,8 +19,8 @@ const PARTNERS = [
 
 export function SocialProof() {
   return (
-    <section className="w-full py-10 md:py-12 border-y border-white/[0.06] bg-[#0C111A]/85 px-4 sm:px-6">
-      <div className="max-w-[1200px] mx-auto flex flex-col items-center gap-6">
+    <section className="w-full py-10 md:py-12 border-y border-white/6 bg-[#0C111A]/85 px-4 sm:px-6">
+      <div className="max-w-300 mx-auto flex flex-col items-center gap-6">
         <p className="text-center text-[11px] font-mono font-medium tracking-[0.16em] uppercase text-slate-400">
           Built for modern AI &amp; data infrastructure teams
         </p>
