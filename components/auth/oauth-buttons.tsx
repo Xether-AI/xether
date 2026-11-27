@@ -33,7 +33,7 @@ function GoogleIcon() {
 function GitHubIcon() {
   return (
     <svg
-      className="h-4 w-4 shrink-0 text-foreground"
+      className="h-4 w-4 shrink-0 text-slate-900"
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"
@@ -82,7 +82,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
             <Button
               asChild
               variant="outline"
-              className="h-10 rounded-xl border-border/90 bg-background/70 hover:bg-accent/70 hover:border-primary/40 transition-all"
+              className="h-10 rounded-xl border-slate-200 bg-white text-slate-800 hover:bg-slate-50 hover:border-primary/40 shadow-2xs transition-all"
             >
               <a
                 href="/api/auth/oauth2/google"
@@ -98,7 +98,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
             <Button
               asChild
               variant="outline"
-              className="h-10 rounded-xl border-border/90 bg-background/70 hover:bg-accent/70 hover:border-primary/40 transition-all"
+              className="h-10 rounded-xl border-slate-200 bg-white text-slate-800 hover:bg-slate-50 hover:border-primary/40 shadow-2xs transition-all"
             >
               <a
                 href="/api/auth/oauth2/github"
@@ -114,7 +114,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
             <Button
               asChild
               variant="outline"
-              className="h-10 rounded-xl border-border/90 bg-background/70 hover:bg-accent/70 hover:border-primary/40 transition-all"
+              className="h-10 rounded-xl border-slate-200 bg-white text-slate-800 hover:bg-slate-50 hover:border-primary/40 shadow-2xs transition-all"
             >
               <a
                 href="/api/auth/oauth2/gitlab"
@@ -131,7 +131,7 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
         <Button
           asChild
           variant="outline"
-          className="w-full h-10 rounded-xl border-border/90 bg-background/70 hover:bg-accent/70 hover:border-primary/40 transition-all"
+          className="w-full h-10 rounded-xl border-slate-200 bg-white text-slate-800 hover:bg-slate-50 hover:border-primary/40 shadow-2xs transition-all"
         >
           <a
             href="/api/auth/oauth2/start"
@@ -146,10 +146,10 @@ export function OAuthButtons({ showDivider = true }: OAuthButtonsProps) {
       {showDivider && (
         <div className="relative my-1">
           <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-border" />
+            <span className="w-full border-t border-slate-200" />
           </div>
           <div className="relative flex justify-center text-xs uppercase tracking-wider">
-            <span className="bg-card px-3 text-muted-foreground rounded-full">
+            <span className="bg-white px-3 text-slate-500 rounded-full">
               or continue with email
             </span>
           </div>

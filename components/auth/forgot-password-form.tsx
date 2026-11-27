@@ -61,11 +61,11 @@ export function ForgotPasswordForm() {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-400" />
+                    <Mail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-600" />
                     <Input
                       placeholder="you@company.com"
                       autoComplete="email"
-                      className="h-11 rounded-xl pl-10 bg-background/70 border-border/90 focus-visible:border-primary focus-visible:ring-primary/20"
+                      className="h-11 rounded-xl pl-10 bg-slate-50/75 border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:bg-white focus-visible:border-primary focus-visible:ring-primary/20"
                       {...field}
                     />
                   </div>
@@ -94,7 +94,7 @@ export function ForgotPasswordForm() {
       <div className="pt-1 text-center">
         <Link
           href="/login"
-          className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-background/60 px-3.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-primary hover:border-primary/40 transition-all"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-primary hover:border-primary/40 transition-all"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           Back to sign in

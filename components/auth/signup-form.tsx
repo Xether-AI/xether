@@ -48,7 +48,7 @@ const schema = z
   });
 
 const inputClassName =
-  "h-10 rounded-xl pl-9 bg-background/70 border-border/90 focus-visible:border-primary focus-visible:ring-primary/20";
+  "h-10 rounded-xl pl-9 bg-slate-50/75 border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:bg-white focus-visible:border-primary focus-visible:ring-primary/20";
 
 export function SignupForm({
   redirectTo,
@@ -138,7 +138,7 @@ export function SignupForm({
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <AtSign className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-violet-400" />
+                      <AtSign className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-violet-600" />
                       <Input
                         placeholder="janedoe"
                         autoComplete="username"
@@ -161,7 +161,7 @@ export function SignupForm({
                 <FormLabel>Work Email</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-400" />
+                    <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-600" />
                     <Input
                       placeholder="you@company.com"
                       autoComplete="email"
@@ -183,7 +183,7 @@ export function SignupForm({
                 <FormLabel>Phone Number (optional)</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Phone className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-amber-400" />
+                    <Phone className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-amber-600" />
                     <Input
                       placeholder="+1 234 567 890"
                       autoComplete="tel"
@@ -206,7 +206,7 @@ export function SignupForm({
                   <FormLabel>Password</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-400" />
+                      <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600" />
                       <Input
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
@@ -243,7 +243,7 @@ export function SignupForm({
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-400" />
+                      <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600" />
                       <Input
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"

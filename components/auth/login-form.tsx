@@ -31,7 +31,7 @@ const schema = z.object({
 });
 
 const inputClassName =
-  "h-11 rounded-xl pl-10 bg-background/70 border-border/90 focus-visible:border-primary focus-visible:ring-primary/20";
+  "h-11 rounded-xl pl-10 bg-slate-50/75 border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:bg-white focus-visible:border-primary focus-visible:ring-primary/20";
 
 export function LoginForm({
   redirectTo,
@@ -83,7 +83,7 @@ export function LoginForm({
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Mail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-400" />
+                    <Mail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-600" />
                     <Input
                       placeholder="you@company.com"
                       autoComplete="email"
@@ -113,7 +113,7 @@ export function LoginForm({
                 </div>
                 <FormControl>
                   <div className="relative">
-                    <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-400" />
+                    <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600" />
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••"
