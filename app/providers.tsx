@@ -9,7 +9,6 @@ import {
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
 
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
@@ -49,13 +48,11 @@ export function Providers({ children }: { children: ReactNode }) {
   );
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <ErrorBoundary>
-        <QueryClientProvider client={queryClient}>
-          {children}
-          <Toaster richColors position="top-right" />
-        </QueryClientProvider>
-      </ErrorBoundary>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <Toaster richColors position="top-right" />
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }

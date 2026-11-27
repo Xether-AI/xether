@@ -18,8 +18,9 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "72px",
-          background: "linear-gradient(135deg, #0b1116 0%, #0f1c22 55%, #0a2926 100%)",
-          color: "#e7eceb",
+          background:
+            "linear-gradient(135deg, #f8fafc 0%, #ecfdf5 55%, #e0f2fe 100%)",
+          color: "#0f172a",
           fontFamily: "sans-serif",
         }}
       >
@@ -30,8 +31,8 @@ export default function OpenGraphImage() {
             gap: "12px",
             marginBottom: "28px",
             fontSize: "24px",
-            color: "#78fcd6",
-            fontWeight: 600,
+            color: "#0ea57a",
+            fontWeight: 700,
           }}
         >
           <span>Xether AI</span>
@@ -44,6 +45,7 @@ export default function OpenGraphImage() {
             letterSpacing: "-0.02em",
             marginBottom: "24px",
             maxWidth: "900px",
+            color: "#0f172a",
           }}
         >
           Reliable Data, Ready for AI
@@ -51,12 +53,13 @@ export default function OpenGraphImage() {
         <div
           style={{
             fontSize: "28px",
-            color: "#9aa6a3",
+            color: "#475569",
             maxWidth: "820px",
             lineHeight: 1.4,
           }}
         >
-          Automate data cleaning, dataset versioning, synthetic augmentation, and governance.
+          Automate data cleaning, dataset versioning, synthetic augmentation,
+          and governance.
         </div>
       </div>
     ),

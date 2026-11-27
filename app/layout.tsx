@@ -51,11 +51,7 @@ export const metadata: Metadata = {
     icon: [
       {
         url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
+        type: "image/png",
       },
       {
         url: "/icon.svg",
@@ -74,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${snPro.variable} font-sans antialiased`}>
         <Providers>
           <Header />

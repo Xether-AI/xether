@@ -11,7 +11,7 @@ interface LogoProps {
  */
 export function XetherBrandMark({
   size = 28,
-  variant = "dark",
+  variant = "light",
   className = "",
 }: LogoProps & { variant?: "dark" | "light" }) {
   const isLight = variant === "light";
