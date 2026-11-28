@@ -1,3 +1,4 @@
+import { createTranslator } from "next-intl";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -23,6 +24,26 @@ function collectLeafKeyPaths(value: unknown, prefix = ""): string[] {
     );
   }
   return [prefix];
+}
+
+function collectLeafStrings(
+  value: unknown,
+  prefix = "",
+): Array<{ path: string; text: string }> {
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) =>
+      collectLeafStrings(item, `${prefix}[${index}]`),
+    );
+  }
+  if (value && typeof value === "object") {
+    return Object.entries(value as Record<string, unknown>).flatMap(([k, v]) =>
+      collectLeafStrings(v, prefix ? `${prefix}.${k}` : k),
+    );
+  }
+  if (typeof value === "string") {
+    return [{ path: prefix, text: value }];
+  }
+  return [];
 }
 
 describe("i18n locale config", () => {
@@ -60,5 +81,26 @@ describe("i18n locale config", () => {
 
     expect(frKeys).toEqual(enKeys);
     expect(esKeys).toEqual(enKeys);
+  });
+
+  it("compiles every message string with next-intl ICU parser without errors", () => {
+    const bundles = [
+      ["en", enMessages],
+      ["fr", frMessages],
+      ["es", esMessages],
+    ] as const;
+
+    for (const [locale, messages] of bundles) {
+      for (const { path, text } of collectLeafStrings(messages)) {
+        const translator = createTranslator({
+          locale,
+          messages: { msg: text },
+          onError(error) {
+            throw new Error(`Invalid ICU syntax at ${locale}:${path}: ${error.message}`);
+          },
+        });
+        expect(typeof translator("msg")).toBe("string");
+      }
+    }
   });
 });
