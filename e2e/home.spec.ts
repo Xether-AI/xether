@@ -56,7 +56,7 @@ test("footer globe language switcher switches locale to French", async ({ page }
 
   const switcher = page.getByTestId("language-switcher");
   await expect(switcher).toBeVisible();
-  await expect(switcher).toContainText("EN");
+  await expect(switcher).toContainText("English");
 
   await switcher.click();
   await expect(page.getByRole("menuitemradio", { name: /English/i })).toBeVisible();
@@ -64,6 +64,6 @@ test("footer globe language switcher switches locale to French", async ({ page }
   await expect(page.getByRole("menuitemradio", { name: /Español/i })).toBeVisible();
 
   await page.getByRole("menuitemradio", { name: /Français/i }).click();
-  await expect(switcher).toContainText("FR");
+  await expect(switcher).toContainText("Français");
   await expect(page.getByRole("link", { name: "Plateforme" }).first()).toBeVisible();
 });
