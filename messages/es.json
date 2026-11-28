@@ -42,7 +42,7 @@
     },
     "rls": {
       "title": "RLS multi-inquilino",
-      "description": "Aislamiento aplicado dentro de PostgreSQL con Row-Level Security, claves con hash xth_live_ y prefijos S3 <org_id>/."
+      "description": "Aislamiento aplicado dentro de PostgreSQL con Row-Level Security, claves con hash xth_live_ y prefijos S3 [org_id]/."
     },
     "workers": {
       "title": "Workers durables JetStream",
@@ -150,7 +150,7 @@
       },
       {
         "question": "¿Cómo se aplica el aislamiento multi-inquilino en cómputo y almacenamiento?",
-        "answer": "Cada tabla de inquilino aplica PostgreSQL FORCE ROW LEVEL SECURITY vinculada a app.current_org_id, junto con claves API con hash xth_live_, revocación jti en Redis y prefijos S3 <org_id>/."
+        "answer": "Cada tabla de inquilino aplica PostgreSQL FORCE ROW LEVEL SECURITY vinculada a app.current_org_id, junto con claves API con hash xth_live_, revocación jti en Redis y prefijos S3 [org_id]/."
       },
       {
         "question": "¿Qué ocurre si un worker se reinicia a mitad de un pipeline?",

@@ -42,7 +42,7 @@
     },
     "rls": {
       "title": "Multi-Tenant RLS",
-      "description": "Isolation enforced inside PostgreSQL row-level security, hashed xth_live_ keys, and S3 <org_id>/ prefixes."
+      "description": "Isolation enforced inside PostgreSQL row-level security, hashed xth_live_ keys, and S3 [org_id]/ prefixes."
     },
     "workers": {
       "title": "Durable JetStream Workers",
@@ -150,7 +150,7 @@
       },
       {
         "question": "How is multi-tenant isolation enforced across compute and storage?",
-        "answer": "Every tenant database table enforces PostgreSQL FORCE ROW LEVEL SECURITY bound to session app.current_org_id, paired with hashed xth_live_ API keys, Redis jti revocation, and strict <org_id>/ S3 prefix scoping."
+        "answer": "Every tenant database table enforces PostgreSQL FORCE ROW LEVEL SECURITY bound to session app.current_org_id, paired with hashed xth_live_ API keys, Redis jti revocation, and strict [org_id]/ S3 prefix scoping."
       },
       {
         "question": "What happens if a worker restarts mid-pipeline?",

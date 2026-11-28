@@ -42,7 +42,7 @@
     },
     "rls": {
       "title": "RLS multi-tenant",
-      "description": "Isolation garantie au cœur de PostgreSQL via Row-Level Security, clés hachées xth_live_ et préfixes S3 <org_id>/."
+      "description": "Isolation garantie au cœur de PostgreSQL via Row-Level Security, clés hachées xth_live_ et préfixes S3 [org_id]/."
     },
     "workers": {
       "title": "Workers JetStream durables",
@@ -150,7 +150,7 @@
       },
       {
         "question": "Comment l'isolation multi-tenant est-elle appliquée au calcul et au stockage ?",
-        "answer": "Chaque table tenant applique PostgreSQL FORCE ROW LEVEL SECURITY lié à app.current_org_id, combiné aux clés API hachées xth_live_, à la révocation Redis jti et au cloisonnement S3 par préfixe <org_id>/."
+        "answer": "Chaque table tenant applique PostgreSQL FORCE ROW LEVEL SECURITY lié à app.current_org_id, combiné aux clés API hachées xth_live_, à la révocation Redis jti et au cloisonnement S3 par préfixe [org_id]/."
       },
       {
         "question": "Que se passe-t-il si un worker redémarre en cours de pipeline ?",
